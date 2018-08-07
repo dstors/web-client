@@ -1,14 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import feed from './data'
+import { scApi, simplifyReputation } from './steem-connect'
+
+let scLoginUrl = scApi.getLoginURL();
+
+let access_token = localStorage.getItem('access_token')
+
+let loggedIn = false;
+
+if (access_token) {
+  scApi.setAccessToken(access_token)
+  let loggedIn = true;
+}
+
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    count: 0,
+    access_token,
+    loggedIn,
+    profile: false,
+    scLoginUrl,
+    username: '',
     drawer: false,
-    check: true,
     feed: feed,
     filters: {
     	location: {
@@ -43,10 +59,72 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    increment: state => state.count++,
-    decrement: state => state.count--,
     toggleDrawer(state) {
     	state.drawer = !state.drawer
+    },
+    login(state, payload) {
+      const { access_token, username } = payload;
+      scApi.setAccessToken(access_token)
+      state.access_token = access_token
+      state.username = username
+      localStorage.setItem('access_token', access_token)
+    },
+    logout(state) {
+      scApi.revokeToken(function(err, res) {
+        if (res && res.success) {
+          state.access_token = null;
+          localStorage.removeItem('access_token')
+          state.profile = {}
+        }
+      });
+    },
+    getProfile(state) {
+      scApi.me(function (err, res) {
+        if (err) console.log(err)
+        const {
+          user,
+          _id,
+          name,
+          scope,
+          account,
+          user_metadata
+        } = res
+
+        const {
+          balance,
+          sbd_balance,
+          reputation,
+          voting_power
+        } = account;
+
+        const {
+          profile: {
+            about,
+            cover_image,
+            location,
+            name: realName,
+            profile_image
+          }
+        } = JSON.parse(account.json_metadata)
+
+        state.profile = {
+          name,
+          balance,
+          sbd_balance,
+          reputation: simplifyReputation(reputation),
+          voting_power,
+          about,
+          cover_image,
+          location,
+          realName,
+          profile_image
+        }
+      });
+    }
+  },
+  actions: {
+    getProfile(context) {
+      context.commit('getProfile')
     }
   },
   getters: {
@@ -80,7 +158,6 @@ export const store = new Vuex.Store({
         if (tags.value) {
           feed = feed.filter(item => {
             for(let i = 0; i < item.tags.length; i++) {
-              console.log(item.tags[i])
               if (tags.value.indexOf(item.tags[i]) > -1) {
                 return item;
               }

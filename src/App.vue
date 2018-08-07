@@ -15,6 +15,12 @@
         prepend-inner-icon="search"
       ></v-text-field>
       <v-spacer></v-spacer>
+      <v-btn v-if="!$store.state.access_token" :href="$store.state.scLoginUrl">Login</v-btn>
+      <div v-else>
+        <span class="title ml-3 mr-5">{{ $store.state.username }}</span>
+        <v-btn v-on:click="$store.commit('logout')">Logout</v-btn>
+        <v-btn to="/profile">Profile</v-btn>
+      </div>
     </v-toolbar>
     <!-- Esto por ahora esta bien acá -->
     <v-content>
