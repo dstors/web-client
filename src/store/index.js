@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import feed from './data'
-import { scApi, simplifyReputation } from './steem-connect'
+import feed from '../data'
+import { scApi, simplifyReputation } from '../steem-connect'
 
 let scLoginUrl = scApi.getLoginURL();
 
@@ -68,17 +68,6 @@ export const store = new Vuex.Store({
       state.access_token = access_token
       state.username = username
       localStorage.setItem('access_token', access_token)
-    },
-    logout(state) {
-      scApi.revokeToken(function(err, res) {
-        if (res && res.success) {
-          state.access_token = null;
-          localStorage.removeItem('access_token')
-          state.profile = {}
-        }
-      });
-    },
-    getProfile(state) {
       scApi.me(function (err, res) {
         if (err) console.log(err)
         const {
@@ -120,11 +109,23 @@ export const store = new Vuex.Store({
           profile_image
         }
       });
+    },
+    logout(state) {
+      scApi.revokeToken(function(err, res) {
+        if (res && res.success) {
+          state.access_token = null;
+          localStorage.removeItem('access_token')
+          state.profile = {}
+        }
+      });
     }
   },
   actions: {
-    getProfile(context) {
-      context.commit('getProfile')
+    // getProfile(context) {
+    //   context.commit('getProfile')
+    // },
+    login(context, payload) {
+      context.commit('login', payload)
     }
   },
   getters: {

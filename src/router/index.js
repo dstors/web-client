@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 import Browser from '@/components/Browser/Browser';
 import Sell from '@/components/Sell';
-import Landing from '@/components/Landing';
+import Feed from '@/components/Feed';
 import LoginHandler from '@/components/LoginHandler';
 import Profile from '@/components/Profile';
 
@@ -13,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Landing',
-      component: Landing,
+      name: 'Feed',
+      component: Feed,
     },
     {
       path: '/browse',

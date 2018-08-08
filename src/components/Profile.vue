@@ -34,8 +34,5 @@
 <script>
 export default {
 	name: 'profile',
-  mounted() {
-    this.$store.dispatch('getProfile')
-  }
 }
 </script>

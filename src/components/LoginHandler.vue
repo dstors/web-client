@@ -9,8 +9,8 @@
 export default {
 	name: 'login-handle',
 	mounted() {
-    this.$store.commit('login', this.$route.query)
-    this.$router.push('/browse')
+    this.$store.dispatch('login', this.$route.query)
+    this.$router.push('/')
   }
 }
 </script>
