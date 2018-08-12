@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Browser from '@/components/Browser/Browser';
 import Sell from '@/components/Sell';
 import Feed from '@/components/Feed';
+import Post from '@/components/Post';
 import LoginHandler from '@/components/LoginHandler';
 import Profile from '@/components/Profile';
 
@@ -15,6 +16,12 @@ export default new Router({
       path: '/',
       name: 'Feed',
       component: Feed,
+    },
+    {
+      path: '/post/:author/:permlink',
+      name: 'Post',
+      component: Post,
+      props: true
     },
     {
       path: '/browse',
