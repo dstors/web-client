@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h1>{{ $store.state.currentPost.title }}</h1>
+  <v-card raised>
+    <h1>{{ $store.state.currentPost.title }} - {{ $store.state.currentPost.voters_list.length }} Upvotes</h1>
     <div v-html="$store.state.currentPost.content"></div>
-  </div>
+  </v-card>
 </template>
 
 <script>

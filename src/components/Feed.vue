@@ -2,7 +2,7 @@
   <v-container grid-list-xl>
     <v-layout v-for="(post, n) in $store.state.posts"
         :key="n" row>
-      <v-flex xs12>
+      <v-flex xs8>
         <v-card raised tile>
           <v-card-media
             :src="post.image"
@@ -24,8 +24,5 @@
 <script>
 export default {
   name: 'Feed',
-  mounted() {
-    // this.$store.commit('getPosts');
-  }
 }
 </script>

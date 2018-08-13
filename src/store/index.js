@@ -5,7 +5,9 @@ import {
   getUserProfile,
   isAccessGranted,
   getDiscussions,
-  getDiscussionDetails
+  getDiscussionDetails,
+  getDiscussionComments,
+  getVotersList
 } from "../easy-steem";
 import { handleProfile } from "../easy-steem/steem-connect";
 import { handleDiscussions, renderMd } from "../easy-steem/steemd";
@@ -14,7 +16,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    filter: "trending",
+    filter: "blog",
     filters: [
       { value: "trending", label: "Trending" },
       { value: "hot", label: "Hot" },
@@ -23,12 +25,12 @@ export const store = new Vuex.Store({
     tags: [],
     alert: false,
     alertMessage: "A error has occured. Please try again later.",
-    tag: "",
+    tag: "reviewme",
     posts: [],
     loggedIn: isAccessGranted(),
     profile: {},
     postsLimit: 10,
-    currentPost: {}
+    currentPost: { voters_list: [], title: "", content: "" }
   },
   mutations: {
     toggleDrawer(state) {
@@ -60,10 +62,28 @@ export const store = new Vuex.Store({
     getDiscussionDetails(state, payload) {
       getDiscussionDetails(payload)
         .then(res => {
-          state.currentPost = {
-            title: res.title,
-            content: renderMd(res.body)
-          };
+          // console.log(Object.keys(res));
+          (state.currentPost.title = res.title),
+            (state.currentPost.content = renderMd(res.body));
+        })
+        .catch(err => console.log(err));
+
+      getDiscussionComments(payload)
+        .then(res => {
+          console.log(res.length)
+          res.map(comment => {
+            console.log(Object.keys(comment))
+            console.log(comment.author)
+            console.log(comment.body)
+          })
+        })
+        .catch(err => console.log(err))
+    },
+    getVotersList(state, payload) {
+      getVotersList(payload)
+        .then(res => {
+          // console.log(res);
+          state.currentPost.voters_list = res;
         })
         .catch(err => console.log(err));
     }
@@ -75,6 +95,7 @@ export const store = new Vuex.Store({
     },
     getDiscussionDetails({ commit }, payload) {
       commit("getDiscussionDetails", payload);
+      commit("getVotersList", payload);
     }
   },
   getters

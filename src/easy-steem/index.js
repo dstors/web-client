@@ -48,3 +48,9 @@ export const getDiscussions = ({ filter, query }) =>
 
 export const getDiscussionDetails = ({ author, permlink }) =>
   client.database.call("get_content", [author, permlink]);
+
+export const getVotersList = ({ author, permlink }) =>
+  client.database.call('get_active_votes', [author, permlink]);
+
+export const getDiscussionComments = ({ author, permlink }) =>
+  client.database.call('get_content_replies', [author, permlink]);
