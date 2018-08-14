@@ -16,20 +16,24 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    filter: "blog",
+    filter: "trending",
     filters: [
       { value: "trending", label: "Trending" },
       { value: "hot", label: "Hot" },
-      { value: "new", label: "New" }
+      { value: "created", label: "New" }
     ],
-    tags: [],
+    tags: [
+      { name: 'steem'},
+      { name: 'esteem'},
+      { name: 'life' }
+    ],
+    tag: "life",
     alert: false,
     alertMessage: "A error has occured. Please try again later.",
-    tag: "reviewme",
     posts: [],
     loggedIn: isAccessGranted(),
     profile: {},
-    postsLimit: 10,
+    postsLimit: 30,
     currentPost: { voters_list: [], title: "", content: "" }
   },
   mutations: {
@@ -49,8 +53,10 @@ export const store = new Vuex.Store({
     },
     getDiscussions(state) {
       const { filter, tag, postsLimit } = state;
+      console.log(tag, filter)
       getDiscussions({ filter, query: { tag, limit: postsLimit } })
         .then(res => {
+          console.log(res)
           state.posts = handleDiscussions(res);
         })
         .catch(err => {
@@ -86,6 +92,9 @@ export const store = new Vuex.Store({
           state.currentPost.voters_list = res;
         })
         .catch(err => console.log(err));
+    },
+    setTag(state, { newTag }) {
+      return state.tag = newTag
     }
   },
   actions: {
@@ -96,6 +105,17 @@ export const store = new Vuex.Store({
     getDiscussionDetails({ commit }, payload) {
       commit("getDiscussionDetails", payload);
       commit("getVotersList", payload);
+    },
+    refreshDiscussions({ commit }) {
+      commit("getDiscussions")
+    },
+    setTag({ commit }, payload) {
+      commit('setTag', payload)
+    },
+    changeTag({ commit, dispatch }, payload) {
+      dispatch("setTag", payload).then(() => {
+        dispatch("refreshDiscussions")
+      })
     }
   },
   getters

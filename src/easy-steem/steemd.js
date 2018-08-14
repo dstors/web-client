@@ -24,10 +24,22 @@ export const handleDiscussions = rawResponse => {
 		const author = post.author;
 		const created = new Date(post.created).toDateString();
 		const permlink = post.permlink;
+		const pending_payout_value = post.pending_payout_value;
+		const active_votes_count = post.active_votes.length;
 
 		const content = renderMd(post.body);
 
-		posts.push({ content, permlink, json, image, title, author, created });
+		posts.push({
+			active_votes_count,
+			content,
+			permlink,
+			json,
+			image,
+			title,
+			author,
+			created,
+			pending_payout_value
+		});
 	});
 
 	return posts;

@@ -9,20 +9,14 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ $store.state.profile.name }}'s profile</h3>
-            <h3>Reputation:</h3>
-            {{ $store.state.profile.reputation }}
+            <draggable v-model="profileItems" :options="{group:'people'}" @start="drag=true" @end="drag=false">
+              <div v-for="element in profileItems" :key="element.id">
+                <h3>{{ element.title }}:</h3>
+                {{ $store.state.profile[element.key] }}
+              </div>
+            </draggable>
             <h3>Voting Power:</h3>
             {{ ($store.state.profile.voting_power / 100).toFixed(2) }} %
-            <h3>STEEM balance:</h3>
-            {{ $store.state.profile.balance }}
-            <h3>SBD balance:</h3>
-            {{ $store.state.profile.sbd_balance }}
-            <h3>Real Life Name:</h3>
-            {{ $store.state.profile.realName }}
-            <h3>About:</h3>
-            {{ $store.state.profile.about }}
-            <h3>Location:</h3>
-            {{ $store.state.profile.location }}
           </div>
         </v-card-title>
       </v-card>
@@ -32,7 +26,25 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
+  components: {
+    draggable
+  },
 	name: 'profile',
+  data() {
+    return {
+      profileItems: [
+        { title: 'Reputation', key: 'reputation' },
+        { title: 'Voting Power', key: 'voting_power' },
+        { title: 'STEEM Balance', key: 'balance' },
+        { title: 'SBD Balance', key: 'sbd_balance' },
+        { title: 'Real Life Name', key: 'realName' },
+        { title: 'About', key: 'about' },
+        { title: 'Location', key: 'location' }
+      ]
+    }
+  }
 }
 </script>

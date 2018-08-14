@@ -2,7 +2,7 @@
   <!-- <landing-page v-if="!navbar"></landing-page> -->
   <v-app id="inspire">
     <!-- mover toolbar a su propio archivo y amoldar la búsqueda - hay que meterle a eso pa buscar por tag o por usuario o, quizás, por contenido. -->
-    <v-toolbar color="amber" app prominent :extended="extended">
+    <v-toolbar fixed color="amber" app :dense="!extended" :extended="extended">
       <v-toolbar-side-icon @click.native="extended = !extended"></v-toolbar-side-icon>
       <v-btn flat transparent class="title ml-3 mr-5" to="/" active-class="">Steem&nbsp;<span class="text">FleaMarket</span></v-btn>
       <!-- <v-text-field
