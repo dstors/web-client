@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
       <v-btn v-if="!$store.state.loggedIn" :href="$store.state.scLoginUrl">Login</v-btn>
       <div v-else>
-        <v-avatar> <img :src="$store.state.profile.profile_image" alt=""> </v-avatar>
+        <v-avatar slot="activator"> <img :src="$store.state.profile.profile_image" alt=""> </v-avatar>
         <v-btn to="/profile" flat transparent>  {{ $store.state.profile.name }}</v-btn>
         <v-btn v-on:click="$store.commit('logout')">Logout</v-btn>
       </div>

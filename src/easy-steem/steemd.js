@@ -5,13 +5,20 @@ let opts = {};
 
 const md = new Remarkable({ html: true, linkify: true });
 
-//connect to production server
-opts.addressPrefix = "STM";
-opts.chainId =
-	"0000000000000000000000000000000000000000000000000000000000000000";
+let testnet = false;
+
+//connect to production or test server
+opts.addressPrefix = (testnet) ? "TST" : "STM";
+opts.chainId = (testnet)
+	? "46d82ab7d8db682eb1959aed0ada039a6d49afa1602491f93dde9cac3e8e6c32"
+	: "0000000000000000000000000000000000000000000000000000000000000000";
 
 //connect to server which is connected to the network/production
-export const client = new dsteem.Client("https://api.steemit.com");
+export const client = new dsteem.Client(
+	testnet
+	? "https://testnet.steemitdev.com"
+	: "https://api.steemit.com"
+);
 
 export const renderMd = content => md.render(content);
 
