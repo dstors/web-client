@@ -6,21 +6,13 @@
           <v-card
             hover
             raised
+            width="250px"
             color="grey lighten-3">
             <v-card-media
               :src="post.image ? post.image : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
               height="200px">
             </v-card-media>
             <v-card-title primary-title class="black--text">
-              <router-link
-                tag="a"
-                :to="`/post/${post.author}/${post.permlink}`">
-                <h2>
-                  {{ post.title }}
-                </h2>
-              </router-link>
-              <v-spacer>
-              </v-spacer>
               <v-tooltip bottom v-if="post.type">
                 <v-chip
                   :color="types[post.type].color"
@@ -28,18 +20,53 @@
                   small
                   text-color="white">
                   <v-icon>{{ types[post.type].icon }}</v-icon>
-                  <span>{{ types[post.type].label }}</span>
                 </v-chip>
                 <span>{{ types[post.type].label }}</span>
               </v-tooltip>
+              <v-spacer></v-spacer>
+              <router-link
+                v-if="post.type === 'direct-sell'"
+                tag="a"
+                :to="`/post/${post.author}/${post.permlink}`">
+                <span>{{ post.title }}</span>
+                <h2>
+                  {{ post.price }}
+                </h2>
+              </router-link>
+              <router-link
+                v-else-if="post.type === 'giveaway'"
+                tag="a"
+                :to="`/post/${post.author}/${post.permlink}`">
+                <span>{{ post.timeLeft }} left</span>
+                <h2>
+                  {{ post.title }}
+                </h2>
+              </router-link>
+              <router-link
+                v-else-if="post.type === 'auction'"
+                tag="a"
+                :to="`/post/${post.author}/${post.permlink}`">
+                <small>
+                  <span>Started at: <strong>{{ post.startingPrice }}</strong></span>
+                  <br>
+                  <span>Last bid: <strong>{{ post.lastBid }}</strong></span>
+                </small>
+                <h2>
+                  {{ post.title }}
+                </h2>
+              </router-link>
             </v-card-title>
             <v-card-actions>
               <v-layout>
                 <v-flex>
-                  <span>Payout value:<em>{{ post.pending_payout_value }}</em></span>
+                  <span>Payout value: <br><strong>{{ post.pending_payout_value }}</strong></span>
                 </v-flex>
               </v-layout>
               <v-spacer></v-spacer>
+              <v-btn icon flat color="red">
+                <v-icon v-if="post.marked">bookmark</v-icon>
+                <v-icon v-else>bookmark_border</v-icon>
+              </v-btn>
               <v-btn icon flat color="primary">
                 <v-icon>add_shopping_cart</v-icon>
               </v-btn>
@@ -71,6 +98,7 @@ export default {
   props: ['post'],
   data() {
     return {
+      marked: false,
       types: {
         giveaway : { label: 'Giveaway', icon: 'card_giftcard', color: 'yellow darken-3' },
         auction: { label: 'Auction', icon: 'gavel', color: 'red' },
