@@ -2,14 +2,18 @@
   <v-card
     :dark="dark"
     hover
+    v-on:mouseover="onHover"
+    v-on:mouseleave="onLeave"
     raised
+    :color="dark ? '' : 'grey lighten-2'"
     width="250px"
     >
     <v-card-media
       :src="post.image ? post.image : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
       height="200px">
+      <details-popover :product="post" :hovered="hovered"></details-popover>
     </v-card-media>
-    <v-card-title primary-title>
+    <v-card-title primary-title class="pa-3">
       <router-link
         v-if="post.type === 'direct-sell'"
         tag="a"
@@ -24,9 +28,9 @@
         tag="a"
         :to="`/post/${post.author}/${post.permlink}`">
         <span>{{ post.timeLeft }} left</span>
-        <h2>
+        <h3>
           {{ post.title }}
-        </h2>
+        </h3>
       </router-link>
       <router-link
         v-else-if="post.type === 'auction'"
@@ -34,10 +38,12 @@
         :to="`/post/${post.author}/${post.permlink}`">
         <span>{{ post.title }}</span>
         <h3>
-          <span><small>Last bid:</small> <br> {{ post.lastBid }}</span>
+          {{ post.lastBid }}
         </h3>
       </router-link>
-      <v-spacer></v-spacer>
+    </v-card-title>
+    <v-divider light></v-divider>
+    <v-card-actions class="px-3 pt-2 pb-1">
       <v-tooltip bottom v-if="post.type">
         <v-chip
           :color="types[post.type].color"
@@ -48,21 +54,37 @@
         </v-chip>
         <span>{{ types[post.type].label }}</span>
       </v-tooltip>
-    </v-card-title>
-    <v-divider light></v-divider>
-    <v-card-actions class="px-3 pt-1 pb-0">
-      <!-- <v-layout>
-        <v-flex>
-          <span>Payout value: <br><strong>{{ post.pending_payout_value }}</strong></span>
-        </v-flex>
-      </v-layout> -->
       <v-spacer></v-spacer>
-      <v-btn icon flat color="red">
-        <v-icon v-if="post.marked">bookmark</v-icon>
-        <v-icon v-else>bookmark_border</v-icon>
+      <v-btn
+        v-if="post.type === 'direct-sell'"
+        icon large flat :color="post.marked ? 'red' : 'grey lighten-1'">
+        <v-icon>bookmark</v-icon>
       </v-btn>
-      <v-btn icon flat color="primary">
+      <v-btn
+        v-else
+        icon large flat :color="post.marked ? 'primary' : 'grey lighten-1'">
+        <v-icon>add_alert</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        flat
+        v-if="post.type === 'direct-sell'"
+        color="grey">
         <v-icon>add_shopping_cart</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        flat
+        v-if="post.type === 'auction'"
+        color="grey">
+        <v-icon>gavel</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        flat
+        v-if="post.type === 'giveaway'"
+        color="grey">
+        <v-icon>person_add</v-icon>
       </v-btn>
       <v-menu offset-y>
         <v-btn
@@ -82,7 +104,11 @@
 </template>
 
 <script>
+import DetailsPopover from './DetailsPopover';
 export default {
+  components: {
+    DetailsPopover
+  },
   name: 'post-item',
   props: ['post', 'dark'],
   data() {
@@ -92,9 +118,18 @@ export default {
         giveaway : { label: 'Giveaway', icon: 'card_giftcard', color: 'yellow darken-3' },
         auction: { label: 'Auction', icon: 'gavel', color: 'red' },
         'direct-sell': { label: 'Direct Sell', icon: 'attach_money', color: 'green' },
-      }
+      },
+      hovered: false
     }
   },
+  methods: {
+    onHover() {
+      this.hovered = true;
+    },
+    onLeave() {
+      this.hovered = false;
+    }
+  }
 }
 </script>
 

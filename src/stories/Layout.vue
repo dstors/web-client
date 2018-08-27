@@ -2,9 +2,9 @@
   <v-app
     :dark="styles.dark">
     <v-toolbar
-      lights-out
       app
       scroll-off-screen
+      :scroll-threshold="50"
       :absolute="styles.absolute"
       :color="styles.color"
       :flat="styles.flat"
@@ -12,7 +12,7 @@
       :clipped-left="styles.clippedLeft"
       >
       <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
-      <v-toolbar-title>Steem&nbsp;<strong>FleaMarket</strong></v-toolbar-title>
+      <v-toolbar-title>mango<strong>way</strong></v-toolbar-title>
       <v-flex>
         <v-text-field
           class="pa-3 hidden-sm-and-down"
@@ -34,72 +34,79 @@
         Login
       </v-btn>
       <div v-else>
-        <span class="px-1 hidden-sm-and-down">
-          <v-badge overlap bottom>
-            <span slot="badge">6</span>
-            <v-icon
-              color="grey darken-2"
-            >
-              shopping_cart
-            </v-icon>
-          </v-badge>
-        </span>
-        <span class="px-1 hidden-sm-and-down">
-          <v-badge overlap bottom color="red">
-            <span slot="badge">2</span>
-            <v-icon
-              color="grey darken-2"
-            >
-              mail
-            </v-icon>
-          </v-badge>
-        </span>
-        <span class="px-1 hidden-sm-and-down">
-          <v-badge overlap bottom color="blue">
-            <span slot="badge">1</span>
-            <v-icon
-              color="grey darken-2"
-            >
-              notifications
-            </v-icon>
-          </v-badge>
-        </span>
-        <span class="px-3 hidden-sm-and-down">
-          <strong>97.021 FMD</strong>
-        </span>
-        <profile-popover></profile-popover>
+        <v-layout
+          fluid align-start
+          pa-3>
+          <template>
+            <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+              <cart-popover :cart="appState.cart"></cart-popover>
+            </v-flex>
+          </template>
+          <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+            <messages-popover :messages="appState.messages"></messages-popover>
+          </v-flex>
+          <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+            <notifications-popover :notifications="appState.notifications"></notifications-popover>
+          </v-flex>
+          <profile-popover class="px-3 d-inline-flex"></profile-popover>
+        </v-layout>
       </div>
 
       <template v-if="extended" slot="extension">
         <v-slide-y-transition>
-          <v-layout>
-            <v-menu open-on-hover bottom offset-y>
-              <v-btn
-                slot="activator"
-                transparent
-                flat
-                :outline="styles.nav.outline"
-              >
-                All
-              </v-btn>
+          <v-layout row wrap>
+            <v-flex>
+              <v-menu open-on-hover bottom offset-y>
+                <v-btn
+                  slot="activator"
+                  transparent
+                  flat
+                  :outline="styles.nav.outline">
+                  All
+                </v-btn>
 
-              <v-list>
-                <v-list-tile
-                  v-for="(category, i) in appState.categories"
-                  :key="i"
-                  @click=""
-                >
-                  <v-list-tile-title>{{ category }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-            <v-btn
-              flat
-              :outline="styles.nav.outline"
+                <v-list>
+                  <v-list-tile
+                    v-for="(category, i) in appState.categories"
+                    :key="i"
+                    @click="">
+                    <v-list-tile-title>{{ category }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-flex>
+            <v-flex>
+              <v-menu
+                class="hidden-sm-and-up"
+                open-on-hover bottom offset-y>
+                <v-btn
+                  slot="activator"
+                  transparent
+                  flat
+                  :outline="styles.nav.outline">
+                  Sort by
+                </v-btn>
+
+                <v-list>
+                  <v-list-tile
+                    v-for="(filter, i) in appState.filters"
+                    :key="i"
+                    @click="">
+                    <v-list-tile-title>{{ filter }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-flex>
+            <v-flex
               v-for="(filter, i) in appState.filters"
-              :key="i"
-              v-on:click="">{{ filter }}
-            </v-btn>
+              :key="i">
+              <v-btn
+                flat
+                :class="i > 1 ? 'hidden-sm-and-down' : 'hidden-xs-only'"
+                :outline="styles.nav.outline"
+                v-on:click="">{{ filter }}
+              </v-btn>
+            </v-flex>
           </v-layout>
         </v-slide-y-transition>
       </template>
@@ -112,9 +119,17 @@
 
 <script>
 import ProfilePopover from "./ProfilePopover";
+import MessagesPopover from "./MessagesPopover";
+import NotificationsPopover from "./NotificationsPopover";
+import CartPopover from "./CartPopover";
 
 export default {
-  components: { ProfilePopover },
+  components: {
+    MessagesPopover,
+    NotificationsPopover,
+    ProfilePopover,
+    CartPopover
+  },
   name: 'layout',
   props: [
     'appState',

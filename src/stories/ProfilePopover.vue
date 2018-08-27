@@ -2,7 +2,7 @@
 	<v-menu
     :dark="dark"
     v-model="menu"
-    :close-on-content-click="false"
+    :close-on-content-click="true"
     :nudge-width="100"
     offset-x
    >
@@ -15,9 +15,9 @@
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>julianmnst</v-list-tile-title>
             <v-list-tile-sub-title>Julian Mansueto</v-list-tile-sub-title>
-            <v-list-tile-sub-title class="px-3 hidden-lg-and-up">97.021 <strong>FMD</strong></v-list-tile-sub-title>
+            <v-list-tile-title>julianmnst</v-list-tile-title>
+            <v-list-tile-sub-title>97.021 <strong>SBD</strong></v-list-tile-sub-title>
           </v-list-tile-content>
 
           <v-list-tile-action>
@@ -35,6 +35,20 @@
       <v-divider></v-divider>
 
       <v-list>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon> bookmark </v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Wishlist</v-list-tile-title>
+        </v-list-tile>
+
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon> account_balance_wallet </v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Wallet</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon> account_circle </v-icon>
