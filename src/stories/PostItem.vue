@@ -44,15 +44,13 @@
     </v-card-title>
     <v-divider light></v-divider>
     <v-card-actions class="px-3 pt-2 pb-1">
-      <v-tooltip bottom v-if="post.type">
-        <v-chip
-          :color="types[post.type].color"
-          slot="activator"
-          small
-          text-color="white">
-          <v-icon>{{ types[post.type].icon }}</v-icon>
-        </v-chip>
+      <v-tooltip top v-if="post.type">
+        <v-icon :color="types[post.type].color" slot="activator">{{ types[post.type].icon }}</v-icon>
         <span>{{ types[post.type].label }}</span>
+      </v-tooltip>
+      <v-tooltip top v-if="post.type === 'direct-sell'">
+        <v-avatar slot="activator">{{ post.available }}</v-avatar>
+        <span> Available items</span>
       </v-tooltip>
       <v-spacer></v-spacer>
       <v-btn

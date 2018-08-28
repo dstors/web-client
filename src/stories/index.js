@@ -30,7 +30,8 @@ const Posts = [
       'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
-    ]
+    ],
+    available: 1
   },
   {
     title: 'Steem Mug',
@@ -49,7 +50,8 @@ const Posts = [
       'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
-    ]
+    ],
+    available: 2
   },
   {
     title: '1 BCH',
@@ -67,7 +69,8 @@ const Posts = [
       'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
-    ]
+    ],
+    available: 1
   }
 ];
 
@@ -78,7 +81,14 @@ const CartList = [
     permlink: 'eth-mug654682',
     pending_payout_value: '211.630 SBD',
     price: '10.000 SBD',
-    image: 'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1'
+    image: 'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+    available: 2,
+    pictures: [
+      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
+      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
+      'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+    ]
   },
   {
     title: 'Ethereum Fanboy Starter Pack',
@@ -86,7 +96,14 @@ const CartList = [
     permlink: 'eth-starter654682',
     pending_payout_value: '211.630 SBD',
     price: '110.000 SBD',
-    image: 'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+    image: 'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg',
+    available: 2,
+    pictures: [
+      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
+      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
+      'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+    ]
   }
 ];
 
