@@ -42,15 +42,14 @@
         </h3>
       </router-link>
     </v-card-title>
+    <v-card-text v-if="post.type === 'direct-sell'">
+      {{ post.available }} available.items
+    </v-card-text>
     <v-divider light></v-divider>
     <v-card-actions class="px-3 pt-2 pb-1">
       <v-tooltip top v-if="post.type">
         <v-icon :color="types[post.type].color" slot="activator">{{ types[post.type].icon }}</v-icon>
         <span>{{ types[post.type].label }}</span>
-      </v-tooltip>
-      <v-tooltip top v-if="post.type === 'direct-sell'">
-        <v-avatar slot="activator">{{ post.available }}</v-avatar>
-        <span> Available items</span>
       </v-tooltip>
       <v-spacer></v-spacer>
       <v-btn
@@ -84,7 +83,7 @@
         color="grey">
         <v-icon>person_add</v-icon>
       </v-btn>
-      <v-menu offset-y>
+      <!-- <v-menu offset-y>
         <v-btn
           slot="activator"
           flat
@@ -96,7 +95,7 @@
             <v-list-tile-title> View more</v-list-tile-title>
           </v-list-tile>
         </v-list>
-      </v-menu>
+      </v-menu> -->
     </v-card-actions>
   </v-card>
 </template>
