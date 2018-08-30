@@ -42,13 +42,15 @@
         </h3>
       </router-link>
     </v-card-title>
-    <v-card-text v-if="post.type === 'direct-sell'">
-      {{ post.available }} available.items
-    </v-card-text>
+    <!-- <v-card-text v-if="post.type === 'direct-sell' && hovered">
+      {{ post.available }} available items
+    </v-card-text> -->
     <v-divider light></v-divider>
     <v-card-actions class="px-3 pt-2 pb-1">
       <v-tooltip top v-if="post.type">
-        <v-icon :color="types[post.type].color" slot="activator">{{ types[post.type].icon }}</v-icon>
+        <v-btn icon :color="types[post.type].color" slot="activator">
+          <v-icon color="white">{{ types[post.type].icon }}</v-icon>
+        </v-btn>
         <span>{{ types[post.type].label }}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
@@ -112,7 +114,7 @@ export default {
     return {
       marked: false,
       types: {
-        giveaway : { label: 'Giveaway', icon: 'card_giftcard', color: 'yellow darken-3' },
+        giveaway : { label: 'Giveaway', icon: 'card_giftcard', color: 'yellow darken-2' },
         auction: { label: 'Auction', icon: 'gavel', color: 'red' },
         'direct-sell': { label: 'Direct Sell', icon: 'attach_money', color: 'green' },
       },

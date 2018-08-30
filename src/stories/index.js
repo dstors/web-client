@@ -13,6 +13,8 @@ import CartPopover from "./CartPopover.vue";
 import VuetifyLayout from "./VuetifyLayout.vue";
 import PostList from "./PostList.vue";
 import Cart from "./Cart.vue";
+import Messenger from "./Messenger.vue";
+import Conversation from "./Conversation.vue";
 
 const Posts = [
   {
@@ -110,7 +112,7 @@ const CartList = [
 const Messages = [
   {
     read: false,
-    from: 'Mug Store (1)',
+    from: 'Mug Store',
     message: 'Your mug will arrive in 2 days!',
     avatar: 'https://picsum.photos/200',
     date: 'today'
@@ -165,6 +167,48 @@ const fillPosts = () => {
     }
   }
 }
+
+const Chat = [
+  {
+    from: 'Mug Store',
+    time: '14:50',
+    msg: 'Hi! Please send me your shipping details!'
+  },
+  {
+    from: 'julianmnst',
+    time: 'yesterday 14:51',
+    msg: 'Hello! This is my address: \n 123th Fake St NY'
+  },
+  {
+    from: 'Mug Store',
+    time: 'yesterday 14:51',
+    msg: 'Awesome! I will confirm as soon as I send your mug!'
+  },
+  {
+    from: 'julianmnst',
+    time: 'yesterday 14:52',
+    msg: "Great! I'll wait"
+  },
+  {
+    from: 'Mug Store',
+    time: 'yesterday 15:15',
+    msg: 'Shipping confirmed! Estimated arrival: 24-48 hours.',
+    action: true,
+    pendingAction: false,
+    actionMessage: 'Confirm package arrival'
+  },
+  {
+    divider: true,
+    date: 'today'
+  },
+  {
+    from: 'julianmnst',
+    time: '16:06',
+    msg: 'Package arrival confirmed',
+    action: true,
+    pendingAction: false
+  }
+]
 
 fillPosts();
 
@@ -293,8 +337,62 @@ storiesOf("ProfilePopover", module)
     </vuetify-layout>`
   }))
 
+storiesOf("Messenger", module)
+  .add('standalone', () => ({
+    components: { Messenger, VuetifyLayout },
+    data() {
+      return {
+        messages: Messages,
+        conversation: Chat
+      }
+    },
+    template: `
+    <vuetify-layout>
+      <messenger :conversation="conversation" :messages="messages" :dark="true"></messenger>
+    </vuetify-layout>`
+  }))
+  .add("in layout", () =>({
+    components: {
+      Layout,
+      Messenger,
+      Conversation
+    },
+    data() {
+      return {
+        appState: appState,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          darkColor: 'blue darken-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          }
+        },
+        conversation: Chat
+      };
+    },
+    template: `
+    <layout
+      :styles="style"
+      :appState="appState">
+      <conversation :conversation="conversation"></conversation>
+      <template slot="messenger">
+        <messenger :messages="appState.messages">
+        </messenger>
+      </template>
+    </layout>`
+  }))
+
 storiesOf("Cart", module)
-  .add('regular', () => ({
+  .add('standalone', () => ({
     components: { Cart, VuetifyLayout },
     data() {
       return {

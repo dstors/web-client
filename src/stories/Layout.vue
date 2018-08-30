@@ -1,12 +1,11 @@
 <template>
   <v-app
     :dark="styles.dark">
+    <slot name="messenger"></slot>
     <v-toolbar
       app
-      scroll-off-screen
-      :scroll-threshold="50"
       :absolute="styles.absolute"
-      :color="styles.color"
+      :color="styles.dark ? styles.darkColor : styles.color"
       :flat="styles.flat"
       :extended="extended"
       :clipped-left="styles.clippedLeft"

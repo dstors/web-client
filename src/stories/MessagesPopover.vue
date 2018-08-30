@@ -9,7 +9,7 @@
    >
    <template slot="activator">
     <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
-      <v-badge overlap color="red" bottom>
+      <v-badge overlap color="purple lighten-1" bottom>
         <span slot="badge">1</span>
         <v-icon
           @click=""
@@ -24,7 +24,7 @@
       <v-list>
         <v-list-tile>
           <v-list-tile-content>
-            <v-list-tile-sub-title>Recent conversations</v-list-tile-sub-title>
+            <v-list-tile-sub-title>Recent conversations - showing last 2</v-list-tile-sub-title>
             <v-list-tile-title>You have 1 unread conversations</v-list-tile-title>
           </v-list-tile-content>
 
