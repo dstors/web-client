@@ -15,6 +15,7 @@ import PostList from "./PostList.vue";
 import Cart from "./Cart.vue";
 import Messenger from "./Messenger.vue";
 import Conversation from "./Conversation.vue";
+import Profile from "./Profile.vue";
 
 const Posts = [
   {
@@ -171,13 +172,13 @@ const fillPosts = () => {
 const Chat = [
   {
     from: 'Mug Store',
-    time: '14:50',
+    time: 'yesterday 14:50',
     msg: 'Hi! Please send me your shipping details!'
   },
   {
     from: 'julianmnst',
     time: 'yesterday 14:51',
-    msg: 'Hello! This is my address: \n 123th Fake St NY'
+    msg: 'Hello! This is my address: \r 123th Fake St NY'
   },
   {
     from: 'Mug Store',
@@ -212,16 +213,21 @@ const Chat = [
 
 fillPosts();
 
+const Prof = {
+  real_name: 'Julian Mansueto',
+  reputation: 36,
+  description: 'New World Enthusiast - Javascript Developer',
+  name: 'julianmnst',
+  profile_image: 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/778640/800/600/m1/fpnw/wm0/1raccl-.png?1447525058&s=09c2e1c4c7980006ef5ca3bff3f6bac2'
+}
+
 const appState = {
   extended: false,
   loggedIn: true,
   messages: Messages,
   notifications: Notifications,
   cart: CartList,
-  profile: {
-    name: 'julianmnst',
-    profile_image: 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/778640/800/600/m1/fpnw/wm0/1raccl-.png?1447525058&s=09c2e1c4c7980006ef5ca3bff3f6bac2'
-  },
+  profile: Prof,
   scLoginUrl: 'aaaa',
   categories: [
     'Arts, Crafts & Sweings',
@@ -436,6 +442,54 @@ storiesOf("Cart", module)
       :appState="appState">
       <cart :cart="appState.cart">
       </cart>
+    </layout>`
+  }))
+
+storiesOf("Profile", module)
+  .add('standalone', () => ({
+    components: { Profile, VuetifyLayout },
+    data() {
+      return {
+        profile: Prof
+      }
+    },
+    template: `
+    <vuetify-layout>
+      <profile :profile="profile" :dark="true"></profile>
+    </vuetify-layout>`
+  }))
+  .add("in layout", () =>({
+    components: {
+      Layout,
+      Profile
+    },
+    data() {
+      return {
+        appState: appState,
+        posts: Posts,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          }
+        }
+      };
+    },
+    template: `
+    <layout
+      :styles="style"
+      :appState="appState">
+      <profile :profile="appState.profile">
+      </profile>
     </layout>`
   }))
 
