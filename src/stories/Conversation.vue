@@ -1,17 +1,18 @@
 <template>
   <v-card height="100%" class="ma-0 pa-0">
-    <v-container d-flex fluid class="pt-0 pl-0 pr-0 pb-0">
-      <v-layout justify-end row wrap class="conversation-box grey lighten-3">
+    <v-container class="pt-0 pl-0 pr-0 pb-0">
+      <v-layout row wrap class="conversation-box grey lighten-3">
         <v-flex xs12 v-for="(message, i) in conversation">
-          <v-card v-if="message.divider" width="100px"
-            color="light-blue lighten-3"
-            :style="{'align': 'center'}"
-            :key="i"
-            class="ma-1 mx-5 mt-2 pa-1 px-3 msg-box">
-            <v-card-text class="pa-0 text-xs-center">
-              <span class="caption">{{ message.date.toUpperCase() }}</span>
-            </v-card-text>
-          </v-card>
+          <v-flex v-if="message.divider" offset-xs1 offset-sm3 offset-md5>
+            <v-card width="100px"
+              color="light-blue lighten-3"
+              :key="i"
+              class="ma-1 mx-5 mt-2 pa-1 px-3 date-divider">
+              <v-card-text class="pa-0 text-xs-center">
+                <span class="caption">{{ message.date.toLowerCase() }}</span>
+              </v-card-text>
+            </v-card>
+          </v-flex>
           <v-card v-else width="auto"
             :color="message.from === 'julianmnst' ? 'light-green lighten-4' : ''"
             hover
@@ -45,16 +46,16 @@
       :value="true"
       absolute
       shift>
-      <v-layout class="px-3" row wrap>
+      <v-layout class="px-3 py-1" row wrap>
         <v-flex xs11>
           <v-text-field
             hide-details
-            append-outer-icon="send"
             @click:append-outer=""
             label="Message"
-            solo
-            flat
-          ></v-text-field>
+            class="message-input"
+            solo flat>
+              <v-icon class="pl-3" slot="append-outer">send</v-icon>
+            </v-text-field>
         </v-flex>
       </v-layout>
     </v-bottom-nav>
@@ -81,11 +82,19 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Roboto:100:300,400,500,700,900|Material+Icons');
 .conversation-box {
   position: absolute;
-  height: 88%;
+  height: 89%;
   overflow: auto;
 }
 
 .v-card .msg-box {
   border-radius: 10px;
+}
+
+.message-input > .v-input__control > .v-input__slot {
+  border-radius: 50px !important;
+}
+
+.v-card .date-divider {
+  border-radius: 100px;
 }
 </style>
