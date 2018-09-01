@@ -18,23 +18,33 @@
           <v-flex xs12>
             <v-tabs v-model="tab">
               <v-tabs-slider color="amber"></v-tabs-slider>
-              <v-tab v-for="item in items" :key="item">
-                <v-icon>{{ item.icon }}</v-icon> {{ item.label }}
+              <v-tab v-for="(item, i) in items" :key="i">
+                <v-icon :color="item.color" class="px-2">
+                  {{ item.icon }}
+                </v-icon>
+                {{ item.label }}
               </v-tab>
               <v-spacer></v-spacer>
               <v-tab>
-                <v-btn block color="yellow darken-1" flat outline>
-                  <span class="black--text">DStore</span>
-                  <v-icon right>send</v-icon>
+                <v-btn block color="yellow darken-1" outline>
+                  <span class="black--text">
+                    DStore
+                  </span>
+                  <v-icon right color="yellow darken-3">
+                    store
+                  </v-icon>
                 </v-btn>
               </v-tab>
             </v-tabs>
           </v-flex>
           <v-flex xs12>
             <v-tabs-items v-model="tab">
-              <v-tab-item v-for="item in items" :key="item">
+              <v-tab-item v-for="(item, i) in items" :key="i">
                 <!-- <v-card flat> -->
-                  <component :is="item.value"></component>
+                  <component
+                    :bookmarks="profile.bookmarks"
+                    :profile="profile"
+                    :is="item.value"></component>
                 <!-- </v-card> -->
               </v-tab-item>
             </v-tabs-items>
@@ -66,11 +76,25 @@ export default {
     return {
       tab: null,
       items: [
-        {label:'Account Info', value: 'account-info', icon: 'account_circle'},
-        {label:'Bookmarks', value: 'bookmarks', icon: 'bookmark'},
-        {label:'Wallet', value: 'wallet', icon: 'account_balance_wallet'}
-      ],
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        {
+          label:'Account Info',
+          value: 'account-info',
+          icon: 'account_circle',
+          color: 'blue'
+        },
+        {
+          label:'Bookmarks',
+          value: 'bookmarks',
+          icon: 'bookmark',
+          color: 'pink darlen-1'
+        },
+        {
+          label:'Wallet',
+          value: 'wallet',
+          icon: 'account_balance_wallet',
+          color: 'green'
+        }
+      ]
     }
   }
 }

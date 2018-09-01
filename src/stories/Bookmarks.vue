@@ -1,10 +1,13 @@
 <template>
-	<h1>Bookmarks</h1>
+	<post-list :posts="bookmarks"></post-list>
 </template>
 
 <script>
+import PostList from './PostList';
 export default {
-	name: 'bookmarks'
+  components: { PostList },
+	name: 'bookmarks',
+  props: ['bookmarks']
 }
 </script>
 

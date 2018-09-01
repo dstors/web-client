@@ -52,8 +52,7 @@
         <v-list-tile
           :key="i"
           avatar
-          @click=""
-        >
+          @click="">
           <v-list-tile-avatar>
             <img :src="notification.avatar">
           </v-list-tile-avatar>

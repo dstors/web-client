@@ -77,6 +77,45 @@ const Posts = [
   }
 ];
 
+const Bookmarks = [
+  {
+    title: 'Ethereum Mug',
+    author: 'julianmnst',
+    permlink: 'eth-mug654682',
+    pending_payout_value: '211.630 SBD',
+    price: '10.000 SBD',
+    image: 'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+    type: 'direct-sell',
+    marked: false,
+    description: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed in erat non ante pellentesque faucibus. Curabitur velit eros, varius et placerat a, porta vitae tortor. Ut quis vehicula est, eu ultricies odio. Etiam non dolor sagittis, consequat ipsum sit amet, sollicitudin libero. Aliquam eu lectus id risus vulputate cursus sed vel quam. Vestibulum scelerisque, nunc blandit efficitur interdum, ipsum lacus semper purus, quis rhoncus dui leo pulvinar nulla. Proin tellus nunc, gravida sed tristique non, efficitur vitae leo. Quisque gravida sed purus sed lobortis. Ut mi elit, condimentum vitae dapibus eu, tristique et dui. Phasellus commodo orci at ornare consequat. Etiam ut diam ut ligula ullamcorper consectetur. Aenean hendrerit volutpat rutrum. Quisque et tempor turpis, eu ultricies lectus. ',
+    pictures: [
+      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
+      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
+      'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+    ],
+    available: 1
+  },
+  {
+    title: 'Necklace: 925 Sterling Silver & natural Charoite',
+    author: 'dfworld',
+    permlink: 'necklace654682',
+    pending_payout_value: '211.630 SBD',
+    price: 'Negotiable',
+    image: 'https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmZxr3chVEac8YjGQNHVN1cSoezZh2iypgLEdPe66NLuSs/DSC_0061.JPG',
+    type: 'direct-sell',
+    marked: false,
+    description: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed in erat non ante pellentesque faucibus. Curabitur velit eros, varius et placerat a, porta vitae tortor. Ut quis vehicula est, eu ultricies odio. Etiam non dolor sagittis, consequat ipsum sit amet, sollicitudin libero. Aliquam eu lectus id risus vulputate cursus sed vel quam. Vestibulum scelerisque, nunc blandit efficitur interdum, ipsum lacus semper purus, quis rhoncus dui leo pulvinar nulla. Proin tellus nunc, gravida sed tristique non, efficitur vitae leo. Quisque gravida sed purus sed lobortis. Ut mi elit, condimentum vitae dapibus eu, tristique et dui. Phasellus commodo orci at ornare consequat. Etiam ut diam ut ligula ullamcorper consectetur. Aenean hendrerit volutpat rutrum. Quisque et tempor turpis, eu ultricies lectus. ',
+    pictures: [
+      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
+      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
+      'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+    ],
+    available: 1
+  },
+]
+
 const CartList = [
   {
     title: 'Ethereum Mug',
@@ -215,9 +254,11 @@ fillPosts();
 
 const Prof = {
   real_name: 'Julian Mansueto',
+  bookmarks: Bookmarks,
   reputation: 36,
   description: 'New World Enthusiast - Javascript Developer',
   name: 'julianmnst',
+  country: 'Argentina',
   profile_image: 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/778640/800/600/m1/fpnw/wm0/1raccl-.png?1447525058&s=09c2e1c4c7980006ef5ca3bff3f6bac2'
 }
 
