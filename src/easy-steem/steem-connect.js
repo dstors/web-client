@@ -14,7 +14,7 @@ let profile = {}
 export const scApi = sc2.Initialize({
     app: 'sfmdapp',
     callbackURL: CALLBACK_URL,
-    accessToken: 'access_token',
+    accessToken: '',
     scope: ['vote', 'comment'],
 });
 

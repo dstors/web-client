@@ -7,7 +7,9 @@ import {
   getDiscussions,
   getDiscussionDetails,
   getDiscussionComments,
-  getVotersList
+  getVotersList,
+  logout,
+  getLoginUrl
 } from "../easy-steem";
 import { handleProfile } from "../easy-steem/steem-connect";
 import { handleDiscussions, renderMd } from "../easy-steem/steemd";
@@ -29,6 +31,7 @@ export const store = new Vuex.Store({
     ],
     tag: "life",
     alert: false,
+    scLoginUrl: getLoginUrl(),
     alertMessage: "A error has occured. Please try again later.",
     posts: [],
     loggedIn: isAccessGranted(),
@@ -37,10 +40,15 @@ export const store = new Vuex.Store({
     currentPost: { voters_list: [], title: "", content: "" }
   },
   mutations: {
+    logout(state) {
+      state.loggedIn = false;
+      logout();
+    },
     toggleDrawer(state) {
       state.drawer = !state.drawer;
     },
     getUserProfile(state) {
+      if (!state.loggedIn) return false;
       getUserProfile()
         .then(res => {
           state.profile = handleProfile(res);
@@ -64,6 +72,11 @@ export const store = new Vuex.Store({
           console.log(err);
           state.alert = true;
         });
+    },
+    login(state, payload){
+      console.log(payload)
+      localStorage.setItem('access_token', payload.access_token)
+      state.loggedIn = true
     },
     getDiscussionDetails(state, payload) {
       getDiscussionDetails(payload)
@@ -105,6 +118,14 @@ export const store = new Vuex.Store({
     getDiscussionDetails({ commit }, payload) {
       commit("getDiscussionDetails", payload);
       commit("getVotersList", payload);
+    },
+    initLogin({ commit }, payload) {
+      commit("login", payload)
+    },
+    login({ dispatch, commit }, payload){
+      dispatch("initLogin", payload).then(() => {
+        dispatch("getUserProfile")
+      })
     },
     refreshDiscussions({ commit }) {
       commit("getDiscussions")

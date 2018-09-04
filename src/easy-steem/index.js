@@ -7,9 +7,12 @@ const TRANSFER_CALLBACK_URL = "";
  * Steem-Connect API
  */
 
-export const getUserProfile = () => scApi.me();
+export const getUserProfile = () => {
+  console.log(scApi.options.accessToken)
+  return scApi.me();
+}
 
-export const getLoginUrl = () => scApi.getLoginUrl();
+export const getLoginUrl = () => scApi.getLoginURL();
 
 export const vote = ({ voter, author, permlink, weight }) =>
   scApi.vote(voter, author, permlink, weight);
@@ -17,7 +20,10 @@ export const vote = ({ voter, author, permlink, weight }) =>
 export const transfer = ({ currency = "STEEM", to, amount, memo = "" }) =>
   scApi.sign("transfer", { to, amount, memo }, TRANSFER_CALLBACK_URL);
 
-export const logout = () => scApi.revokeToken();
+export const logout = () => {
+  scApi.revokeToken()
+  localStorage.removeItem('access_token')
+};
 
 export const reblog = ({ account, author, permlink }) =>
   scApi.reblog(account, author, permlink);
@@ -38,7 +44,7 @@ export const claimRewardBalance = ({
 export const updateUserMetadata = metadata =>
   scApi.updateUserMetadata(metadata);
 
-export const isAccessGranted = () => scApi.options.accessToken !== "";
+export const isAccessGranted = () => scApi.options.accessToken;
 
 /**
  * SteemD API

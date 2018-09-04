@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     if (this.$store.state.loggedIn) {
-      this.$store.dispatch('getProfile')
+      this.$store.commit('getUserProfile')
     }
   },
   methods: {
