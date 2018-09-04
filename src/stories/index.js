@@ -16,6 +16,7 @@ import Cart from "./Cart.vue";
 import Messenger from "./Messenger.vue";
 import Conversation from "./Conversation.vue";
 import Profile from "./Profile.vue";
+import DStore from "./DStore.vue";
 
 const Posts = [
   {
@@ -107,10 +108,7 @@ const Bookmarks = [
     marked: false,
     description: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed in erat non ante pellentesque faucibus. Curabitur velit eros, varius et placerat a, porta vitae tortor. Ut quis vehicula est, eu ultricies odio. Etiam non dolor sagittis, consequat ipsum sit amet, sollicitudin libero. Aliquam eu lectus id risus vulputate cursus sed vel quam. Vestibulum scelerisque, nunc blandit efficitur interdum, ipsum lacus semper purus, quis rhoncus dui leo pulvinar nulla. Proin tellus nunc, gravida sed tristique non, efficitur vitae leo. Quisque gravida sed purus sed lobortis. Ut mi elit, condimentum vitae dapibus eu, tristique et dui. Phasellus commodo orci at ornare consequat. Etiam ut diam ut ligula ullamcorper consectetur. Aenean hendrerit volutpat rutrum. Quisque et tempor turpis, eu ultricies lectus. ',
     pictures: [
-      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
-      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
-      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
-      'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
+      'https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmZxr3chVEac8YjGQNHVN1cSoezZh2iypgLEdPe66NLuSs/DSC_0061.JPG'
     ],
     available: 1
   },
@@ -485,6 +483,55 @@ storiesOf("Cart", module)
       </cart>
     </layout>`
   }))
+
+storiesOf("DStore", module)
+  .add('standalone', () => ({
+    components: { DStore, VuetifyLayout },
+    data() {
+      return {
+        cart: DStoreList
+      }
+    },
+    template: `
+    <vuetify-layout>
+      <d-store :dark="true"></d-store>
+    </vuetify-layout>`
+  }))
+  .add("in layout", () =>({
+    components: {
+      Layout,
+      DStore
+    },
+    data() {
+      return {
+        appState: appState,
+        posts: Posts,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          }
+        }
+      };
+    },
+    template: `
+    <layout
+      :styles="style"
+      :appState="appState">
+      <d-store>
+      </d-store>
+    </layout>`
+  }))
+
 
 storiesOf("Profile", module)
   .add('standalone', () => ({

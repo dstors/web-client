@@ -14,6 +14,7 @@
           <v-layout row wrap>
             <v-flex xs12 md5>
               <v-card-media
+                aspect-ratio="2.75"
                 contain>
                 <v-carousel
                   :cycle="false">

@@ -8,7 +8,18 @@
             <v-list-tile-content>
               <v-list-tile-sub-title>{{ profile.real_name }} - ({{ profile.reputation }})</v-list-tile-sub-title>
               <v-list-tile-title>{{ profile.description }}</v-list-tile-title>
+              <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn block color="yellow darken-1" class="pl-3 pr-2">
+                  <span class="black--text">
+                    DStore
+                  </span>
+                  <v-icon right color="blue darken-3">
+                    store
+                  </v-icon>
+                </v-btn>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
 
@@ -23,17 +34,6 @@
                   {{ item.icon }}
                 </v-icon>
                 {{ item.label }}
-              </v-tab>
-              <v-spacer></v-spacer>
-              <v-tab>
-                <v-btn block color="yellow darken-1" outline>
-                  <span class="black--text">
-                    DStore
-                  </span>
-                  <v-icon right color="yellow darken-3">
-                    store
-                  </v-icon>
-                </v-btn>
               </v-tab>
             </v-tabs>
           </v-flex>
