@@ -85,19 +85,6 @@
         color="grey">
         <v-icon>person_add</v-icon>
       </v-btn>
-      <!-- <v-menu offset-y>
-        <v-btn
-          slot="activator"
-          flat
-          icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile v-for="i in 3" :key="i" @click="">
-            <v-list-tile-title> View more</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu> -->
     </v-card-actions>
   </v-card>
 </template>
@@ -109,7 +96,7 @@ export default {
     DetailsPopover
   },
   name: 'post-item',
-  props: ['post', 'dark'],
+  props: [ 'post', 'dark' ],
   data() {
     return {
       marked: false,

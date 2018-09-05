@@ -16,7 +16,9 @@ import Cart from "./Cart.vue";
 import Messenger from "./Messenger.vue";
 import Conversation from "./Conversation.vue";
 import Profile from "./Profile.vue";
-import DStore from "./DStore.vue";
+import DStore from "./DStore/DStore.vue";
+
+import Product from "./DStore/Product.vue";
 
 const Posts = [
   {
@@ -487,17 +489,29 @@ storiesOf("Cart", module)
 storiesOf("DStore", module)
   .add('standalone', () => ({
     components: { DStore, VuetifyLayout },
-    data() {
-      return {
-        cart: DStoreList
-      }
-    },
     template: `
     <vuetify-layout>
       <d-store :dark="true"></d-store>
     </vuetify-layout>`
   }))
-  .add("in layout", () =>({
+  .add("in layout", withMarkdownNotes(`
+So, we'll do this:
+
+We'll have several predefined components:
+  1. *Layouts*, such as:
+    - Home
+    - Catalog
+    - About
+
+  2. *Widgets* specific for each layout, such as:
+    - blog posts
+    - product
+    - collections
+    - featured product
+    - featured collections
+    - slideshow
+    - image with text overlay
+  `)(() =>({
     components: {
       Layout,
       DStore
@@ -527,11 +541,45 @@ storiesOf("DStore", module)
     <layout
       :styles="style"
       :appState="appState">
-      <d-store>
+      <d-store :posts="posts">
       </d-store>
     </layout>`
-  }))
+  })))
 
+storiesOf("Product", module)
+  .add("standalone", () => ({
+  components: {
+      VuetifyLayout,
+      Product
+    },
+    data() {
+      return {
+        appState: appState,
+        product: Posts[0],
+        posts: Posts,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          }
+        }
+      };
+    },
+    template: `
+      <vuetify-layout>
+        <product :product="product"></product>
+      </vuetify-layout>
+    `
+}))
 
 storiesOf("Profile", module)
   .add('standalone', () => ({
