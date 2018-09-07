@@ -19,6 +19,7 @@ import Profile from "./Profile.vue";
 import DStore from "./DStore/DStore.vue";
 
 import Product from "./DStore/Product.vue";
+import StoreTools from "./DStore/StoreTools.vue";
 
 const Posts = [
   {
@@ -290,6 +291,132 @@ const appState = {
   ]
 };
 
+const Collection = Posts.slice(0, 4);
+
+const StoreConfig = {
+  tabs: [
+    {
+      name: 'Home',
+      components: [
+        {
+          sectionName: 'Newest products',
+          name: 'slideshow',
+          title: 'New products',
+          products: true,
+          content: Posts.slice(0,2),
+          order: 1
+        },
+        {
+          sectionName: 'Eth Mug',
+          name: 'product',
+          title: 'Brand new Ethereum Mug',
+          featured: true,
+          content: Posts[0],
+          order: 2
+        },
+        {
+          sectionName: 'Best mugs',
+          name: 'collection',
+          title: 'The Best Mugs',
+          featured: true,
+          content: Collection,
+          order: 3
+        }
+      ],
+      order: 1
+    },
+    {
+      name: 'Catalog',
+      components: [
+        {
+          sectionName: 'Misc',
+          name: 'collection',
+          title: 'Collection Title',
+          content: Collection,
+          order: 1
+        },
+        {
+          sectionName: 'Misc 2',
+          name: 'collection',
+          title: 'Collection Title',
+          content: Collection,
+          featured: true,
+          order: 2
+        },
+        {
+          sectionName: 'Misc 3',
+          name: 'collection',
+          title: 'Collection Title',
+          content: Collection,
+          order: 3
+        }
+      ],
+      order: 2
+    },
+    {
+      name: 'About',
+      components: [
+        {
+          sectionName: 'Main banner',
+          name: 'image-with-text',
+          content: {
+            image: 'https://peaydesigns.com/images/Coffee%20Mug%20-%20Starbucks%20-%20Pike%20Place%20Market%20-%20Brown.jpg',
+            text: 'Mug Store'
+          },
+          order: 1
+        },
+        {
+          sectionName: 'Misc',
+          name: 'slideshow',
+          title: 'Slideshow title',
+          products: false,
+          content: [
+            'https://peaydesigns.com/images/Coffee%20Mug%20-%20Starbucks%20-%20Pike%20Place%20Market%20-%20Brown.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/611RSK7WhsL._SX569_.jpg'
+          ],
+          order: 2
+        },
+        {
+          sectionName: 'Contact',
+          name: 'contact-info',
+          title: 'Get in touch',
+          content: {
+            phones: ['555-55-555'],
+            emails: ['mugstores@gmail.com'],
+            social_networks: [
+              { name: 'Facebook', url: 'facebook.com' }
+            ]
+          },
+          order: 3
+        },
+        {
+          sectionName: 'Location',
+          name: 'location-info',
+          title: 'Where to find us!',
+          content: {
+            address: 'Fake St. 123',
+            city: 'Springfield',
+            state: 'Random',
+            country: 'United States of America'
+          },
+          order: 4
+        },
+        {
+          sectionName: 'Details',
+          name: 'store-details',
+          title: 'Useful information',
+          content: {
+            shippingCost: 'Depends on the distance - free all over the USA.',
+            area: 'World Wide'
+          },
+          order: 5
+        }
+      ],
+      order: 3
+    }
+  ]
+}
+
 storiesOf("CartPopover", module)
   .add("default", () => ({
     components: { CartPopover, VuetifyLayout },
@@ -489,37 +616,44 @@ storiesOf("Cart", module)
 storiesOf("DStore", module)
   .add('standalone', () => ({
     components: { DStore, VuetifyLayout },
+    data() {
+      return {
+        posts: Posts,
+        storeConfig: StoreConfig
+      }
+    },
     template: `
     <vuetify-layout>
-      <d-store :dark="true"></d-store>
+      <d-store :posts="posts" :config="storeConfig" :dark="true"></d-store>
     </vuetify-layout>`
   }))
-  .add("in layout", withMarkdownNotes(`
-So, we'll do this:
+  .add("in layout", withMarkdownNotes(
+    `
+      We'll have several predefined components:
+        1. *Layouts*, such as:
+          - Home
+          - Catalog
+          - About
 
-We'll have several predefined components:
-  1. *Layouts*, such as:
-    - Home
-    - Catalog
-    - About
-
-  2. *Widgets* specific for each layout, such as:
-    - blog posts
-    - product
-    - collections
-    - featured product
-    - featured collections
-    - slideshow
-    - image with text overlay
+        2. *Widgets* specific for each layout, such as:
+          - blog posts
+          - product
+          - collections
+          - featured product
+          - featured collections
+          - slideshow
+          - image with text overlay
   `)(() =>({
     components: {
       Layout,
-      DStore
+      DStore,
+      StoreTools
     },
     data() {
       return {
         appState: appState,
         posts: Posts,
+        storeConfig: StoreConfig,
         style: {
           dark: false,
           color: 'amber lighten-3',
@@ -541,8 +675,12 @@ We'll have several predefined components:
     <layout
       :styles="style"
       :appState="appState">
-      <d-store :posts="posts">
+      <d-store :config="storeConfig" :posts="posts">
       </d-store>
+      <template slot="store-manager">
+        <store-tools :config="storeConfig">
+        </store-tools>
+      </template>
     </layout>`
   })))
 

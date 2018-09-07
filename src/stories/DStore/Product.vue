@@ -6,47 +6,17 @@
     <v-flex xs6>
       <v-layout row wrap>
         <v-card>
-          <v-card-title>
-            <span class="font-weight-medium display-1">
-              Edit product template
-            </span>
-          </v-card-title>
-          <v-layout xs12 row wrap class="pa-3">
-            <span class="title pb-1">Product name:</span>
-            <v-flex xs12 class="pb-3">
-              <v-text-field
-                solo
-                hide-details
-                label="Product name"
-                v-model="editableProduct.title"
-              ></v-text-field>
-            </v-flex>
-            <span class="title pb-1">Price:</span>
-            <v-flex xs12 class="pb-3">
-              <v-flex d-inline-flex xs12>
-                <v-text-field
-                  solo
-                  hide-details
-                  label="Price"
-                  v-model="splitPrice"
-                ></v-text-field>
-                <span class="headline pl-5">SBD</span>
-              </v-flex>
-            </v-flex>
-            <span class="title pb-1">Image link:</span>
-            <v-flex xs12 class="pb-3">
-              <v-text-field
-                solo
-                hide-details
-                label="Image link"
-                v-model="editableProduct.image"
-              ></v-text-field>
+          <v-layout xs12 row wrap>
+            <v-flex xs12>
+              <v-card-text>
+                {{
+                  ($vuetify.breakpoint.name === 'xs' || $vuetify.breakpoint.name === 'sm')
+                    ? editableProduct.description.slice(0, 450) + '...'
+                    : editableProduct.description
+                }}
+              </v-card-text>
             </v-flex>
           </v-layout>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn primary @click="toggleEdition">Done</v-btn>
-          </v-card-actions>
         </v-card>
       </v-layout>
     </v-flex>
@@ -59,7 +29,7 @@ import PostItem from '../PostItem.vue';
 export default {
   components: { PostItem },
   name: 'product',
-  props: ['dark', 'product'],
+  props: ['dark', 'content', 'featured'],
   data() {
     return {
       marked: false,
@@ -75,12 +45,12 @@ export default {
   computed: {
     editableProduct: {
       get() {
-        return this.product
+        return this.content
       }
     },
     splitPrice: {
       get() {
-        return this.product.price.split(' ')[0]
+        return this.content.price.split(' ')[0]
       },
 
       set(price) {
@@ -100,7 +70,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.product)
+    console.log(this.content)
   }
 }
 </script>

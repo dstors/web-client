@@ -55,6 +55,11 @@
       </v-tooltip>
       <v-spacer></v-spacer>
       <v-btn
+        v-if="post.type !== 'giveaway'"
+        icon large flat :color="post.liked ? 'red' : 'grey lighten-1'">
+        <v-icon>favorite</v-icon>
+      </v-btn>
+      <v-btn
         v-if="post.type === 'direct-sell'"
         icon large flat :color="post.marked ? 'red' : 'grey lighten-1'">
         <v-icon>bookmark</v-icon>

@@ -2,6 +2,7 @@
   <v-app
     :dark="styles.dark">
     <slot name="messenger"></slot>
+    <slot name="store-manager"></slot>
     <v-toolbar
       app
       :absolute="styles.absolute"
