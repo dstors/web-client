@@ -1,12 +1,14 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs6>
-      <post-item :editable="true" @toggle-edition="toggleEdition" :post="editableProduct"></post-item>
-    </v-flex>
-    <v-flex xs6>
-      <v-layout row wrap>
-        <v-card>
-          <v-layout xs12 row wrap>
+  <v-card>
+    <v-card-title>
+      <span class="headline">{{ title }}</span>
+    </v-card-title>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <post-item :editable="true" @toggle-edition="toggleEdition" :post="editableProduct"></post-item>
+      </v-flex>
+      <v-flex xs6>
+          <v-layout row wrap>
             <v-flex xs12>
               <v-card-text>
                 {{
@@ -17,10 +19,9 @@
               </v-card-text>
             </v-flex>
           </v-layout>
-        </v-card>
-      </v-layout>
-    </v-flex>
-  </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-card>
 </template>
 
 <script>
@@ -29,7 +30,7 @@ import PostItem from '../PostItem.vue';
 export default {
   components: { PostItem },
   name: 'product',
-  props: ['dark', 'content', 'featured'],
+  props: ['dark', 'content', 'featured', 'title'],
   data() {
     return {
       marked: false,
