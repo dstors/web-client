@@ -19,7 +19,7 @@
           <v-btn color="primary" @click.native="dialog = false">Save</v-btn>
         </v-toolbar>
         <v-layout row wrap>
-          <v-flex xs6 class="pa-3">
+          <v-flex xs8 class="pa-3">
             <component
               :content="componentToEdit.content"
               :title="componentToEdit.title"
@@ -27,7 +27,7 @@
               :is="componentToEdit.name">
             </component>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs4>
             <component
               :content="componentToEdit.content"
               :title="componentToEdit.title"

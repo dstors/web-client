@@ -3,7 +3,7 @@
     <v-layout xs12 row d-inline-block>
       <v-card>
         <v-layout row wrap>
-          <v-flex xs12>
+          <v-flex xs12 v-show="!tabsOff">
             <v-tabs centered v-model="tab">
               <v-tabs-slider color="amber"></v-tabs-slider>
               <v-tab v-for="(t, i) in config.tabs" :key="i">
@@ -15,38 +15,20 @@
             <v-tabs-items v-model="tab">
               <v-tab-item v-for="(t, i) in config.tabs" :key="i">
                 <v-card flat class="pa-3 ma-3">
-                  <h1>{{ t.name }}</h1>
-                  <v-expansion-panel>
-                    <draggable class="drag" v-model="t.components" :options="{group: 'sections'}">
-                      <v-expansion-panel-content
-                        v-for="(component, i) in t.components"
-                        :key="i">
-                        <div slot="header">
-                          {{ component.sectionName }}
-                        </div>
-                        <v-card>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <component-editor :componentToEdit="component"></component-editor>
-                          </v-card-actions>
-                          <v-card-text>
-                            <component
-                              :content="component.content"
-                              :title="component.title"
-                              :products="component.products"
-                              :is="component.name">
-                            </component>
-                          </v-card-text>
-                        </v-card>
-                      </v-expansion-panel-content>
-                    </draggable>
-                  </v-expansion-panel>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn icon tile><v-icon color="red">delete</v-icon></v-btn>
-                    <v-btn>Cancel</v-btn>
-                    <v-btn color="primary">Save</v-btn>
-                  </v-card-actions>
+                  <template>
+                    <v-card v-for="(component, i) in t.components"
+                      :key="i">
+                      <v-card-text>
+                        <component
+                          :content="component.content"
+                          :title="component.title"
+                          :products="component.products"
+                          :is="component.name">
+                        </component>
+                      </v-card-text>
+                      <v-divider></v-divider>
+                    </v-card>
+                  </template>
                 </v-card>
               </v-tab-item>
             </v-tabs-items>
@@ -59,8 +41,6 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
-
 import Product from './Product.vue';
 import Slideshow from './Slideshow.vue';
 import Collection from './Collection.vue';
@@ -72,7 +52,6 @@ import ComponentEditor from './ComponentEditor.vue';
 
 export default {
   components: {
-    draggable,
     Product,
     Slideshow,
     Collection,
@@ -83,12 +62,7 @@ export default {
     ComponentEditor
   },
 	name: 'd-store',
-	props: ['profile', 'posts', 'config'],
-  data() {
-    return {
-      tab: null,
-    }
-  }
+	props: ['profile', 'posts', 'config', 'tabsOff', 'tab']
 }
 </script>
 

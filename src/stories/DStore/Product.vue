@@ -3,22 +3,18 @@
     <v-card-title>
       <span class="headline">{{ title }}</span>
     </v-card-title>
-    <v-layout row wrap>
-      <v-flex xs6>
+    <v-layout row justify-center>
+      <v-flex xs4 class="pa-3">
         <post-item :editable="true" @toggle-edition="toggleEdition" :post="editableProduct"></post-item>
       </v-flex>
-      <v-flex xs6>
-          <v-layout row wrap>
-            <v-flex xs12>
-              <v-card-text>
-                {{
-                  ($vuetify.breakpoint.name === 'xs' || $vuetify.breakpoint.name === 'sm')
-                    ? editableProduct.description.slice(0, 450) + '...'
-                    : editableProduct.description
-                }}
-              </v-card-text>
-            </v-flex>
-          </v-layout>
+      <v-flex xs8 class="pa-3 ml-3">
+        <v-card-text>
+          {{
+            ($vuetify.breakpoint.name === 'xs' || $vuetify.breakpoint.name === 'sm')
+              ? editableProduct.description.slice(0, 450) + '...'
+              : editableProduct.description
+          }}
+        </v-card-text>
       </v-flex>
     </v-layout>
   </v-card>

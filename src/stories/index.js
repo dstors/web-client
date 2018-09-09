@@ -16,6 +16,8 @@ import Cart from "./Cart.vue";
 import Messenger from "./Messenger.vue";
 import Conversation from "./Conversation.vue";
 import Profile from "./Profile.vue";
+import Login from "./Login.vue";
+import DStoreEditor from "./DStore/DStoreEditor.vue";
 import DStore from "./DStore/DStore.vue";
 
 import Product from "./DStore/Product.vue";
@@ -366,14 +368,13 @@ const StoreConfig = {
           order: 1
         },
         {
-          sectionName: 'Misc',
-          name: 'slideshow',
-          title: 'Slideshow title',
-          products: false,
-          content: [
-            'https://peaydesigns.com/images/Coffee%20Mug%20-%20Starbucks%20-%20Pike%20Place%20Market%20-%20Brown.jpg',
-            'https://images-na.ssl-images-amazon.com/images/I/611RSK7WhsL._SX569_.jpg'
-          ],
+          sectionName: 'Details',
+          name: 'store-details',
+          title: 'Useful information',
+          content: {
+            shippingCost: 'Depends on the distance - free all over the USA.',
+            area: 'World Wide'
+          },
           order: 2
         },
         {
@@ -402,13 +403,14 @@ const StoreConfig = {
           order: 4
         },
         {
-          sectionName: 'Details',
-          name: 'store-details',
-          title: 'Useful information',
-          content: {
-            shippingCost: 'Depends on the distance - free all over the USA.',
-            area: 'World Wide'
-          },
+          sectionName: 'Misc',
+          name: 'slideshow',
+          title: 'Slideshow title',
+          products: false,
+          content: [
+            'https://peaydesigns.com/images/Coffee%20Mug%20-%20Starbucks%20-%20Pike%20Place%20Market%20-%20Brown.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/611RSK7WhsL._SX569_.jpg'
+          ],
           order: 5
         }
       ],
@@ -614,8 +616,8 @@ storiesOf("Cart", module)
   }))
 
 storiesOf("DStore", module)
-  .add('standalone', () => ({
-    components: { DStore, VuetifyLayout },
+  .add('standalone editor', () => ({
+    components: { DStoreEditor, VuetifyLayout },
     data() {
       return {
         posts: Posts,
@@ -624,10 +626,10 @@ storiesOf("DStore", module)
     },
     template: `
     <vuetify-layout>
-      <d-store :posts="posts" :config="storeConfig" :dark="true"></d-store>
+      <d-store-editor :posts="posts" :config="storeConfig" :dark="true"></d-store-editor>
     </vuetify-layout>`
   }))
-  .add("in layout", withMarkdownNotes(
+  .add("editor in layout", withMarkdownNotes(
     `
       We'll have several predefined components:
         1. *Layouts*, such as:
@@ -646,7 +648,7 @@ storiesOf("DStore", module)
   `)(() =>({
     components: {
       Layout,
-      DStore,
+      DStoreEditor,
       StoreTools
     },
     data() {
@@ -675,14 +677,67 @@ storiesOf("DStore", module)
     <layout
       :styles="style"
       :appState="appState">
-      <d-store :config="storeConfig" :posts="posts">
-      </d-store>
+      <d-store-editor :config="storeConfig" :posts="posts">
+      </d-store-editor>
       <template slot="store-manager">
         <store-tools :config="storeConfig">
         </store-tools>
       </template>
     </layout>`
   })))
+  .add('standalone store', () => ({
+    components: { DStore, VuetifyLayout },
+    data() {
+      return {
+        posts: Posts,
+        storeConfig: StoreConfig
+      }
+    },
+    template: `
+    <vuetify-layout>
+      <d-store :posts="posts" :config="storeConfig" :dark="true"></d-store>
+    </vuetify-layout>`
+  }))
+  .add("store in layout", () =>({
+    components: {
+      Layout,
+      DStore
+    },
+    data() {
+      return {
+        appState: appState,
+        posts: Posts,
+        storeConfig: StoreConfig,
+        tabs: true,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          },
+          tab: null
+        }
+      };
+    },
+    template: `
+    <layout
+      :styles="style"
+      :appState="appState"
+      :config="storeConfig"
+      :tabs="tabs"
+      :tab="tab">
+      <d-store :config="storeConfig" :tab="tab" :tabsOff="true" :posts="posts">
+      </d-store>
+    </layout>`
+  }))
 
 storiesOf("Product", module)
   .add("standalone", () => ({
@@ -764,6 +819,48 @@ storiesOf("Profile", module)
       :appState="appState">
       <profile :profile="appState.profile">
       </profile>
+    </layout>`
+  }))
+
+storiesOf("Login", module)
+  .add('standalone', () => ({
+    components: { Login, VuetifyLayout },
+    template: `
+    <vuetify-layout>
+      <login></login>
+    </vuetify-layout>`
+  }))
+  .add("in layout", () =>({
+    components: {
+      Layout,
+      Login
+    },
+    data() {
+      return {
+        appState: appState,
+        posts: Posts,
+        style: {
+          dark: false,
+          color: 'amber lighten-3',
+          flat: false,
+          clippedLeft: true,
+          absolute: false,
+          login: {
+            flat: true,
+            color: 'black',
+            outline: false
+          },
+          nav: {
+            outline: false
+          }
+        }
+      };
+    },
+    template: `
+    <layout
+      :styles="style"
+      :appState="appState">
+      <login></login>
     </layout>`
   }))
 

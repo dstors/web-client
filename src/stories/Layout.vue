@@ -52,7 +52,15 @@
         </v-layout>
       </div>
 
-      <template v-if="extended" slot="extension">
+      <v-flex xs12 slot="extension" v-if="config">
+        <v-tabs centered v-model="tab" color="amber lighten-3">
+          <v-tabs-slider color="amber"></v-tabs-slider>
+          <v-tab v-for="(t, i) in config.tabs" :key="i">
+            {{ t.name }}
+          </v-tab>
+        </v-tabs>
+      </v-flex>
+      <template v-else-if="extended" slot="extension">
         <v-slide-y-transition>
           <v-layout row wrap>
             <v-flex>
@@ -134,7 +142,10 @@ export default {
   props: [
     'appState',
     'posts',
-    'styles'
+    'styles',
+    'tabs',
+    'config',
+    'tab'
   ],
   data() {
   	return {

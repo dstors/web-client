@@ -6,7 +6,7 @@
     <v-divider></v-divider>
     <v-container fluid grid-list-md>
       <v-layout row wrap>
-        <v-flex d-flex xs12 sm4 v-for="(post, n) in content">
+        <v-flex d-flex xs12 sm3 v-for="(post, n) in content">
           <v-flex d-flex>
             <v-layout align-center row wrap>
               <v-flex
