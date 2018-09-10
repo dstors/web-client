@@ -8,6 +8,7 @@ const TRANSFER_CALLBACK_URL = "";
  */
 
 export const getUserProfile = () => {
+  console.log('access token')
   console.log(scApi.options.accessToken)
   return scApi.me();
 }

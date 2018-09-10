@@ -19,11 +19,25 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     filter: "trending",
-    filters: [
-      { value: "trending", label: "Trending" },
-      { value: "hot", label: "Hot" },
-      { value: "created", label: "New" }
+    categories: [
+      'Arts, Crafts & Sweings',
+      'Automotive Parts & Accesories',
+      'Baby',
+      'Beauty & Personal Care',
+      'Books',
+      'CDs & Vinyl',
+      'Cell Phones & Accesories',
+      'Clothing, Shoes & Jewelry'
     ],
+    filters: [
+      'Trending',
+      'Hot',
+      'New',
+      'Giveaways',
+      'Auctions',
+      'Discounts'
+    ],
+    config: false,
     tags: [
       { name: 'steem'},
       { name: 'esteem'},
@@ -48,10 +62,14 @@ export const store = new Vuex.Store({
       state.drawer = !state.drawer;
     },
     getUserProfile(state) {
+      console.log('is logged in')
+      console.log(state.loggedIn)
       if (!state.loggedIn) return false;
       getUserProfile()
         .then(res => {
           state.profile = handleProfile(res);
+          console.log('// This is the profile.')
+          console.log(state.profile);
         })
         .catch(err => {
           console.log("Error while getting user Profile");

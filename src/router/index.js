@@ -1,14 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Browser from "@/components/Browser/Browser";
-import Sell from "@/components/Sell";
 import Feed from "@/components/Feed";
-import About from "@/components/About";
-import PostDetails from "@/components/PostDetails";
 import LoginHandler from "@/components/LoginHandler";
 import Profile from "@/components/Profile";
-import LoginSignup from "@/components/LoginSignup";
 
 Vue.use(Router);
 
@@ -18,32 +13,6 @@ export default new Router({
       path: "/",
       name: "Feed",
       component: Feed
-    },
-    {
-      path: "/about",
-      name: "About",
-      component: About
-    },
-    {
-      path: "/signin",
-      name: "LoginSignup",
-      component: LoginSignup
-    },
-    {
-      path: "/post/:author/:permlink",
-      name: "PostDetails",
-      component: PostDetails,
-      props: true
-    },
-    {
-      path: "/browse",
-      name: "Browser",
-      component: Browser
-    },
-    {
-      path: "/sell",
-      name: "Sell",
-      component: Sell
     },
     {
       path: "/login",

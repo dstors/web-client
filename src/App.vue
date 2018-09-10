@@ -1,91 +1,166 @@
 <template>
-  <!-- <landing-page v-if="!navbar"></landing-page> -->
-  <v-app id="inspire">
-    <!-- mover toolbar a su propio archivo y amoldar la búsqueda - hay que meterle a eso pa buscar por tag o por usuario o, quizás, por contenido. -->
-    <v-toolbar fixed color="amber" app :dense="!extended" :extended="extended">
-      <v-toolbar-side-icon @click.native="extended = !extended"></v-toolbar-side-icon>
-      <v-btn flat transparent class="title ml-3 mr-5" to="/" active-class="">Steem&nbsp;<span class="text">FleaMarket</span></v-btn>
-      <!-- <v-text-field
-        solo-inverted
-        flat
-        hide-details
-        label="Search"
-        prepend-inner-icon="search"
-      ></v-text-field> -->
+  <v-app
+    :dark="styles.dark">
+    <slot name="messenger"></slot>
+    <slot name="store-manager"></slot>
+    <v-toolbar
+      app
+      :absolute="styles.absolute"
+      :color="styles.dark ? styles.darkColor : styles.color"
+      :flat="styles.flat"
+      :extended="extended"
+      :clipped-left="styles.clippedLeft">
+      <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
+      <v-toolbar-title>mango<strong>way</strong></v-toolbar-title>
+      <v-flex>
+        <v-text-field
+          class="pa-3 hidden-sm-and-down"
+          solo
+          width="30px"
+          height="10px"
+          flat
+          hide-details
+          label="Search"
+          prepend-inner-icon="search">
+	      </v-text-field>
+      </v-flex>
       <v-spacer></v-spacer>
-      <v-btn v-if="!$store.state.loggedIn" :href="$store.state.scLoginUrl">Login</v-btn>
+      <v-btn v-if="!loggedIn"
+        :flat="styles.login.flat"
+        :color="styles.login.color"
+        :outline="styles.login.outline"
+        :href="loginUrl">
+        Login
+      </v-btn>
       <div v-else>
-        <v-avatar slot="activator"> <img :src="$store.state.profile.profile_image" alt=""> </v-avatar>
-        <v-btn to="/profile" flat transparent>  {{ $store.state.profile.name }}</v-btn>
-        <v-btn v-on:click="$store.commit('logout')">Logout</v-btn>
+        <v-layout
+          fluid align-start
+          pa-3>
+          <!-- <template>
+            <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+              <cart-popover :cart="cart"></cart-popover>
+            </v-flex>
+          </template>
+          <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+            <messages-popover :messages="messages"></messages-popover>
+          </v-flex>
+          <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+            <notifications-popover :notifications="notifications"></notifications-popover>
+          </v-flex> -->
+          <profile-popover class="px-3 d-inline-flex"></profile-popover>
+        </v-layout>
       </div>
-      <template v-if="extended" slot="extension">
-        <v-slide-y-transition>
-          <div>
-            <v-menu open-on-hover bottom offset-y>
-              <v-btn
-                slot="activator"
-                transparent
-                flat
-              >
-                Categories
-              </v-btn>
 
-              <v-list>
-                <v-list-tile
-                  v-for="(tag, i) in $store.state.tags"
-                  :key="i"
-                  @click="changeTag(tag.name)"
-                >
-                  <v-list-tile-title>{{ tag.name }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-            <v-btn flat
-              v-for="(filter, i) in $store.state.filters"
-              :key="i"
-              v-on:click="changeFilter(filter.value)">{{ filter.label }}
-            </v-btn>
-          </div>
+      <v-flex xs12 slot="extension" v-if="config">
+        <v-tabs centered v-model="tab" color="amber lighten-3">
+          <v-tabs-slider color="amber"></v-tabs-slider>
+          <v-tab v-for="(t, i) in config.tabs" :key="i">
+            {{ t.name }}
+          </v-tab>
+        </v-tabs>
+      </v-flex>
+      <template v-else-if="extended" slot="extension">
+        <v-slide-y-transition>
+          <v-layout row wrap>
+            <v-flex>
+              <v-menu open-on-hover bottom offset-y>
+                <v-btn
+                  slot="activator"
+                  transparent
+                  flat
+                  :outline="styles.nav.outline">
+                  All
+                </v-btn>
+
+                <v-list>
+                  <v-list-tile
+                    v-for="(category, i) in categories"
+                    :key="i"
+                    @click="">
+                    <v-list-tile-title>{{ category }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-flex>
+            <v-flex>
+              <v-menu
+                class="hidden-sm-and-up"
+                open-on-hover bottom offset-y>
+                <v-btn
+                  slot="activator"
+                  transparent
+                  flat
+                  :outline="styles.nav.outline">
+                  Sort by
+                </v-btn>
+
+                <v-list>
+                  <v-list-tile
+                    v-for="(filter, i) in filters"
+                    :key="i"
+                    @click="">
+                    <v-list-tile-title>{{ filter }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-flex>
+            <v-flex
+              v-for="(filter, i) in filters"
+              :key="i">
+              <v-btn
+                flat
+                :class="i > 1 ? 'hidden-sm-and-down' : 'hidden-xs-only'"
+                :outline="styles.nav.outline"
+                v-on:click="">{{ filter }}
+              </v-btn>
+            </v-flex>
+          </v-layout>
         </v-slide-y-transition>
       </template>
     </v-toolbar>
-    <!-- Esto por ahora esta bien acá -->
     <v-content>
-      <v-container fluid fill-height class="grey lighten-4">
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-            <v-alert
-              :value="$store.alertMessage"
-              type="error"
-              icon="warning"
-              outline
-              transition="scale-transition"
-              dismissible
-            >
-              {{ $store.alertMessage }}
-            </v-alert>
-            <router-view></router-view>
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Landing from './components/Landing.vue'
+import { mapState, mapActions } from 'vuex';
+import ProfilePopover from './components/ProfilePopover';
 
 export default {
+  components: { ProfilePopover },
   name: 'app',
-  components: {
-    'landing-page': Landing,
-  },
   data() {
     return {
       navbar: false,
-      extended: false
+      extended: false,
+      styles: {
+        dark: false,
+        color: 'amber lighten-3',
+        darkColor: 'blue darken-3',
+        flat: false,
+        clippedLeft: true,
+        absolute: false,
+        login: {
+          flat: true,
+          color: 'black',
+          outline: false
+        },
+        nav: {
+          outline: false
+        }
+      }
     }
+  },
+  computed: {
+    ...mapState({
+      loggedIn: state => state.loggedIn,
+      loginUrl: state => state.scLoginUrl,
+      filters: state => state.filters,
+      categories: state => state.categories,
+      config: state => state.config
+    })
   },
   watch:{
     $route (to, from){
