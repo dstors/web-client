@@ -1,50 +1,103 @@
 <template>
-  <v-layout>
-    <v-flex>
-      <v-card width="600px">
-        <v-card-media
-          :src="$store.state.profile.cover_image"
-          height="200px"
-        ></v-card-media>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">{{ $store.state.profile.name }}'s profile</h3>
-            <draggable v-model="profileItems" :options="{group:'people'}" @start="drag=true" @end="drag=false">
-              <div v-for="element in profileItems" :key="element.id">
-                <h3>{{ element.title }}:</h3>
-                {{ $store.state.profile[element.key] }}
-              </div>
-            </draggable>
-            <h3>Voting Power:</h3>
-            {{ ($store.state.profile.voting_power / 100).toFixed(2) }} %
-          </div>
-        </v-card-title>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container fluid fill-height>
+    <v-layout xs12 row d-inline-block>
+      <v-card>
+        <v-card-media :src="profile.cover_image" height="250px"></v-card-media>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-sub-title>{{ profile.realName }} - ({{ profile.reputation }})</v-list-tile-sub-title>
+              <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
+              <!-- <v-spacer></v-spacer> -->
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn block color="yellow darken-1" class="pl-3 pr-2">
+                  <span class="black--text">
+                    DStore
+                  </span>
+                  <v-icon right color="blue darken-3">
+                    store
+                  </v-icon>
+                </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
 
+        <v-divider></v-divider>
+
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-tabs v-model="tab">
+              <v-tabs-slider color="amber"></v-tabs-slider>
+              <v-tab v-for="(item, i) in items" :key="i">
+                <v-icon :color="item.color" class="px-2">
+                  {{ item.icon }}
+                </v-icon>
+                {{ item.label }}
+              </v-tab>
+            </v-tabs>
+          </v-flex>
+          <v-flex xs12>
+            <v-tabs-items v-model="tab">
+              <v-tab-item v-for="(item, i) in items" :key="i">
+                <component
+                  :bookmarks="profile.bookmarks"
+                  :profile="profile"
+                  :is="item.value"></component>
+              </v-tab-item>
+            </v-tabs-items>
+          </v-flex>
+          </v-tabs>
+        </v-layout>
+      </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import { mapState } from 'vuex';
+
+import Wallet from './Wallet';
+import AccountInfo from './AccountInfo';
+import Wishlist from './Wishlist';
 
 export default {
   components: {
-    draggable
+    Wallet,
+    AccountInfo,
+    Wishlist
   },
-	name: 'profile',
+  name: 'profile',
   data() {
     return {
-      profileItems: [
-        { title: 'Reputation', key: 'reputation' },
-        { title: 'Voting Power', key: 'voting_power' },
-        { title: 'STEEM Balance', key: 'balance' },
-        { title: 'SBD Balance', key: 'sbd_balance' },
-        { title: 'Real Life Name', key: 'realName' },
-        { title: 'About', key: 'about' },
-        { title: 'Location', key: 'location' }
+      tab: null,
+      items: [
+        {
+          label:'Account Info',
+          value: 'account-info',
+          icon: 'account_circle',
+          color: 'blue'
+        },
+        {
+          label:'Wishlist',
+          value: 'wishlist',
+          icon: 'bookmark',
+          color: 'pink darlen-1'
+        },
+        {
+          label:'Wallet',
+          value: 'wallet',
+          icon: 'account_balance_wallet',
+          color: 'green'
+        }
       ]
     }
+  },
+  computed: {
+    ...mapState({
+      profile: state => state.profile,
+      dark: state => state.dark
+    })
   }
 }
 </script>

@@ -61,15 +61,16 @@ export const store = new Vuex.Store({
     toggleDrawer(state) {
       state.drawer = !state.drawer;
     },
+    toggleDark(state) {
+      console.log('toggling dark!')
+      state.dark = !state.dark;
+    },
     getUserProfile(state) {
-      console.log('is logged in')
-      console.log(state.loggedIn)
       if (!state.loggedIn) return false;
       getUserProfile()
         .then(res => {
-          state.profile = handleProfile(res);
-          console.log('// This is the profile.')
-          console.log(state.profile);
+          handleProfile(res)
+            .then(profile => state.profile = profile);
         })
         .catch(err => {
           console.log("Error while getting user Profile");

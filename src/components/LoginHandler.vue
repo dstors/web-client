@@ -10,7 +10,6 @@ export default {
 	name: 'login-handle',
 	mounted() {
     this.$store.dispatch('login', this.$route.query);
-    console.log('handling login here...');
     this.$router.push('/');
   }
 }

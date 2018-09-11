@@ -51,3 +51,5 @@ export const handleDiscussions = rawResponse => {
 
 	return posts;
 };
+
+export const getDynamicGlobalProperties = () => client.call('condenser_api', 'get_dynamic_global_properties', []);

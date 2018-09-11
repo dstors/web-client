@@ -12,7 +12,7 @@
       </v-avatar>
     </v-btn>
     <v-card>
-      <v-list>
+      <v-list two-line>
         <v-list-tile avatar>
           <v-list-tile-avatar>
             <img :src="profile.profile_image" alt="John">
@@ -22,13 +22,14 @@
             <v-list-tile-sub-title>{{ profile.realName }}</v-list-tile-sub-title>
             <v-list-tile-title>{{ profile.name }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ profile.balance }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ profile.sbd_balance }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
           <v-list-tile-action>
             <v-btn
               icon
               class="grey--text darken-3"
-              @click=""
+              @click="$store.commit('toggleDark')"
             >
               <v-icon>highlight</v-icon>
             </v-btn>
@@ -39,21 +40,21 @@
       <v-divider></v-divider>
 
       <v-list>
-        <v-list-tile @click="">
+        <v-list-tile to="/profile/wishlist">
           <v-list-tile-action>
             <v-icon> bookmark </v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wishlist</v-list-tile-title>
         </v-list-tile>
 
-        <v-list-tile @click="">
+        <v-list-tile to="/profile/wallet">
           <v-list-tile-action>
             <v-icon> account_balance_wallet </v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wallet</v-list-tile-title>
         </v-list-tile>
 
-        <v-list-tile @click="">
+        <v-list-tile to="/profile/">
           <v-list-tile-action>
             <v-icon> account_circle </v-icon>
           </v-list-tile-action>
