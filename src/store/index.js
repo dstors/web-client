@@ -56,6 +56,7 @@ export const store = new Vuex.Store({
   mutations: {
     logout(state) {
       state.loggedIn = false;
+      localStorage.removeItem('access_token');
       logout();
     },
     toggleDrawer(state) {
@@ -76,6 +77,8 @@ export const store = new Vuex.Store({
           console.log("Error while getting user Profile");
           console.log(err);
           state.alert = true;
+          state.loggedIn = false;
+          localStorage.removeItem('access_token');
         });
     },
     getDiscussions(state) {
@@ -100,7 +103,6 @@ export const store = new Vuex.Store({
     getDiscussionDetails(state, payload) {
       getDiscussionDetails(payload)
         .then(res => {
-          // console.log(Object.keys(res));
           (state.currentPost.title = res.title),
             (state.currentPost.content = renderMd(res.body));
         })

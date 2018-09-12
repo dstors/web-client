@@ -29,7 +29,8 @@
         :flat="styles.login.flat"
         :color="styles.login.color"
         :outline="styles.login.outline"
-        :href="loginUrl">
+        to="/signin">
+        <!-- :href="loginUrl" -->
         Login
       </v-btn>
       <div v-else>

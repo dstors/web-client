@@ -8,6 +8,7 @@ import Profile from "@/components/Profile";
 import AccountInfo from "@/components/AccountInfo";
 import Wallet from "@/components/Wallet";
 import Wishlist from "@/components/Wishlist";
+import SignIn from "@/components/SignIn";
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ export default new Router({
       path: "/",
       name: "ProductGrid",
       component: ProductGrid
+    },
+    {
+      path: "/signin",
+      name: "SignIn",
+      component: SignIn
     },
     {
       path: "/login",
