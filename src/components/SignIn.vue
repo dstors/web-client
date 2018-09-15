@@ -120,6 +120,9 @@ export default {
     ...mapState({
       loginUrl: state => state.scLoginUrl
     })
+  },
+  mounted() {
+    this.$store.dispatch('setSCLoginUrl');
   }
 }
 </script>

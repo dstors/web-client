@@ -11,6 +11,16 @@
               <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>
             <v-list-tile-action>
+              <v-btn block color="primary" class="pl-3 pr-2">
+                  <span class="black--text">
+                    Add Offer
+                  </span>
+                  <v-icon right color="blue darken-3">
+                    queue
+                  </v-icon>
+                </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>
               <v-btn block color="yellow darken-1" class="pl-3 pr-2">
                   <span class="black--text">
                     DStore

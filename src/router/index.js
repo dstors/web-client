@@ -32,7 +32,7 @@ export default new Router({
     {
       path: "/profile",
       component: Profile,
-      name: "Profile",
+      // name: "Profile",
       children: [
         {
           path: '',

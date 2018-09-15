@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
+import api from '../api';
+
 import getters from "./getters";
 import {
   getUserProfile,
@@ -45,7 +48,7 @@ export const store = new Vuex.Store({
     ],
     tag: "life",
     alert: false,
-    scLoginUrl: getLoginUrl(),
+    scLoginUrl: null,
     alertMessage: "A error has occured. Please try again later.",
     posts: [],
     loggedIn: isAccessGranted(),
@@ -68,7 +71,9 @@ export const store = new Vuex.Store({
     },
     getUserProfile(state) {
       if (!state.loggedIn) return false;
-      getUserProfile()
+
+      api().get('/users/accountDetails')
+      // getUserProfile()
         .then(res => {
           handleProfile(res)
             .then(profile => state.profile = profile);
@@ -83,10 +88,8 @@ export const store = new Vuex.Store({
     },
     getDiscussions(state) {
       const { filter, tag, postsLimit } = state;
-      console.log(tag, filter)
       getDiscussions({ filter, query: { tag, limit: postsLimit } })
         .then(res => {
-          console.log(res)
           state.posts = handleDiscussions(res);
         })
         .catch(err => {
@@ -95,9 +98,8 @@ export const store = new Vuex.Store({
           state.alert = true;
         });
     },
-    login(state, payload){
-      console.log(payload)
-      localStorage.setItem('access_token', payload.access_token)
+    login(state){
+      // localStorage.setItem('access_token', payload.access_token)
       state.loggedIn = true
     },
     getDiscussionDetails(state, payload) {
@@ -110,7 +112,6 @@ export const store = new Vuex.Store({
 
       getDiscussionComments(payload)
         .then(res => {
-          console.log(res.length)
           res.map(comment => {
             console.log(Object.keys(comment))
             console.log(comment.author)
@@ -122,13 +123,21 @@ export const store = new Vuex.Store({
     getVotersList(state, payload) {
       getVotersList(payload)
         .then(res => {
-          // console.log(res);
           state.currentPost.voters_list = res;
         })
         .catch(err => console.log(err));
     },
     setTag(state, { newTag }) {
       return state.tag = newTag
+    },
+    setSCLoginUrl(state) {
+      if (state.scLoginUrl) return false;
+      api().get('/users/loginUrl')
+        .then(res => {
+          console.log(res.data)
+          state.scLoginUrl = res.data;
+        })
+        .catch((err) => console.log(err));
     }
   },
   actions: {
@@ -140,11 +149,11 @@ export const store = new Vuex.Store({
       commit("getDiscussionDetails", payload);
       commit("getVotersList", payload);
     },
-    initLogin({ commit }, payload) {
-      commit("login", payload)
+    initLogin({ commit }) {
+      commit("login")
     },
-    login({ dispatch, commit }, payload){
-      dispatch("initLogin", payload).then(() => {
+    login({ dispatch, commit }){
+      dispatch("initLogin").then(() => {
         dispatch("getUserProfile")
       })
     },
@@ -158,6 +167,9 @@ export const store = new Vuex.Store({
       dispatch("setTag", payload).then(() => {
         dispatch("refreshDiscussions")
       })
+    },
+    setSCLoginUrl({ commit }) {
+      commit('setSCLoginUrl')
     }
   },
   getters
