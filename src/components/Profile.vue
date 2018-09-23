@@ -40,7 +40,7 @@
             <v-tabs v-model="tab">
               <v-tabs-slider color="amber"></v-tabs-slider>
               <v-tab v-for="(item, i) in items" :key="i">
-                <v-icon :color="item.color" class="px-2">
+                <v-icon :to="`/${item.link}`" :color="item.color" class="px-2">
                   {{ item.icon }}
                 </v-icon>
                 {{ item.label }}
@@ -86,19 +86,22 @@ export default {
           label:'Account Info',
           value: 'account-info',
           icon: 'account_circle',
-          color: 'blue'
+          color: 'blue',
+          link: ''
         },
         {
           label:'Wishlist',
           value: 'wishlist',
           icon: 'bookmark',
-          color: 'pink darlen-1'
+          color: 'pink darlen-1',
+          link: 'wishlist'
         },
         {
           label:'Wallet',
           value: 'wallet',
           icon: 'account_balance_wallet',
-          color: 'green'
+          color: 'green',
+          link: 'wallet'
         }
       ]
     }

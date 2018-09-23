@@ -169,9 +169,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.loggedIn) {
-      this.$store.commit('getUserProfile')
-    }
+    this.$store.dispatch('authenticate', { steemAccess: this.$store.steemAccess });
   },
   methods: {
     changeTag(tag) {

@@ -23,10 +23,10 @@
               d-flex
               xs12
               >
-            <product-item
+            <!-- <product-item
               :dark="dark"
               :product="product">
-            </product-item>
+            </product-item> -->
             </v-flex>
           </v-layout>
         </v-flex>

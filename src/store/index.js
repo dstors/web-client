@@ -5,22 +5,21 @@ import api from '../api';
 
 import getters from "./getters";
 import {
-  getUserProfile,
   isAccessGranted,
   getDiscussions,
   getDiscussionDetails,
   getDiscussionComments,
-  getVotersList,
-  logout,
-  getLoginUrl
+  getVotersList
 } from "../easy-steem";
 import { handleProfile } from "../easy-steem/steem-connect";
 import { handleDiscussions, renderMd } from "../easy-steem/steemd";
+import router from "../router";
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
+    steemAccess: null,
     filter: "trending",
     categories: [
       'Arts, Crafts & Sweings',
@@ -59,8 +58,11 @@ export const store = new Vuex.Store({
   mutations: {
     logout(state) {
       state.loggedIn = false;
-      localStorage.removeItem('access_token');
-      logout();
+      api().get('/users/logout')
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+
+      router.push("/signin");
     },
     toggleDrawer(state) {
       state.drawer = !state.drawer;
@@ -73,7 +75,6 @@ export const store = new Vuex.Store({
       if (!state.loggedIn) return false;
 
       api().get('/users/accountDetails')
-      // getUserProfile()
         .then(res => {
           handleProfile(res)
             .then(profile => state.profile = profile);
@@ -83,7 +84,6 @@ export const store = new Vuex.Store({
           console.log(err);
           state.alert = true;
           state.loggedIn = false;
-          localStorage.removeItem('access_token');
         });
     },
     getDiscussions(state) {
@@ -99,7 +99,6 @@ export const store = new Vuex.Store({
         });
     },
     login(state){
-      // localStorage.setItem('access_token', payload.access_token)
       state.loggedIn = true
     },
     getDiscussionDetails(state, payload) {
@@ -133,10 +132,7 @@ export const store = new Vuex.Store({
     setSCLoginUrl(state) {
       if (state.scLoginUrl) return false;
       api().get('/users/loginUrl')
-        .then(res => {
-          console.log(res.data)
-          state.scLoginUrl = res.data;
-        })
+        .then(res => state.scLoginUrl = res.data)
         .catch((err) => console.log(err));
     }
   },
@@ -152,9 +148,20 @@ export const store = new Vuex.Store({
     initLogin({ commit }) {
       commit("login")
     },
+    authenticate({ dispatch }, payload) {
+      api().get('/app?access=' + payload.steemAccess).then(res => {
+        if (res.data) {
+          dispatch("login");
+        }
+        else {
+          console.log('Not logged in')
+        }
+      })
+      .catch(err => console.log(err));
+    },
     login({ dispatch, commit }){
       dispatch("initLogin").then(() => {
-        dispatch("getUserProfile")
+        commit("getUserProfile")
       })
     },
     refreshDiscussions({ commit }) {

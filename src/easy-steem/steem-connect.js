@@ -42,7 +42,6 @@ export function simplifyReputation(raw) {
 }
 
 function parseVests(raw) {
-  console.log('raw: ' + raw);
   let result;
 
   if (raw.indexOf(" VESTS") > -1) {
@@ -81,15 +80,7 @@ export function calculateSteemPower(vesting_shares, received_vesting_shares) {
  * @return {object}     vuex state ready profile information
  */
 export function handleProfile (res) {
-  const {
-    user,
-    _id,
-    name,
-    scope,
-    account,
-    user_metadata
-  } = res;
-
+  let account = res.data;
 
   const {
     balance,

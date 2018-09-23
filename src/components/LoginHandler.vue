@@ -9,8 +9,8 @@
 export default {
 	name: 'login-handle',
 	mounted() {
-		console.log('¿handle?');
     this.$store.dispatch('login');
+    this.$store.steemAccess = this.$route.query.access;
     this.$router.push('/');
   }
 }
