@@ -34,7 +34,7 @@
                         <h1 class="font-weight-regular">Guest account</h1>
                         <v-layout column>
                           <v-flex xs6 offset-xs1>
-                            <v-btn block color="red lighten-2">Google +</v-btn>
+                            <v-btn block color="red lighten-2" href="http://localhost:8080/users/auth/google">Google +</v-btn>
                           </v-flex>
                           <v-flex xs6 offset-xs1>
                             <v-btn block color="blue" href="http://localhost:8080/users/auth/facebook">Facebook</v-btn>
