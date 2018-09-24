@@ -6,7 +6,7 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-sub-title>{{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }})</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }}</v-list-tile-sub-title>
               <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
               <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>
@@ -39,8 +39,8 @@
           <v-flex xs12>
             <v-tabs v-model="tab">
               <v-tabs-slider color="amber"></v-tabs-slider>
-              <v-tab v-for="(item, i) in items" :key="i">
-                <v-icon :to="`/${item.link}`" :color="item.color" class="px-2">
+              <v-tab :to="`${item.link}`" v-for="(item, i) in items" :key="i">
+                <v-icon :color="item.color" class="px-2">
                   {{ item.icon }}
                 </v-icon>
                 {{ item.label }}
@@ -49,12 +49,13 @@
           </v-flex>
           <v-flex xs12>
             <v-tabs-items v-model="tab">
-              <v-tab-item v-for="(item, i) in items" :key="i">
+              <!-- <v-tab-item v-for="(item, i) in items" :key="i">
                 <component
                   :bookmarks="profile.bookmarks"
                   :profile="profile"
                   :is="item.value"></component>
-              </v-tab-item>
+              </v-tab-item> -->
+              <router-view></router-view>
             </v-tabs-items>
           </v-flex>
           </v-tabs>

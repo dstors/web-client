@@ -40,21 +40,21 @@
       <v-divider></v-divider>
 
       <v-list>
-        <v-list-tile to="/profile/wishlist">
+        <v-list-tile exact to="/profile/wishlist">
           <v-list-tile-action>
             <v-icon> bookmark </v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wishlist</v-list-tile-title>
         </v-list-tile>
 
-        <v-list-tile to="/profile/wallet">
+        <v-list-tile exact to="/profile/wallet">
           <v-list-tile-action>
             <v-icon> account_balance_wallet </v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wallet</v-list-tile-title>
         </v-list-tile>
 
-        <v-list-tile to="/profile/">
+        <v-list-tile exact to="/profile/">
           <v-list-tile-action>
             <v-icon> account_circle </v-icon>
           </v-list-tile-action>
