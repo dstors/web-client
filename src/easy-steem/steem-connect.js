@@ -82,6 +82,17 @@ export function calculateSteemPower(vesting_shares, received_vesting_shares) {
 export function handleProfile (res) {
   let account = res.data;
 
+  if (account.guest) {
+    const { name, picture } = account;
+
+    return new Promise((resolve, reject) => {
+      resolve({
+        realName: name,
+        profile_image: picture
+      });
+    });
+  };
+
   const {
     balance,
     sbd_balance,
@@ -93,11 +104,11 @@ export function handleProfile (res) {
 
   const {
     profile: {
-      about,
-      cover_image,
-      location,
+      about = '',
+      cover_image = '',
+      location = '',
       name: realName,
-      profile_image
+      profile_image = 'https://cdn1.tokendaily.co/post-images/postImage-2ba8698b79439589fdd2b0f7218d8b07.png'
     }
   } = JSON.parse(account.json_metadata);
 

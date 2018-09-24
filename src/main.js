@@ -6,7 +6,6 @@ import App from "./App.vue";
 import { store } from "./store/";
 import Vuetify from "vuetify";
 import VueWebsocket from 'vue-websocket';
-import VueResource from 'vue-resource';
 
 // var exampleSocket = new WebSocket("ws://127.0.0.1:2222/wsServer");
 
