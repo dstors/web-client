@@ -11,7 +11,7 @@
       :extended="extended"
       :clipped-left="clippedLeft">
       <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
-      <v-toolbar-title>mango<strong>way</strong></v-toolbar-title>
+      <v-toolbar-title>D<strong>stors</strong></v-toolbar-title>
       <v-flex>
         <v-text-field
           class="pa-3 hidden-sm-and-down"
@@ -69,7 +69,7 @@
                   slot="activator"
                   transparent
                   flat
-                  :outline="navStyles.outline">
+                  :outline="navStyle.outline">
                   All
                 </v-btn>
 
@@ -91,7 +91,7 @@
                   slot="activator"
                   transparent
                   flat
-                  :outline="navStyles.outline">
+                  :outline="navStyle.outline">
                   Sort by
                 </v-btn>
 
@@ -111,7 +111,7 @@
               <v-btn
                 flat
                 :class="i > 1 ? 'hidden-sm-and-down' : 'hidden-xs-only'"
-                :outline="navStyles.outline"
+                :outline="navStyle.outline"
                 v-on:click="">{{ filter }}
               </v-btn>
             </v-flex>
