@@ -15,11 +15,11 @@
       <v-list two-line>
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <img :src="profile.profile_image" alt="John">
+            <img :src="profile.profile_image" alt="Prof Pic">
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-sub-title>{{ profile.realName }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ profile.realName || profile.username }}</v-list-tile-sub-title>
             <v-list-tile-title>{{ profile.name }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ profile.balance }}</v-list-tile-sub-title>
             <v-list-tile-sub-title>{{ profile.sbd_balance }}</v-list-tile-sub-title>

@@ -6,7 +6,7 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-sub-title>{{ profile.realName }} - ({{ profile.reputation }})</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }})</v-list-tile-sub-title>
               <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
               <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>

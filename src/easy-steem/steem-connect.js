@@ -99,7 +99,8 @@ export function handleProfile (res) {
     reputation,
     voting_power,
     vesting_shares,
-    received_vesting_shares
+    received_vesting_shares,
+    name: username
   } = account;
 
   const {
@@ -124,6 +125,7 @@ export function handleProfile (res) {
       cover_image,
       location,
       realName,
+      username,
       profile_image
     }
   });
