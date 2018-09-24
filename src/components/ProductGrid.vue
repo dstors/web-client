@@ -23,10 +23,10 @@
               d-flex
               xs12
               >
-            <!-- <product-item
+            <product-item
               :dark="dark"
               :product="product">
-            </product-item> -->
+            </product-item>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -46,12 +46,12 @@ export default {
   },
   props: ['wishlist'],
   mounted() {
-    this.$store.dispatch('refreshDiscussions')
+    this.$store.dispatch('getProductsFeed')
   },
   computed: {
     ...mapState({
-      products: state => state.posts,
-      dark: state => state.dark
+      products: state => state.productsFeed,
+      dark: state => state.styles.dark
     })
   }
 }

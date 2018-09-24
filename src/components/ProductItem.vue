@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     ...mapState({
-      dark: state => state.dark
+      dark: state => state.styles.dark
     })
   },
   methods: {

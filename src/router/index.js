@@ -35,7 +35,7 @@ export default new Router({
       // name: "Profile",
       children: [
         {
-          path: '',
+          path: 'details',
           name: 'UserInformation',
           component: AccountInfo
         },

@@ -88,7 +88,7 @@ export default {
           value: 'account-info',
           icon: 'account_circle',
           color: 'blue',
-          link: ''
+          link: 'details'
         },
         {
           label:'Wishlist',

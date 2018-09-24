@@ -49,7 +49,7 @@ export const store = new Vuex.Store({
     alert: false,
     scLoginUrl: null,
     alertMessage: "A error has occured. Please try again later.",
-    posts: [],
+    productsFeed: [],
     loggedIn: isAccessGranted(),
     profile: {},
     postsLimit: 30,
@@ -73,12 +73,13 @@ export const store = new Vuex.Store({
   },
   mutations: {
     logout(state) {
-      state.loggedIn = false;
       api().get('/users/logout')
-        .then(res => console.log(res))
+        .then(res => {
+          state.loggedIn = false;
+          router.push("/signin");
+        })
         .catch(err => console.log(err))
 
-      router.push("/signin");
     },
     toggleDrawer(state) {
       state.drawer = !state.drawer;
@@ -102,17 +103,24 @@ export const store = new Vuex.Store({
           state.loggedIn = false;
         });
     },
-    getDiscussions(state) {
-      const { filter, tag, postsLimit } = state;
-      getDiscussions({ filter, query: { tag, limit: postsLimit } })
+    // getDiscussions(state) {
+    //   const { filter, tag, postsLimit } = state;
+    //   getDiscussions({ filter, query: { tag, limit: postsLimit } })
+    //     .then(res => {
+    //       state.posts = handleDiscussions(res);
+    //     })
+    //     .catch(err => {
+    //       console.log("Error while getting discussions");
+    //       console.log(err);
+    //       state.alert = true;
+    //     });
+    // },
+    getProductsFeed(state) {
+      api().get('/products')
         .then(res => {
-          state.posts = handleDiscussions(res);
+          state.productsFeed = res.data;
         })
-        .catch(err => {
-          console.log("Error while getting discussions");
-          console.log(err);
-          state.alert = true;
-        });
+        .catch(err => console.log(err));
     },
     login(state){
       state.loggedIn = true
@@ -160,6 +168,9 @@ export const store = new Vuex.Store({
     getDiscussionDetails({ commit }, payload) {
       commit("getDiscussionDetails", payload);
       commit("getVotersList", payload);
+    },
+    getProductsFeed({ commit }) {
+      commit("getProductsFeed")
     },
     initLogin({ commit }) {
       commit("login")
