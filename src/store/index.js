@@ -53,6 +53,22 @@ export const store = new Vuex.Store({
     loggedIn: isAccessGranted(),
     profile: {},
     postsLimit: 30,
+    styles: {
+      dark: false,
+      color: 'amber lighten-3',
+      darkColor: 'yellow darken-3',
+      flat: false,
+      clippedLeft: true,
+      absolute: false,
+      login: {
+        flat: true,
+        color: 'black',
+        outline: false
+      },
+      nav: {
+        outline: false
+      }
+    },
     currentPost: { voters_list: [], title: "", content: "" }
   },
   mutations: {
@@ -69,7 +85,7 @@ export const store = new Vuex.Store({
     },
     toggleDark(state) {
       console.log('toggling dark!')
-      state.dark = !state.dark;
+      state.styles.dark = !state.styles.dark;
     },
     getUserProfile(state) {
       if (!state.loggedIn) return false;

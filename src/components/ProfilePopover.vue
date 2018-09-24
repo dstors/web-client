@@ -20,9 +20,9 @@
 
           <v-list-tile-content>
             <v-list-tile-sub-title>{{ profile.realName || profile.username }}</v-list-tile-sub-title>
-            <v-list-tile-title>{{ profile.name }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ profile.balance }}</v-list-tile-sub-title>
-            <v-list-tile-sub-title>{{ profile.sbd_balance }}</v-list-tile-sub-title>
+            <v-list-tile-title v-if="profile.username">{{ profile.username }}</v-list-tile-title>
+            <v-list-tile-sub-title v-if="profile.balance">{{ profile.balance }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title v-if="profile.sbd_balance">{{ profile.sbd_balance }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
           <v-list-tile-action>
@@ -40,6 +40,13 @@
       <v-divider></v-divider>
 
       <v-list>
+        <v-list-tile exact to="/profile/">
+          <v-list-tile-action>
+            <v-icon> account_circle </v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Profile</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile exact to="/profile/wishlist">
           <v-list-tile-action>
             <v-icon> bookmark </v-icon>
@@ -52,13 +59,6 @@
             <v-icon> account_balance_wallet </v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wallet</v-list-tile-title>
-        </v-list-tile>
-
-        <v-list-tile exact to="/profile/">
-          <v-list-tile-action>
-            <v-icon> account_circle </v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Profile</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile @click="$store.commit('logout')">

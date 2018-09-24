@@ -1,15 +1,15 @@
 <template>
   <v-app
-    :dark="styles.dark">
+    :dark="dark">
     <slot name="messenger"></slot>
     <slot name="store-manager"></slot>
     <v-toolbar
       app
-      :absolute="styles.absolute"
-      :color="styles.dark ? styles.darkColor : styles.color"
-      :flat="styles.flat"
+      :absolute="absolute"
+      :color="dark ? darkColor : color"
+      :flat="flat"
       :extended="extended"
-      :clipped-left="styles.clippedLeft">
+      :clipped-left="clippedLeft">
       <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
       <v-toolbar-title>mango<strong>way</strong></v-toolbar-title>
       <v-flex>
@@ -26,9 +26,9 @@
       </v-flex>
       <v-spacer></v-spacer>
       <v-btn v-if="!loggedIn"
-        :flat="styles.login.flat"
-        :color="styles.login.color"
-        :outline="styles.login.outline"
+        :flat="loginStyle.flat"
+        :color="loginStyle.color"
+        :outline="loginStyle.outline"
         to="/signin">
         <!-- :href="loginUrl" -->
         Login
@@ -69,7 +69,7 @@
                   slot="activator"
                   transparent
                   flat
-                  :outline="styles.nav.outline">
+                  :outline="navStyles.outline">
                   All
                 </v-btn>
 
@@ -91,7 +91,7 @@
                   slot="activator"
                   transparent
                   flat
-                  :outline="styles.nav.outline">
+                  :outline="navStyles.outline">
                   Sort by
                 </v-btn>
 
@@ -111,7 +111,7 @@
               <v-btn
                 flat
                 :class="i > 1 ? 'hidden-sm-and-down' : 'hidden-xs-only'"
-                :outline="styles.nav.outline"
+                :outline="navStyles.outline"
                 v-on:click="">{{ filter }}
               </v-btn>
             </v-flex>
@@ -136,22 +136,6 @@ export default {
     return {
       navbar: false,
       extended: false,
-      styles: {
-        dark: false,
-        color: 'amber lighten-3',
-        darkColor: 'blue darken-3',
-        flat: false,
-        clippedLeft: true,
-        absolute: false,
-        login: {
-          flat: true,
-          color: 'black',
-          outline: false
-        },
-        nav: {
-          outline: false
-        }
-      }
     }
   },
   computed: {
@@ -160,7 +144,15 @@ export default {
       loginUrl: state => state.scLoginUrl,
       filters: state => state.filters,
       categories: state => state.categories,
-      config: state => state.config
+      config: state => state.config,
+      dark: state => state.styles.dark,
+      absolute: state => state.styles.absolute,
+      darkColor: state => state.styles.darkColor,
+      color: state => state.styles.color,
+      flat: state => state.styles.flat,
+      clippedLeft: state => state.styles.clippedLeft,
+      loginStyle: state => state.styles.login,
+      navStyle: state => state.styles.nav
     })
   },
   watch:{
