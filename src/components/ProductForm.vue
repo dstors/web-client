@@ -18,7 +18,7 @@
         <v-flex offset-xs1 xs12 class="mb-4">
           <span class="headline font-weight-regular">Product Name</span>
           <v-text-field
-            v-model="newProduct.title"
+            v-model="newProduct.name"
             solo>
           </v-text-field>
         </v-flex>

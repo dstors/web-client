@@ -11,7 +11,11 @@
       :extended="extended"
       :clipped-left="clippedLeft">
       <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
-      <v-toolbar-title>D<strong>stors</strong></v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" style="text-decoration: none; color: black;">
+          D<strong>stors</strong>
+        </router-link>
+      </v-toolbar-title>
       <v-flex>
         <v-text-field
           class="pa-3 hidden-sm-and-down"
