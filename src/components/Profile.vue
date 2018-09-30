@@ -11,14 +11,18 @@
               <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn block color="primary" class="pl-3 pr-2">
+              <form-layout>
+                <v-btn slot="activator" block color="primary" class="pl-3 pr-2">
                   <span class="black--text">
-                    Add Offer
+                    Create Offer
                   </span>
-                  <v-icon right color="blue darken-3">
+                  <v-icon right>
                     queue
                   </v-icon>
                 </v-btn>
+                <product-editor>
+                </product-editor>
+              </form-layout>
             </v-list-tile-action>
             <v-list-tile-action>
               <v-btn block color="yellow darken-1" class="pl-3 pr-2">
@@ -71,12 +75,16 @@ import { mapState } from 'vuex';
 import Wallet from './Wallet';
 import AccountInfo from './AccountInfo';
 import Wishlist from './Wishlist';
+import FormLayout from './FormLayout';
+import ProductEditor from './ProductEditor';
 
 export default {
   components: {
     Wallet,
     AccountInfo,
-    Wishlist
+    Wishlist,
+    FormLayout,
+    ProductEditor
   },
   name: 'profile',
   data() {

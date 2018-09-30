@@ -20,6 +20,7 @@
                   :cycle="false">
                   <v-carousel-item
                     v-for="(picture,i) in product.pictures"
+                    v-if="picture !== ''"
                     :key="i"
                     :src="picture"
                   ></v-carousel-item>
@@ -57,7 +58,7 @@
               </v-layout>
               <v-divider></v-divider>
               <v-card-text>
-                Product's description
+                {{ product.description }}
               </v-card-text>
             </v-flex>
           </v-layout>

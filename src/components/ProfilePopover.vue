@@ -40,7 +40,7 @@
       <v-divider></v-divider>
 
       <v-list>
-        <v-list-tile exact to="/profile/">
+        <v-list-tile exact to="/profile/details">
           <v-list-tile-action>
             <v-icon> account_circle </v-icon>
           </v-list-tile-action>

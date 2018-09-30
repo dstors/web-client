@@ -9,41 +9,35 @@
     width="250px"
     >
     <v-card-media
-      :src="product.image ? product.image : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
+      :src="product.pictures ? product.pictures[0] : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
       height="200px">
       <details-popup :product="product" :hovered="hovered"></details-popup>
     </v-card-media>
     <v-card-title primary-title class="pa-3">
-      <router-link
-        v-if="product.type === 'direct-sell'"
-        tag="a"
-        :to="`/product/${product.author}/${product.permlink}`">
-        <span>{{ product.title }}</span>
+      <span
+        v-if="product.type === 'direct-sell'">
+        <span>{{ product.title || product.name}}</span>
         <h3>
           {{ product.price }}
         </h3>
-      </router-link>
-      <router-link
-        v-else-if="product.type === 'giveaway'"
-        tag="a"
-        :to="`/product/${product.author}/${product.permlink}`">
+      </span>
+      <span
+        v-else-if="product.type === 'giveaway'">
         <span>{{ product.timeLeft }} left</span>
         <h3>
-          {{ product.title }}
+          {{ product.title || product.name}}
         </h3>
-      </router-link>
-      <router-link
-        v-else-if="product.type === 'auction'"
-        tag="a"
-        :to="`/product/${product.author}/${product.permlink}`">
-        <span>{{ product.title }}</span>
+      </span>
+      <span
+        v-else-if="product.type === 'auction'">
+        <span>{{ product.title || product.name}}</span>
         <h3>
           {{ product.lastBid }}
         </h3>
-      </router-link>
+      </span>
     </v-card-title>
     <!-- <v-card-text v-if="product.type === 'direct-sell' && hovered">
-      {{ product.available }} available items
+      {{ product.stock }} available items
     </v-card-text> -->
     <v-divider light></v-divider>
     <v-card-actions class="px-3 pt-2 pb-1">
