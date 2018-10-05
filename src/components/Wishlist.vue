@@ -1,5 +1,5 @@
 <template>
-	<product-grid :wishlist="wishlist"></product-grid>
+	<product-grid :products="wishlist"></product-grid>
 </template>
 
 <script>
@@ -8,9 +8,12 @@ import ProductGrid from './ProductGrid';
 export default {
   components: { ProductGrid },
 	name: 'Wishlist',
+  mounted() {
+    this.$store.dispatch('getWishlistFeed')
+  },
   computed: {
     ...mapState({
-      wishlist: state => state.posts
+      wishlist: state => state.wishlistFeed
     })
   }
 }

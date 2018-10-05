@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import ProductGrid from "@/components/ProductGrid";
+import Feed from "@/components/Feed";
 import LoginHandler from "@/components/LoginHandler";
 import Profile from "@/components/Profile";
 
@@ -16,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "ProductGrid",
-      component: ProductGrid
+      name: "Feed",
+      component: Feed
     },
     {
       path: "/signin",

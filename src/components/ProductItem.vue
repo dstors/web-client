@@ -55,12 +55,13 @@
       </v-btn>
       <v-btn
         v-if="product.type === 'direct-sell'"
-        icon large flat :color="product.marked ? 'red' : 'grey lighten-1'">
+        @click="addToWishlist({ id: product.id, index:  index })"
+        icon large flat :color="product.wishlist ? 'red' : 'grey lighten-1'">
         <v-icon>bookmark</v-icon>
       </v-btn>
       <v-btn
         v-else
-        icon large flat :color="product.marked ? 'primary' : 'grey lighten-1'">
+        icon large flat :color="product.wishlist ? 'primary' : 'grey lighten-1'">
         <v-icon>add_alert</v-icon>
       </v-btn>
       <v-btn
@@ -68,6 +69,7 @@
         flat
         v-if="product.type === 'direct-sell'"
         color="grey">
+        {{ product.stock }}
         <v-icon>add_shopping_cart</v-icon>
       </v-btn>
       <v-btn
@@ -89,7 +91,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import DetailsPopup from './DetailsPopup.vue';
 
 export default {
@@ -97,7 +99,7 @@ export default {
     'details-popup': DetailsPopup
   },
   name: 'ProductItem',
-  props: [ 'product'],
+  props: [ 'product', 'index'],
   data() {
     return {
       marked: false,
@@ -115,6 +117,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      addToWishlist: 'addToWishlist'
+    }),
     onHover() {
       this.hovered = true;
     },

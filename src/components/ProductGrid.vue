@@ -1,21 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex v-if="wishlist" d-flex xs12 sm4 md3 v-for="(product, n) in wishlist">
-        <v-flex d-flex>
-          <v-layout align-center row wrap>
-            <v-flex
-              d-flex
-              xs12
-              >
-            <product-item
-              :dark="dark"
-              :product="product">
-            </product-item>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-flex>
       <v-flex d-flex xs12 sm4 md3 v-for="(product, n) in products">
         <v-flex d-flex>
           <v-layout align-center row wrap>
@@ -24,6 +9,7 @@
               xs12
               >
             <product-item
+              :index="n"
               :dark="dark"
               :product="product">
             </product-item>
@@ -41,16 +27,12 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'ProductGrid',
+  props: ['products'],
   components: {
     'product-item': ProductItem
   },
-  props: ['wishlist'],
-  mounted() {
-    this.$store.dispatch('getProductsFeed')
-  },
   computed: {
     ...mapState({
-      products: state => state.productsFeed,
       dark: state => state.styles.dark
     })
   }

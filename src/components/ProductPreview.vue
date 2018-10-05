@@ -14,6 +14,8 @@
               ? editableProduct.description.slice(0, 450) + '...'
               : editableProduct.description
           }}
+          <v-divider></v-divider>
+          {{ editableProduct }}
         </v-card-text>
       </v-flex>
     </v-layout>
