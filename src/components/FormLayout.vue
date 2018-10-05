@@ -16,9 +16,6 @@
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon><v-icon color="red">delete</v-icon></v-btn>
-          <v-btn color="primary" @click.native="submitProduct">Save</v-btn>
         </v-toolbar>
         <slot></slot>
       </v-card>
@@ -27,18 +24,25 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'form-layout',
-  data () {
-    return {
-      dialog: false
+  computed: {
+    dialog: {
+      get() {
+        return this.$store.state.formDialog
+      },
+
+      set(value) {
+        this.$store.state.formDialog = value
+      }
     }
   },
   methods: {
-    submitProduct() {
-      this.$store.dispatch('newProduct/createProduct');
-      this.dialog=false
-    }
+    ...mapActions({
+      toggleFormDialog: 'toggleFormDialog'
+    })
   }
 }
 </script>

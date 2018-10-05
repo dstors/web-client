@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
   state: {
     steemAccess: null,
     filter: "trending",
+    formDialog: false,
     categories: [
       'Arts, Crafts & Sweings',
       'Automotive Parts & Accesories',
@@ -88,6 +89,9 @@ export const store = new Vuex.Store({
     toggleDark(state) {
       console.log('toggling dark!')
       state.styles.dark = !state.styles.dark;
+    },
+    toggleFormDialog(state) {
+      state.formDialog = !state.formDialog;
     },
     getUserProfile(state) {
       if (!state.loggedIn) return false;
@@ -216,6 +220,9 @@ export const store = new Vuex.Store({
     },
     addToWishlist({ commit }, payload) {
       commit('addToWishlist', payload)
+    },
+    toggleFormDialog({ commit }) {
+      commit("toggleFormDialog");
     }
   },
   getters,

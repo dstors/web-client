@@ -20,8 +20,8 @@
                     queue
                   </v-icon>
                 </v-btn>
-                <product-editor>
-                </product-editor>
+                <product-form>
+                </product-form>
               </form-layout>
             </v-list-tile-action>
             <v-list-tile-action>
@@ -76,7 +76,7 @@ import Wallet from './Wallet';
 import AccountInfo from './AccountInfo';
 import Wishlist from './Wishlist';
 import FormLayout from './FormLayout';
-import ProductEditor from './ProductEditor';
+import ProductForm from './ProductForm';
 
 export default {
   components: {
@@ -84,7 +84,7 @@ export default {
     AccountInfo,
     Wishlist,
     FormLayout,
-    ProductEditor
+    ProductForm
   },
   name: 'profile',
   data() {

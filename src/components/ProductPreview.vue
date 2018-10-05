@@ -1,9 +1,7 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <span class="headline">Preview</span>
-    </v-card-title>
-    <v-layout row justify-center>
+  <preview-layout>
+    <span slot="title">Preview Title</span>
+    <template>
       <v-flex xs4 class="pa-3">
         <product-item :editable="true" @toggle-edition="toggleEdition" :product="editableProduct"></product-item>
       </v-flex>
@@ -14,19 +12,18 @@
               ? editableProduct.description.slice(0, 450) + '...'
               : editableProduct.description
           }}
-          <v-divider></v-divider>
-          {{ editableProduct }}
         </v-card-text>
       </v-flex>
-    </v-layout>
-  </v-card>
+    </template>
+  </preview-layout>
 </template>
 
 <script>
 import ProductItem from './ProductItem.vue';
+import PreviewLayout from './PreviewLayout.vue';
 
 export default {
-  components: { ProductItem },
+  components: { ProductItem, PreviewLayout },
   name: 'product-preview',
   props: ['dark', 'content', 'featured', 'title'],
   data() {
