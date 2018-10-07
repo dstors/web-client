@@ -18,7 +18,8 @@ export let newProduct = {
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
     ],
-    stock: 1
+    stock: 1,
+    category: null
   },
   mutations: {
     setType(state, payload) {

@@ -16,7 +16,13 @@
     <v-card-title primary-title class="pa-3">
       <span
         v-if="product.type === 'direct-sell'">
-        <span>{{ product.title || product.name}}</span>
+        <span> {{ product.title || product.name}} </span>
+        <span :title="product.category">
+          {{ product.category
+            ? (product.category.length > 15 ? '- ' + product.category.slice(0, 15) + '...' : '- ' + product.category)
+            : ''
+          }}
+        </span>
         <h3>
           {{ product.price }}
         </h3>

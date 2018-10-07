@@ -168,6 +168,13 @@ export const store = new Vuex.Store({
           }
         })
         .catch(err => console.log(err))
+    },
+    getCategories(state) {
+      api().get("/app/product/categories")
+        .then(res => {
+          state.categories = res.data;
+        })
+        .catch(err => console.log(err))
     }
   },
   actions: {
@@ -223,6 +230,9 @@ export const store = new Vuex.Store({
     },
     toggleFormDialog({ commit }) {
       commit("toggleFormDialog");
+    },
+    getCategories({ commit }) {
+      commit("getCategories")
     }
   },
   getters,

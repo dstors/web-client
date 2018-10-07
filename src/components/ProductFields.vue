@@ -16,6 +16,17 @@
           </v-btn>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
+          <span class="headline font-weight-regular">Category</span>
+          <v-select
+            :items="categories"
+            v-model="newProduct.category"
+            label="Pick a product"
+            item-text="title"
+            return-object
+            solo>
+          </v-select>
+        </v-flex>
+        <v-flex offset-xs1 xs12 class="mb-4">
           <span class="headline font-weight-regular">Product Name</span>
           <v-text-field
             v-model="newProduct.name"
@@ -172,7 +183,8 @@ export default {
   },
   computed: {
     ...mapState({
-      newProduct: state => state.newProduct
+      newProduct: state => state.newProduct,
+      categories: state => state.categories
     }),
     price: {
       get() {
