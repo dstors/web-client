@@ -162,7 +162,6 @@ export const store = new Vuex.Store({
     addToWishlist(state, { id, index, source }) {
       api().post('/app/product/wishlist/' + id)
         .then(res => {
-          console.log(res)
           if (res.data) {
             state[source + 'Feed'][index].wishlist = true
           }
