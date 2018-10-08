@@ -17,6 +17,7 @@
                 aspect-ratio="2.75"
                 contain>
                 <v-carousel
+                  hide-delimiters
                   :cycle="false">
                   <v-carousel-item
                     v-for="(picture,i) in product.pictures"
