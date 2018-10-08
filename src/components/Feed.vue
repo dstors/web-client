@@ -1,5 +1,5 @@
 <template>
-	<product-grid :products="products"></product-grid>
+	<product-grid source="products" :products="products"></product-grid>
 </template>
 
 <script>

@@ -9,6 +9,8 @@
               xs12
               >
             <product-item
+              :addToWishlist="addToWishlist"
+              :source="source"
               :index="n"
               :dark="dark"
               :product="product">
@@ -23,11 +25,11 @@
 
 <script>
 import ProductItem from './ProductItem';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'ProductGrid',
-  props: ['products'],
+  props: ['products', 'source'],
   components: {
     'product-item': ProductItem
   },
@@ -35,6 +37,11 @@ export default {
     ...mapState({
       dark: state => state.styles.dark
     })
+  },
+  methods: {
+    ...mapActions({
+      addToWishlist: 'addToWishlist'
+    }),
   }
 }
 </script>

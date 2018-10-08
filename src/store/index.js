@@ -159,12 +159,12 @@ export const store = new Vuex.Store({
         .then(res => state.scLoginUrl = res.data)
         .catch((err) => console.log(err));
     },
-    addToWishlist(state, { id, index }) {
+    addToWishlist(state, { id, index, source }) {
       api().post('/app/product/wishlist/' + id)
         .then(res => {
           console.log(res)
           if (res.data) {
-            state.productsFeed[index].wishlist = true
+            state[source + 'Feed'][index].wishlist = true
           }
         })
         .catch(err => console.log(err))

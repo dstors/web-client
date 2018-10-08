@@ -61,7 +61,7 @@
       </v-btn>
       <v-btn
         v-if="product.type === 'direct-sell'"
-        @click="addToWishlist({ id: product.id, index:  index })"
+        @click="addToWishlist({ id: product.id, index: index, source: source })"
         icon large flat :color="product.wishlist ? 'red' : 'grey lighten-1'">
         <v-icon>bookmark</v-icon>
       </v-btn>
@@ -105,7 +105,7 @@ export default {
     'details-popup': DetailsPopup
   },
   name: 'ProductItem',
-  props: [ 'product', 'index'],
+  props: [ 'product', 'index', 'addToWishlist', 'source'],
   data() {
     return {
       marked: false,
@@ -123,9 +123,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      addToWishlist: 'addToWishlist'
-    }),
+    // ...mapActions({
+    //   addToWishlist: 'addToWishlist'
+    // }),
     onHover() {
       this.hovered = true;
     },
