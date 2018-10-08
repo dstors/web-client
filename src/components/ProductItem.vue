@@ -18,7 +18,7 @@
         v-if="product.type === 'direct-sell'">
         <span> {{ product.title || product.name}} </span>
         <span :title="product.category">
-          {{ product.category
+          {{ product.category && (product.title || product.name)
             ? (product.category.length > 15 ? '- ' + product.category.slice(0, 15) + '...' : '- ' + product.category)
             : ''
           }}

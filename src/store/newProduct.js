@@ -5,7 +5,7 @@ export let newProduct = {
 	state: {
     name: '',
     author: '',
-    permlink: '',
+    permlink: 'a',
     price: ' SBD',
     type: null,
     wishlist: false,
@@ -25,8 +25,7 @@ export let newProduct = {
       state.pictures.splice(payload, 1)
     },
     createProduct(state, payload) {
-      console.log(state);
-      api().post('/app/product/add', { ...state, author: payload.username })
+      api().post('/app/product/add', { ...state, author: payload.profile.username })
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
@@ -42,7 +41,6 @@ export let newProduct = {
       commit('removePicture', payload)
     },
     createProduct({ commit, rootState }) {
-      console.log(rootState.profile.username)
       commit('createProduct', rootState)
     }
   }
