@@ -9,6 +9,7 @@ import AccountInfo from "@/components/AccountInfo";
 import Wallet from "@/components/Wallet";
 import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
+import Store from "@/components/Store";
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
       path: "/",
       name: "Feed",
       component: Feed
+    },
+    {
+      path: "/store",
+      name: "Store",
+      component: Store
     },
     {
       path: "/signin",

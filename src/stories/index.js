@@ -55,7 +55,7 @@ const Posts = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum imperdiet ante, consequat tincidunt lectus. Pellentesque sed magna a nunc blandit pharetra. Curabitur dapibus, ligula ut volutpat ornare, ipsum mauris ultricies ipsum, vel convallis tortor lorem at augue. Sed eget nulla consectetur, venenatis erat et, tincidunt mi. Cras velit sem, mattis eu mi vel, sagittis gravida ligula. Fusce non libero tincidunt, pretium nibh sed, consequat ex. Aenean gravida purus in imperdiet pellentesque. Donec viverra metus aliquam fringilla tincidunt. Suspendisse nisl purus, laoreet id arcu non, malesuada sagittis odio. Proin semper mattis metus quis pellentesque. ',
     marked: false,
     pictures: [
-      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
@@ -74,7 +74,7 @@ const Posts = [
     marked: true,
     description: 'Aliquam vestibulum nisl mi, et scelerisque risus placerat eu. Nulla dignissim, augue tempus suscipit eleifend, justo nibh dapibus sapien, tempus facilisis tortor leo eget nisl. Phasellus rutrum sit amet enim id commodo. Cras sed lorem a turpis ultrices sollicitudin eu ac mauris. Etiam ac massa id purus pulvinar porttitor a eget dolor. Pellentesque porta neque ut efficitur aliquet. Integer mattis enim feugiat pharetra dignissim. Donec faucibus neque eget est cursus, ac condimentum massa cursus. Aenean vel vehicula tellus, eget pulvinar dui. Nullam ac nibh dictum, elementum arcu sed, congue sem. Pellentesque vel ornare mauris. Phasellus lobortis vel arcu sit amet consectetur.',
     pictures: [
-      'https://rlv.zcache.com/ethereum_mug-r0703ea79845841799e1cbc587e18dd03_kz9an_540.jpg?rlvnet=1',
+      'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://steemitimages.com/0x0/http://puu.sh/qj7LB/1bfd81aa0c.jpg',
       'https://hoodl.me/wp-content/uploads/2017/12/bitcoin-logo-mug.jpg',
       'https://hodlmonkey.com/wp-content/uploads/2017/11/mockup-f11bb83c.jpg'
