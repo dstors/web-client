@@ -237,3 +237,5 @@ export const store = new Vuex.Store({
     newProduct
   }
 });
+
+store.dispatch('getProductsFeed')

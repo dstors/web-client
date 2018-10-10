@@ -29,14 +29,8 @@
 	      </v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
-      <v-btn v-if="!loggedIn"
-        :flat="loginStyle.flat"
-        :color="loginStyle.color"
-        :outline="loginStyle.outline"
-        to="/signin">
-        <!-- :href="loginUrl" -->
-        Login
-      </v-btn>
+      <login-popover v-if="!loggedIn">
+      </login-popover>
       <div v-else>
         <v-layout
           fluid align-start
@@ -132,9 +126,10 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ProfilePopover from './components/ProfilePopover';
+import LoginPopover from './components/LoginPopover';
 
 export default {
-  components: { ProfilePopover },
+  components: { ProfilePopover, LoginPopover },
   name: 'app',
   data() {
     return {

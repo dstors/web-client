@@ -56,14 +56,14 @@
       <v-spacer></v-spacer>
       <v-btn
         v-if="product.type !== 'giveaway'"
-        icon large flat :color="product.liked ? 'red' : 'grey lighten-1'">
-        <v-icon>favorite</v-icon>
+        icon large flat>
+        <font-awesome-icon :color="product.liked ? 'red' : 'grey'" size="lg" :icon="['fas', 'heart']"></font-awesome-icon>
       </v-btn>
       <v-btn
         v-if="product.type === 'direct-sell'"
         @click="addToWishlist({ id: product.id, index: index, source: source })"
-        icon large flat :color="product.wishlist ? 'red' : 'grey lighten-1'">
-        <v-icon>bookmark</v-icon>
+        icon large flat>
+        <font-awesome-icon :color="product.wishlist ? '#FD5F63' : 'grey'" size="lg" :icon="['fas', 'bookmark']"></font-awesome-icon>
       </v-btn>
       <v-btn
         v-else
@@ -73,10 +73,9 @@
       <v-btn
         icon
         flat
-        v-if="product.type === 'direct-sell'"
-        color="grey">
-        {{ product.stock }}
-        <v-icon>add_shopping_cart</v-icon>
+        large
+        v-if="product.type === 'direct-sell'">
+        <font-awesome-icon :color="product.shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
       </v-btn>
       <v-btn
         icon

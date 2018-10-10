@@ -26,13 +26,7 @@
           </v-list-tile-content>
 
           <v-list-tile-action>
-            <v-btn
-              icon
-              class="grey--text darken-3"
-              @click="$store.commit('toggleDark')"
-            >
-              <v-icon>highlight</v-icon>
-            </v-btn>
+            <night-mode-btn></night-mode-btn>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
@@ -74,9 +68,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import NightModeBtn from './Buttons/NightModeBtn';
 
 export default {
   name: 'profile-popover',
+  components: {
+    'night-mode-btn': NightModeBtn
+  },
   computed: {
     ...mapState({
       profile: state => state.profile,

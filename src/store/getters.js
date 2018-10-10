@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export default {
   getFilteredFeed({ filters: { price, categories, location }, feed }) {
     const { min, max } = price;
@@ -38,5 +40,39 @@ export default {
     }
 
     return feed;
+  },
+  getPaginatedFeed(state) {
+    let result = [];
+
+    let limitPerPage;
+
+    switch (Vue.prototype.$vuetify.breakpoint.name) {
+      case 'xs':
+        limitPerPage = 1;
+        break;
+      case 'sm':
+        limitPerPage = 3;
+        break;
+      case 'md':
+        limitPerPage = 4;
+        break;
+      case 'lg':
+        limitPerPage = 4;
+        break;
+      case 'xl':
+        limitPerPage = 4;
+        break;
+    }
+
+    let last_page = Math.ceil(state.productsFeed.length/limitPerPage)
+
+    for (var page = 0; page < last_page; page++) {
+      let start_index = ((page+1)-1) * limitPerPage;
+      result.push(state.productsFeed.slice(start_index, start_index + limitPerPage))
+    }
+
+    console.log('getter')
+    console.log(result)
+    return result;
   }
 };

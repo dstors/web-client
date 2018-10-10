@@ -6,7 +6,30 @@ import App from "./App.vue";
 import { store } from "./store/";
 import Vuetify from "vuetify";
 import VueWebsocket from 'vue-websocket';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faFacebook,
+  faGoogle,
+  faBitcoin
+} from '@fortawesome/free-brands-svg-icons'
+import {
+  faMoon,
+  faHeart,
+  faBookmark,
+  faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+library.add(
+	faGoogle,
+	faFacebook,
+	faBitcoin,
+	faMoon,
+  faHeart,
+  faBookmark,
+  faCartPlus
+)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 // var exampleSocket = new WebSocket("ws://127.0.0.1:2222/wsServer");
 
 // exampleSocket.onopen = (event) => {
