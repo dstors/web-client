@@ -16,7 +16,10 @@ import {
   faMoon,
   faHeart,
   faBookmark,
-  faCartPlus } from '@fortawesome/free-solid-svg-icons'
+  faCartPlus,
+  faShoppingCart,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
@@ -26,7 +29,9 @@ library.add(
 	faMoon,
   faHeart,
   faBookmark,
-  faCartPlus
+  faCartPlus,
+  faShoppingCart,
+  faTrash
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

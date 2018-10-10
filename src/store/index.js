@@ -52,6 +52,7 @@ export const store = new Vuex.Store({
     alertMessage: "A error has occured. Please try again later.",
     productsFeed: [],
     wishlistFeed: [],
+    cart: [],
     loggedIn: isAccessGranted(),
     profile: {},
     postsLimit: 30,
@@ -107,6 +108,13 @@ export const store = new Vuex.Store({
           state.alert = true;
           state.loggedIn = false;
         });
+    },
+    getCart(state) {
+      api().get('/app/product/shopcart')
+        .then(res => {
+          state.cart = res.data;
+        })
+        .catch(err => console.log(err));
     },
     getProductsFeed(state) {
       api().get('/app/product/all')
@@ -166,6 +174,13 @@ export const store = new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    addToCart(state, { id, index, source }) {
+      api().post('/app/product/shopcart/' + id)
+        .then(res => {
+          state[source + 'Feed'][index].shopcart = res.data
+        })
+        .catch(err => console.log(err))
+    },
     getCategories(state) {
       api().get("/app/product/categories")
         .then(res => {
@@ -182,6 +197,9 @@ export const store = new Vuex.Store({
     getDiscussionDetails({ commit }, payload) {
       commit("getDiscussionDetails", payload);
       commit("getVotersList", payload);
+    },
+    getCart({ commit }) {
+      commit("getCart")
     },
     getProductsFeed({ commit }) {
       commit("getProductsFeed")
@@ -224,6 +242,14 @@ export const store = new Vuex.Store({
     },
     addToWishlist({ commit }, payload) {
       commit('addToWishlist', payload)
+    },
+    addProductToCart({ commit }, payload) {
+      commit('addToCart', payload)
+    },
+    addToCart({ commit, dispatch }, payload) {
+      dispatch('addProductToCart', payload).then(() => {
+        dispatch('getCart')
+      })
     },
     toggleFormDialog({ commit }) {
       commit("toggleFormDialog");

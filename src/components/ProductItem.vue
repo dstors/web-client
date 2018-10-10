@@ -47,36 +47,30 @@
     </v-card-text> -->
     <v-divider light></v-divider>
     <v-card-actions class="px-3 pt-2 pb-1">
-      <v-tooltip top v-if="product.type">
-        <v-btn icon :color="types[product.type].color" slot="activator">
-          <v-icon color="white">{{ types[product.type].icon }}</v-icon>
-        </v-btn>
-        <span>{{ types[product.type].label }}</span>
-      </v-tooltip>
+      <product-type-label :type="product.type"></product-type-label>
       <v-spacer></v-spacer>
-      <v-btn
-        v-if="product.type !== 'giveaway'"
-        icon large flat>
-        <font-awesome-icon :color="product.liked ? 'red' : 'grey'" size="lg" :icon="['fas', 'heart']"></font-awesome-icon>
-      </v-btn>
-      <v-btn
-        v-if="product.type === 'direct-sell'"
-        @click="addToWishlist({ id: product.id, index: index, source: source })"
-        icon large flat>
-        <font-awesome-icon :color="product.wishlist ? '#FD5F63' : 'grey'" size="lg" :icon="['fas', 'bookmark']"></font-awesome-icon>
-      </v-btn>
+      <like-btn
+      	:liked="product.liked"
+      	v-if="product.type !== 'giveaway'"></like-btn>
+      <bookmark-btn
+      	v-if="product.type === 'direct-sell'"
+      	:addToWishlist="addToWishlist"
+      	:source="source"
+      	:index="index"
+      	:product="product">
+      </bookmark-btn>
       <v-btn
         v-else
         icon large flat :color="product.wishlist ? 'primary' : 'grey lighten-1'">
         <v-icon>add_alert</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        flat
-        large
-        v-if="product.type === 'direct-sell'">
-        <font-awesome-icon :color="product.shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
-      </v-btn>
+      <add-to-cart-btn
+      	:shopcart="product.shopcart"
+      	:product="product"
+      	:source="source"
+      	:index="index"
+      	v-if="product.type === 'direct-sell'">
+      </add-to-cart-btn>
       <v-btn
         icon
         flat
@@ -98,21 +92,24 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import DetailsPopup from './DetailsPopup.vue';
+import ProductTypeLabel from './Buttons/ProductTypeLabel.vue';
+import LikeBtn from './Buttons/LikeBtn.vue';
+import BookmarkBtn from './Buttons/BookmarkBtn.vue';
+import AddToCartBtn from './Buttons/AddToCartBtn.vue';
 
 export default {
   components: {
-    'details-popup': DetailsPopup
+    'details-popup': DetailsPopup,
+    'product-type-label': ProductTypeLabel,
+    'like-btn': LikeBtn,
+    'bookmark-btn': BookmarkBtn,
+    'add-to-cart-btn': AddToCartBtn
   },
   name: 'ProductItem',
   props: [ 'product', 'index', 'addToWishlist', 'source'],
   data() {
     return {
       marked: false,
-      types: {
-        giveaway : { label: 'Giveaway', icon: 'card_giftcard', color: 'yellow darken-2' },
-        auction: { label: 'Auction', icon: 'gavel', color: 'red' },
-        'direct-sell': { label: 'Direct Sell', icon: 'attach_money', color: 'green' },
-      },
       hovered: false
     }
   },

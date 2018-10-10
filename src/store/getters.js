@@ -71,8 +71,16 @@ export default {
       result.push(state.productsFeed.slice(start_index, start_index + limitPerPage))
     }
 
-    console.log('getter')
-    console.log(result)
     return result;
+  },
+  cartTotal(state) {
+    if (state.cart.length < 1) return 0;
+    let prices = state.cart.map(product => {
+      return parseFloat(product.price.split(' ')[0]);
+    });
+
+    let total = prices.reduce((a, b) => a + b, 0);
+
+    return total;
   }
 };

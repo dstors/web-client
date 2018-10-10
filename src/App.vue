@@ -32,15 +32,11 @@
       <login-popover v-if="!loggedIn">
       </login-popover>
       <div v-else>
-        <v-layout
-          fluid align-start
-          pa-3>
-          <!-- <template>
-            <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
-              <cart-popover :cart="cart"></cart-popover>
-            </v-flex>
-          </template>
+        <v-layout fluid pa-3>
           <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
+            <cart-popover></cart-popover>
+          </v-flex>
+          <!-- <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
             <messages-popover :messages="messages"></messages-popover>
           </v-flex>
           <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
@@ -127,9 +123,10 @@
 import { mapState, mapActions } from 'vuex';
 import ProfilePopover from './components/ProfilePopover';
 import LoginPopover from './components/LoginPopover';
+import CartPopover from './components/CartPopover';
 
 export default {
-  components: { ProfilePopover, LoginPopover },
+  components: { ProfilePopover, LoginPopover, CartPopover },
   name: 'app',
   data() {
     return {
@@ -162,6 +159,7 @@ export default {
   mounted() {
     this.$store.dispatch('authenticate', { steemAccess: this.$store.steemAccess });
     this.$store.dispatch('getCategories')
+    this.$store.dispatch('getCart')
   },
   methods: {
     changeTag(tag) {
