@@ -10,7 +10,7 @@ export default {
   components: { 'product-grid': ProductGrid },
   name: 'Feed',
   mounted() {
-      this.$store.dispatch('getProductsFeed')
+      // this.$store.dispatch('getProductsFeed')
   },
   computed: {
     ...mapState({

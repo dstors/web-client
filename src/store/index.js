@@ -177,6 +177,22 @@ export const store = new Vuex.Store({
       api().post('/app/product/shopcart/' + id)
         .then(res => {
           state[source + 'Feed'][index].shopcart = res.data
+          api().get('/app/product/shopcart')
+            .then(res => {
+              state.cart = res.data;
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err))
+    },
+    deleteProductFromCart(state, { id, index }) {
+      api().post('/app/product/shopcart/delete/' + id)
+        .then(res => {
+          api().get('/app/product/shopcart')
+            .then(res => {
+              state.cart = res.data;
+            })
+            .catch(err => console.log(err));
         })
         .catch(err => console.log(err))
     },
@@ -242,13 +258,11 @@ export const store = new Vuex.Store({
     addToWishlist({ commit }, payload) {
       commit('addToWishlist', payload)
     },
-    addProductToCart({ commit }, payload) {
+    addToCart({ commit, dispatch }, payload) {
       commit('addToCart', payload)
     },
-    addToCart({ commit, dispatch }, payload) {
-      dispatch('addProductToCart', payload).then(() => {
-        dispatch('getCart')
-      })
+    deleteFromCart({ commit, dispatch }, payload) {
+      commit('deleteProductFromCart', payload)
     },
     toggleFormDialog({ commit }) {
       commit("toggleFormDialog");

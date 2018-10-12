@@ -2,7 +2,7 @@
 	<v-menu
     :dark="dark"
     v-model="menu"
-    :close-on-content-click="true"
+    :close-on-content-click="false"
     :nudge-width="100"
     offset-x
     left
@@ -42,35 +42,37 @@
     <v-divider></v-divider>
 
     <v-list two-line>
-      <template
-        v-for="(product, i) in cart">
+      <div class="cart-scroll">
+        <template
+          v-for="(product, i) in cart">
 
-        <v-list-tile
-          :key="i"
-          avatar
-          @click=""
-        >
-          <v-list-tile-avatar>
-            <img :src="product.pictures[0]">
-          </v-list-tile-avatar>
+          <v-list-tile
+            :key="i"
+            avatar
+            @click=""
+          >
+            <v-list-tile-avatar>
+              <img :src="product.pictures[0]">
+            </v-list-tile-avatar>
 
-          <v-list-tile-content>
-            <v-list-tile-sub-title> {{ product.author }} </v-list-tile-sub-title>
-            <v-list-tile-title class="text--primary">
-              {{ (product.name.length > 35) ? product.name.slice(0, 25) + '...' : product.name }}
-            </v-list-tile-title>
-            <v-list-tile-sub-title class="text--primary">
-              {{ (product.description.length > 35) ? product.description.slice(0, 25) + '...' : product.description }}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
+            <v-list-tile-content>
+              <v-list-tile-sub-title> {{ product.author }} </v-list-tile-sub-title>
+              <v-list-tile-title class="text--primary">
+                {{ (product.name.length > 35) ? product.name.slice(0, 25) + '...' : product.name }}
+              </v-list-tile-title>
+              <v-list-tile-sub-title class="text--primary">
+                {{ (product.description.length > 35) ? product.description.slice(0, 25) + '...' : product.description }}
+              </v-list-tile-sub-title>
+            </v-list-tile-content>
 
-          <v-list-tile-action>
-            <v-list-tile-action-text>{{ product.price }}</v-list-tile-action-text>
-            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'trash']"></font-awesome-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-      </template>
-      <v-list-tile>
+            <v-list-tile-action>
+              <v-list-tile-action-text>{{ product.price }}</v-list-tile-action-text>
+              <delete-form-cart-btn :product="product" :index="i"></delete-form-cart-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </template>
+      </div>
+      <v-list-tile color="grey darken-3">
         <v-spacer></v-spacer>
         <v-list-tile-content>
           <v-list-tile-sub-title> Total</v-list-tile-sub-title>
@@ -86,12 +88,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import DeleteFromCartBtn from './Buttons/DeleteFromCartBtn';
 
 export default {
   name: 'cart-popover',
-  props: [
-    'cart',
-  ],
+  components: {
+    'delete-form-cart-btn': DeleteFromCartBtn
+  },
   data() {
     return {
       menu: false,
@@ -116,4 +119,8 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:100:300,400,500,700,900|Material+Icons');
+.cart-scroll {
+  overflow-y: scroll;
+  max-height: 250px;
+}
 </style>
