@@ -159,7 +159,6 @@ export default {
   mounted() {
     this.$store.dispatch('authenticate', { steemAccess: this.$store.steemAccess });
     this.$store.dispatch('getCategories')
-    this.$store.dispatch('getCart')
   },
   methods: {
     changeTag(tag) {

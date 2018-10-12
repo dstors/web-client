@@ -88,7 +88,6 @@ export const store = new Vuex.Store({
       state.drawer = !state.drawer;
     },
     toggleDark(state) {
-      console.log('toggling dark!')
       state.styles.dark = !state.styles.dark;
     },
     toggleFormDialog(state) {

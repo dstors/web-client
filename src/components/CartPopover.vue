@@ -107,7 +107,9 @@ export default {
     })
   },
   beforeCreate() {
-    this.$store.dispatch('getCart')
+    if (this.$store.state.loggedIn) {
+      this.$store.dispatch('getCart')
+    }
   },
 }
 </script>
