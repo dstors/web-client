@@ -18,7 +18,10 @@ import {
   faBookmark,
   faCartPlus,
   faShoppingCart,
-  faTrash
+  faTrash,
+  faUser,
+  faWallet,
+  faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -31,7 +34,10 @@ library.add(
   faBookmark,
   faCartPlus,
   faShoppingCart,
-  faTrash
+  faTrash,
+  faUser,
+  faWallet,
+  faSignOutAlt
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

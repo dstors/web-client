@@ -37,14 +37,14 @@
 
         <v-list-tile href="http://localhost:8080/users/auth/facebook">
           <v-list-tile-action>
-            <font-awesome-icon color="blue" :icon="['fab', 'facebook']"></font-awesome-icon>
+            <font-awesome-icon color="blue" size="lg" :icon="['fab', 'facebook']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Facebook</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile href="http://localhost:8080/users/auth/google">
           <v-list-tile-action>
-            <font-awesome-icon color="red" :icon="['fab', 'google']"></font-awesome-icon>
+            <font-awesome-icon color="red" size="lg" :icon="['fab', 'google']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Google</v-list-tile-title>
         </v-list-tile>
@@ -53,7 +53,7 @@
       <v-card-actions>
         Don't have an account?
         <v-spacer></v-spacer>
-        <a to="/sign-up"> Sign up</a>.
+        <a to="/sign-up"> Sign up</a>
       </v-card-actions>
     </v-card>
   </v-menu>
