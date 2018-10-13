@@ -36,28 +36,28 @@
       <v-list>
         <v-list-tile exact to="/profile/details">
           <v-list-tile-action>
-            <v-icon> account_circle </v-icon>
+            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'user']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Profile</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile exact to="/profile/wishlist">
           <v-list-tile-action>
-            <v-icon> bookmark </v-icon>
+            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'bookmark']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wishlist</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile exact to="/profile/wallet">
           <v-list-tile-action>
-            <v-icon> account_balance_wallet </v-icon>
+            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'wallet']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Wallet</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile @click="$store.commit('logout')">
           <v-list-tile-action>
-            <v-icon> arrow_back </v-icon>
+            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'sign-out-alt']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Logout</v-list-tile-title>
         </v-list-tile>
