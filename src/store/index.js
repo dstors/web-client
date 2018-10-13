@@ -79,7 +79,7 @@ export const store = new Vuex.Store({
       api().get('/users/logout')
         .then(res => {
           state.loggedIn = false;
-          router.push("/signin");
+          router.push("/");
         })
         .catch(err => console.log(err))
 
@@ -107,13 +107,6 @@ export const store = new Vuex.Store({
           state.alert = true;
           state.loggedIn = false;
         });
-    },
-    getCart(state) {
-      api().get('/app/product/shopcart')
-        .then(res => {
-          state.cart = res.data;
-        })
-        .catch(err => console.log(err));
     },
     getProductsFeed(state) {
       api().get('/app/product/all')
@@ -173,10 +166,30 @@ export const store = new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    getCart(state) {
+      api().get('/app/product/shopcart')
+        .then(res => {
+          state.cart = res.data;
+          if (res.data.length > 0) {
+            let product_ids = res.data.map(function(product, i) {
+              return product.id
+            })
+
+            state.productsFeed.map(function(product, i){
+              if (product_ids.indexOf(product.id) > -1) {
+                Vue.set(state.productsFeed[i], 'shopcart', true);
+              }
+
+              return product;
+            })
+          }
+        })
+        .catch(err => console.log(err));
+    },
     addToCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/' + id)
         .then(res => {
-          state[source + 'Feed'][index].shopcart = res.data
+          Vue.set(state[source + 'Feed'][index], 'shopcart', true)
           api().get('/app/product/shopcart')
             .then(res => {
               state.cart = res.data;
@@ -185,12 +198,27 @@ export const store = new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    deleteProductFromCart(state, { id, index }) {
+    deleteProductFromCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/delete/' + id)
         .then(res => {
           api().get('/app/product/shopcart')
             .then(res => {
               state.cart = res.data;
+              if (res.data.length > 0) {
+                let product_ids = res.data.map(function(product, i) {
+                  return product.id
+                })
+
+                state.productsFeed.map(function(product, i){
+                  if (product_ids.indexOf(product.id) > -1) {
+                    Vue.set(state.productsFeed[i], 'shopcart', true);
+                  }
+                  else if (product.id === product.id) {
+                    Vue.set(state.productsFeed[i], 'shopcart', false);
+                  }
+                  return product;
+                })
+              }
             })
             .catch(err => console.log(err));
         })

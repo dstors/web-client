@@ -67,7 +67,7 @@
 
             <v-list-tile-action>
               <v-list-tile-action-text>{{ product.price }}</v-list-tile-action-text>
-              <delete-form-cart-btn :product="product" :index="i"></delete-form-cart-btn>
+              <delete-form-cart-btn :product="product" :index="i" source="products"></delete-form-cart-btn>
             </v-list-tile-action>
           </v-list-tile>
         </template>
