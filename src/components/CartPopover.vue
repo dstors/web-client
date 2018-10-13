@@ -29,8 +29,7 @@
               icon
               slot="activator"
               class="grey--text darken-3"
-              @click=""
-            >
+              to="/cart">
               <font-awesome-icon color="grey" size="lg" :icon="['fas', 'shopping-cart']"></font-awesome-icon>
             </v-btn>
             <span>Go to cart!</span>

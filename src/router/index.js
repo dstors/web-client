@@ -10,7 +10,7 @@ import Wallet from "@/components/Wallet";
 import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
 import Store from "@/components/Store";
-
+import Cart from "@/components/Cart";
 Vue.use(Router);
 
 export default new Router({
@@ -24,6 +24,11 @@ export default new Router({
       path: "/store",
       name: "Store",
       component: Store
+    },
+    {
+      path: "/cart",
+      name: "Cart",
+      component: Cart
     },
     {
       path: "/sign-up",
