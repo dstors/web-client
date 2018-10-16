@@ -1,7 +1,20 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex d-flex xs12 sm4 md3 v-for="(product, n) in products">
+      <v-flex xs12>
+        <span style="float: right;">
+          <v-btn-toggle v-model="toggle_exclusive">
+            <v-btn flat>
+              <font-awesome-icon size="lg" :icon="['fas', 'th']"></font-awesome-icon>
+            </v-btn>
+            <v-btn flat>
+              <font-awesome-icon size="lg" :icon="['fas', 'th-list']"></font-awesome-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </span>
+      </v-flex>
+      <v-divider></v-divider>
+      <v-flex d-flex v-bind="gridDisplay" v-for="(product, n) in products">
         <v-flex d-flex>
           <v-layout align-center row wrap>
             <v-flex
@@ -9,6 +22,7 @@
               xs12
               >
             <product-item
+              :direction="toggle_exclusive"
               :addToWishlist="addToWishlist"
               :source="source"
               :index="n"
@@ -33,10 +47,22 @@ export default {
   components: {
     'product-item': ProductItem
   },
+  data() {
+    return {
+      toggle_exclusive: 0
+    }
+  },
   computed: {
     ...mapState({
       dark: state => state.styles.dark
-    })
+    }),
+    gridDisplay() {
+      return {
+        'xs12': true,
+        'sm4': this.toggle_exclusive < 1,
+        'md3': this.toggle_exclusive < 1
+      }
+    }
   },
   methods: {
     ...mapActions({

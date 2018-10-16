@@ -21,7 +21,9 @@ import {
   faTrash,
   faUser,
   faWallet,
-  faSignOutAlt
+  faSignOutAlt,
+  faTh,
+  faThList
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -37,7 +39,9 @@ library.add(
   faTrash,
   faUser,
   faWallet,
-  faSignOutAlt
+  faSignOutAlt,
+  faTh,
+  faThList
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
