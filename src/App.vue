@@ -12,7 +12,7 @@
       :clipped-left="clippedLeft">
       <v-toolbar-side-icon @click.stop="extended = !extended"></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link to="/" style="text-decoration: none; color: black;">
+        <router-link to="/" :style="{'text-decoration': 'none', color: dark ? 'white' : 'black'}">
           D<strong>stors</strong>
         </router-link>
       </v-toolbar-title>

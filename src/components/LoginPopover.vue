@@ -7,8 +7,8 @@
    >
     <v-btn
       :flat="loginStyle.flat"
-      :color="loginStyle.color"
       :outline="loginStyle.outline"
+      :dark="dark"
       slot="activator">
       Login
     </v-btn>
