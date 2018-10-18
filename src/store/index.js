@@ -14,6 +14,7 @@ import { handleProfile } from "../easy-steem/steem-connect";
 import { renderMd } from "../easy-steem/steemd";
 import router from "../router";
 import { newProduct } from './newProduct';
+import { userStore } from './userStore';
 
 Vue.use(Vuex);
 
@@ -319,7 +320,8 @@ export const store = new Vuex.Store({
   },
   getters,
   modules: {
-    newProduct
+    newProduct,
+    userStore
   }
 });
 

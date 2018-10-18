@@ -55,6 +55,13 @@
           <v-list-tile-title>Wallet</v-list-tile-title>
         </v-list-tile>
 
+        <v-list-tile exact to="/store">
+          <v-list-tile-action>
+            <font-awesome-icon color="grey" size="lg" :icon="['fas', 'store']"></font-awesome-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Store</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile @click="$store.commit('logout')">
           <v-list-tile-action>
             <font-awesome-icon color="grey" size="lg" :icon="['fas', 'sign-out-alt']"></font-awesome-icon>

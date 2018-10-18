@@ -11,6 +11,8 @@ import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
 import Store from "@/components/Store";
 import Cart from "@/components/Cart";
+
+import Random from "@/components/Random";
 Vue.use(Router);
 
 export default new Router({
@@ -19,6 +21,11 @@ export default new Router({
       path: "/",
       name: "Feed",
       component: Feed
+    },
+    {
+      path: "/random",
+      name: "Random",
+      component: Random
     },
     {
       path: "/store",
