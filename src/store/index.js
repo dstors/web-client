@@ -162,7 +162,29 @@ export const store = new Vuex.Store({
     addToWishlist(state, { id, index, source }) {
       api().post('/app/product/wishlist/' + id)
         .then(res => {
-          state[source + 'Feed'][index].wishlist = res.data
+          // state[source + 'Feed'][index].wishlist = res.data
+          state.wishlistFeed.map((product, i) => {
+            if (product.id === id) {
+              Vue.set(state.wishlistFeed[i], 'wishlist', res.data)
+            }
+          })
+
+          state.productsFeed.map((product, i) => {
+            if (product.id === id) {
+              Vue.set(state.productsFeed[i], 'wishlist', res.data)
+            }
+          })
+
+          console.log(source === 'wishlist')
+          if (source === 'wishlist') {
+            console.log('entra')
+            api().get('/app/product/wishlist')
+              .then(res => {
+                console.log('pide wishlist de nuevo')
+                state.wishlistFeed = res.data
+              })
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     },
