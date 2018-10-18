@@ -30,21 +30,21 @@
       <v-list>
         <v-list-tile :href="loginUrl">
           <v-list-tile-action>
-            <img class="steem-icon" src="./assets/STEEM.svg" alt="SteemConnect">
+            <steem-logo width="20px" height="20px" :fill=" !dark ? '#2C99E0' : '#AAA'"></steem-logo>
           </v-list-tile-action>
           <v-list-tile-title>SteemConnect</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile href="http://localhost:8080/users/auth/facebook">
           <v-list-tile-action>
-            <font-awesome-icon color="blue" size="lg" :icon="['fab', 'facebook']"></font-awesome-icon>
+            <font-awesome-icon :color="!dark ? 'blue': '#AAA'" size="lg" :icon="['fab', 'facebook']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Facebook</v-list-tile-title>
         </v-list-tile>
 
         <v-list-tile href="http://localhost:8080/users/auth/google">
           <v-list-tile-action>
-            <font-awesome-icon color="red" size="lg" :icon="['fab', 'google']"></font-awesome-icon>
+            <font-awesome-icon :color="!dark ? 'red': '#AAA'" size="lg" :icon="['fab', 'google']"></font-awesome-icon>
           </v-list-tile-action>
           <v-list-tile-title>Google</v-list-tile-title>
         </v-list-tile>
@@ -62,16 +62,18 @@
 <script>
 import { mapState } from 'vuex';
 import NightModeBtn from './Buttons/NightModeBtn';
+import SteemLogo from './assets/SteemLogo';
 
 export default {
   name: 'login-popover',
   components: {
-    'night-mode-btn': NightModeBtn
+    'night-mode-btn': NightModeBtn,
+    'steem-logo': SteemLogo
   },
   computed: {
     ...mapState({
       loginUrl: state => state.scLoginUrl,
-      dark: state => state.dark,
+      dark: state => state.styles.dark,
       loginStyle: state => state.styles.login
     })
   },
@@ -91,7 +93,4 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:100:300,400,500,700,900|Material+Icons');
-.steem-icon {
-  fill: blue;
-}
 </style>

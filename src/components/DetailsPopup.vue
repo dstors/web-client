@@ -35,7 +35,7 @@
                   <v-card-title primary-title>
                     <div>
                       <div>{{ product.author }}</div>
-                      <div class="headline">{{ product.title }}</div>
+                      <div class="headline">{{ product.title || product.name }}</div>
                       <div class="headline" v-if="product.price">
                         {{ product.price }}
                       </div>
