@@ -58,8 +58,8 @@ export const store = new Vuex.Store({
     postsLimit: 30,
     styles: {
       dark: false,
-      color: 'amber lighten-3',
-      darkColor: 'yellow darken-3',
+      color: 'grey lighten-2',
+      darkColor: 'grey darken-2',
       flat: false,
       clippedLeft: true,
       absolute: false,
