@@ -53,6 +53,10 @@ export const store = new Vuex.Store({
     alertMessage: "A error has occured. Please try again later.",
     productsFeed: [],
     wishlistFeed: [],
+    hotFeed: [],
+    newFeed: [],
+    featuredFeed: [],
+    discountsFeed: [],
     cart: [],
     loggedIn: isAccessGranted(),
     profile: {},
@@ -80,6 +84,8 @@ export const store = new Vuex.Store({
       api().get('/users/logout')
         .then(res => {
           state.loggedIn = false;
+          state.profile = false;
+          state.wishlistFeed = [];
           router.push("/");
         })
         .catch(err => console.log(err))
@@ -113,6 +119,10 @@ export const store = new Vuex.Store({
       api().get('/app/product/all')
         .then(res => {
           state.productsFeed = res.data;
+          state.hotFeed = res.data;
+          state.newFeed = res.data;
+          state.featuredFeed = res.data;
+          state.discountsFeed = res.data;
         })
         .catch(err => console.log(err));
     },

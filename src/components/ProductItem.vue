@@ -32,7 +32,18 @@
                       : ''
                     }}
                   <br>
-                  <span class="subheading"> {{ product.title || product.name}} </span>
+                  <span class="subheading" :title="product.name">
+                    {{(
+                        (product.name.length > 20 && (
+                            ($vuetify.breakpoint.width < 1080 && $vuetify.breakpoint.name === 'md')
+                            || ($vuetify.breakpoint.width < 810 && $vuetify.breakpoint.name === 'sm')
+                          )
+                        )
+                          ? product.name.slice(0, 20) + '...'
+                          : product.name
+                       )
+                    }}
+                  </span>
                   </span>
                   <br>
                   <span class="headline">
