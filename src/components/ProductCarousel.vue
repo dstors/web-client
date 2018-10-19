@@ -60,11 +60,11 @@ export default {
           break;
       }
 
-      let last_page = Math.ceil(this.$store.state.productsFeed.length/limitPerPage)
+      let last_page = Math.ceil(this.pages.length/limitPerPage)
 
       for (var page = 0; page < last_page; page++) {
         let start_index = ((page+1)-1) * limitPerPage;
-        result.push(this.$store.state.productsFeed.slice(start_index, start_index + limitPerPage))
+        result.push(this.pages.slice(start_index, start_index + limitPerPage))
       }
 
       return result;
