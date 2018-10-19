@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex xs12>
+      <v-flex v-if="!hideToggleButtons" xs12>
         <span style="float: right;">
           <v-btn-toggle v-model="toggle_exclusive">
             <v-btn flat>
@@ -13,7 +13,6 @@
           </v-btn-toggle>
         </span>
       </v-flex>
-      <v-divider></v-divider>
       <v-flex d-flex v-bind="gridDisplay" v-for="(product, n) in products">
         <v-flex d-flex>
           <v-layout align-center row wrap>
@@ -43,7 +42,7 @@ import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'ProductGrid',
-  props: ['products', 'source'],
+  props: ['products', 'source', 'hideToggleButtons'],
   components: {
     'product-item': ProductItem
   },

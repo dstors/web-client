@@ -18,7 +18,7 @@
         </v-card-media>
       </v-flex>
       <v-flex xs6>
-        <v-container>
+        <v-container class="pa-0">
           <v-layout column>
             <v-flex v-bind="titleOffset">
               <v-card-title>
