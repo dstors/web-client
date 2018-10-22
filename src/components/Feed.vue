@@ -2,20 +2,20 @@
   <v-container fluid>
     <v-layout row wrap class="ma-0">
       <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" title="Featured products" :pages="feed"></product-carousel>
+        <product-carousel v-if="feed.length > 0" name="products" title="Featured products" :pages="feed"></product-carousel>
       </v-flex>
     </v-layout>
     <v-layout row wrap class="ma-0">
       <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" title="New products" :pages="feed"></product-carousel>
+        <product-carousel v-if="feed.length > 0" name="wishlist" title="Wishlist" :pages="wishlist"></product-carousel>
       </v-flex>
       <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" title="Hot products" :pages="feed"></product-carousel>
+        <product-carousel v-if="feed.length > 0" name="products" title="Hot products" :pages="feed"></product-carousel>
       </v-flex>
     </v-layout>
     <v-layout row wrap class="ma-0">
       <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" title="Discounts" :pages="feed"></product-carousel>
+        <product-carousel v-if="feed.length > 0" name="products" title="Discounts" :pages="feed"></product-carousel>
       </v-flex>
     </v-layout>
   </v-container>
@@ -32,7 +32,8 @@ export default {
   name: 'Feed',
   computed: {
     ...mapState({
-      feed: state => state.productsFeed
+      feed: state => state.productsFeed,
+      wishlist: state => state.wishlistFeed
     })
   }
 }

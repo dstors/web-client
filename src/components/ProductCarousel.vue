@@ -17,6 +17,13 @@
         <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
+    <router-link
+      class="title"
+      v-bind:style="{float: 'right', 'margin-right': '45px', 'text-decoration': 'none'}"
+      :to="'/browse/'+name">
+      View more
+      <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>
+    </router-link>
   </div>
 </template>
 
@@ -26,7 +33,7 @@ import ProductGrid from './ProductGrid'
 export default {
   name: 'product-carousel',
   components: { ProductGrid },
-  props: ['title', 'pages'],
+  props: ['title', 'pages', 'name'],
   data() {
     return {
       hovered: false,

@@ -2,12 +2,17 @@
   <v-container fluid grid-list-md>
     <v-layout row wrap>
       <v-flex v-if="!hideToggleButtons" xs12>
+        <span>
+          <v-btn @click="$router.go(-1)">
+            <font-awesome-icon size="lg" :icon="['fas', 'long-arrow-alt-left']"></font-awesome-icon>
+          </v-btn>
+        </span>
         <span style="float: right;">
           <v-btn-toggle v-model="toggle_exclusive">
-            <v-btn flat>
+            <v-btn>
               <font-awesome-icon size="lg" :icon="['fas', 'th']"></font-awesome-icon>
             </v-btn>
-            <v-btn flat>
+            <v-btn>
               <font-awesome-icon size="lg" :icon="['fas', 'th-list']"></font-awesome-icon>
             </v-btn>
           </v-btn-toggle>
@@ -18,16 +23,15 @@
           <v-layout align-center row wrap>
             <v-flex
               d-flex
-              xs12
-              >
-            <product-item
-              :direction="toggle_exclusive"
-              :addToWishlist="addToWishlist"
-              :source="source"
-              :index="n"
-              :dark="dark"
-              :product="product">
-            </product-item>
+              xs12>
+              <product-item
+                :direction="toggle_exclusive"
+                :addToWishlist="addToWishlist"
+                :source="source"
+                :index="n"
+                :dark="dark"
+                :product="product">
+              </product-item>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -56,10 +60,19 @@ export default {
       dark: state => state.styles.dark
     }),
     gridDisplay() {
-      return {
-        'xs12': true,
-        'sm4': this.toggle_exclusive < 1,
-        'md3': this.toggle_exclusive < 1
+      if (this.hideToggleButtons) {
+        return {
+          'xs12': true,
+          'sm4': this.toggle_exclusive < 1,
+          'md3': this.toggle_exclusive < 1
+        }
+      }
+      else {
+        return {
+          'xs12': true,
+          'sm6': this.toggle_exclusive < 1,
+          'md4': this.toggle_exclusive < 1
+        }
       }
     }
   },

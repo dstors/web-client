@@ -89,7 +89,6 @@ export const store = new Vuex.Store({
           router.push("/");
         })
         .catch(err => console.log(err))
-
     },
     toggleDrawer(state) {
       state.drawer = !state.drawer;

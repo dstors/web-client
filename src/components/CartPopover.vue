@@ -76,7 +76,7 @@
         <v-list-tile-content>
           <v-list-tile-sub-title> Total</v-list-tile-sub-title>
           <v-list-tile-title>
-            <h2>{{ total }} SBD</h2>
+            <span class="title" v-bind:style="{ color: dark ? 'white' : 'black' }">{{ total }} SBD</span>
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>

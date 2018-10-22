@@ -11,6 +11,8 @@ import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
 import Store from "@/components/Store";
 import Cart from "@/components/Cart";
+import ProductDetails from "@/components/ProductDetails";
+import Browser from "@/components/Browser/Browser";
 
 import Random from "@/components/Random";
 Vue.use(Router);
@@ -23,9 +25,21 @@ export default new Router({
       component: Feed
     },
     {
+      path: "/browse/:source",
+      name: "Browser",
+      component: Browser,
+      props: true
+    },
+    {
       path: "/random",
       name: "Random",
       component: Random
+    },
+    {
+      path: "/product/details/:product_id",
+      name: "ProductDetails",
+      component: ProductDetails,
+      props: true
     },
     {
       path: "/store",
