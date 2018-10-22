@@ -20,7 +20,7 @@
       <v-flex xs6>
         <v-container class="pa-0">
           <v-layout column>
-            <router-link :to="'product/details/' + product.id" v-bind:style="linkToProductDetails">
+            <router-link :to="'/product/details/' + product.id" v-bind:style="linkToProductDetails">
               <v-flex v-bind="titleOffset">
                 <v-card-title>
                   <span

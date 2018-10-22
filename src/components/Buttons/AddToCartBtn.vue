@@ -1,7 +1,11 @@
 <template>
-  <v-btn icon large flat @click="addToCart({ id: product.id, index: index, source: source })">
-    <font-awesome-icon :color="shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
-  </v-btn>
+  <div @click="addToCart({ id: product.id, index: index, source: source })">
+    <slot>
+      <v-btn icon large flat>
+        <font-awesome-icon :color="shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
+      </v-btn>
+    </slot>
+  </div>
 </template>
 
 <script>

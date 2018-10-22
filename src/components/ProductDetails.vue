@@ -1,14 +1,12 @@
 <template>
-	<v-container fluid>
-   <v-layout row>
-     <v-layout column>
-       <v-flex>
+	<v-container class="ml-5">
+   <v-layout row wrap>
+     <v-layout column wrap>
+       <v-flex xs1>
         <v-card>
-          <v-card-title class="display-1">
-            {{ product.name }}
-          </v-card-title>
           <v-card-text>
             <v-carousel
+              height="200px"
               :cycle="false">
               <v-carousel-item
                 v-for="(picture,i) in product.pictures"
@@ -20,7 +18,7 @@
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Other products from same author
@@ -30,7 +28,7 @@
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Offers/combinations
@@ -40,7 +38,7 @@
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Characteristics
@@ -50,17 +48,17 @@
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Description
           </v-card-title>
           <v-card-text>
-            This is some random text about something
+            {{ product.description }}
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Reviews
@@ -70,7 +68,7 @@
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title class="display-1">
             Q&A
@@ -81,24 +79,56 @@
         </v-card>
        </v-flex>
      </v-layout>
-     <v-layout column>
-       <v-flex>
+     <v-layout column wrap>
+       <v-flex xs1>
         <v-card>
-          <v-card-title>
-            This is a title
+          <v-card-title class="title">
+            {{ product.name }}
+            <v-spacer></v-spacer>
+            <like-btn></like-btn>
           </v-card-title>
           <v-card-text>
-            This is some random text about something
+            <span class="display-1">
+              {{ product.price }}
+            </span>
+            <add-to-cart-btn
+              :product="product">
+              <v-btn block color="primary">
+                Add to cart
+              </v-btn>
+            </add-to-cart-btn>
+
           </v-card-text>
         </v-card>
        </v-flex>
-       <v-flex>
+       <v-flex xs1>
         <v-card>
           <v-card-title>
-            This is a title
+            Details about store
           </v-card-title>
           <v-card-text>
             This is some random text about something
+            See more about the store
+          </v-card-text>
+        </v-card>
+       </v-flex>
+       <v-flex xs1>
+        <v-card>
+          <v-card-title>
+            Payment options
+          </v-card-title>
+          <v-card-text>
+            Currencies accepted and so
+          </v-card-text>
+        </v-card>
+       </v-flex>
+       <v-flex xs1>
+        <v-card>
+          <v-card-title>
+            Shipment options
+          </v-card-title>
+          <v-card-text>
+            Placeholder text
           </v-card-text>
         </v-card>
        </v-flex>
@@ -108,8 +138,15 @@
 </template>
 
 <script>
+import LikeBtn from './Buttons/LikeBtn';
+import AddToCartBtn from './Buttons/AddToCartBtn';
+
 export default {
   name: 'product-details',
+  components: {
+    'like-btn': LikeBtn,
+    'add-to-cart-btn': AddToCartBtn
+  },
   props: ['product_id'],
   computed: {
     product() {
