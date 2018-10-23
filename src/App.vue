@@ -6,7 +6,7 @@
     <v-toolbar
       app
       scroll-off-screen
-      scroll-threshold="50"
+      :scroll-threshold="50"
       :absolute="absolute"
       :color="dark ? darkColor : color"
       :flat="flat"

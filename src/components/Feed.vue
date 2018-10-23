@@ -1,21 +1,12 @@
 <template>
   <v-container fluid>
-    <v-layout row wrap class="ma-0">
+    <v-layout row wrap class="ma-0" v-for="section in sections">
       <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" name="products" title="Featured products" :pages="feed"></product-carousel>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap class="ma-0">
-      <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" name="wishlist" title="Wishlist" :pages="wishlist"></product-carousel>
-      </v-flex>
-      <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" name="products" title="Hot products" :pages="feed"></product-carousel>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap class="ma-0">
-      <v-flex xs12>
-        <product-carousel v-if="feed.length > 0" name="products" title="Discounts" :pages="feed"></product-carousel>
+        <product-carousel
+          :source="section.source"
+          :name="section.name"
+          :title="section.title">
+        </product-carousel>
       </v-flex>
     </v-layout>
   </v-container>
@@ -23,18 +14,32 @@
 
 <script>
 import ProductCarousel from './ProductCarousel';
-import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     'product-carousel': ProductCarousel
   },
   name: 'Feed',
-  computed: {
-    ...mapState({
-      feed: state => state.productsFeed,
-      wishlist: state => state.wishlistFeed
-    })
-  }
+  data() {
+    return {
+      sections: [
+        {
+          title: 'Featured Products',
+          name: 'featured',
+          source: '/store/featured/get'
+        },
+        {
+          title: 'New Products',
+          name: 'new',
+          source: '/store/news/get'
+        },
+        {
+          title: 'Offers',
+          name: 'featured',
+          source: '/store/offers/get'
+        },
+      ]
+    }
+  },
 }
 </script>

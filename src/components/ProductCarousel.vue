@@ -3,21 +3,25 @@
     v-resize="onResize"
     v-on:mouseover="onHover"
     v-on:mouseleave="onLeave">
-    <span class="display-1 font-weight-light ma-5">
+    <span
+      v-if="feed.length > 0"
+      class="display-1 font-weight-light ma-5">
       {{ title }}
     </span>
     <v-carousel
+      v-if="feed.length > 0"
       ref="ul"
       style="height: 100%!important; box-shadow: none"
       class="ma-0 pa-0"
       hide-delimiters
       :hide-controls="!hovered"
       :cycle="false">
-      <v-carousel-item v-for="(page, i) in getPaginatedFeed">
+      <v-carousel-item v-for="(page, i) in feed">
         <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
     <router-link
+      v-if="feed.length > 0"
       class="title"
       v-bind:style="{float: 'right', 'margin-right': '45px', 'text-decoration': 'none'}"
       :to="'/browse/'+name">
@@ -29,22 +33,38 @@
 
 <script>
 import ProductGrid from './ProductGrid'
+import api from '../api';
 
 export default {
   name: 'product-carousel',
   components: { ProductGrid },
-  props: ['title', 'pages', 'name'],
+  props: [
+    'title',
+    'pages',
+    'name',
+    'source'
+  ],
   data() {
     return {
       hovered: false,
       windowSize: {
         x: 0,
         y: 0
-      }
+      },
+      feed: []
     }
   },
-  computed: {
-    getPaginatedFeed() {
+  methods: {
+    onHover() {
+      this.hovered = true;
+    },
+    onLeave() {
+      this.hovered = false;
+    },
+    onResize() {
+      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+    },
+    paginateFeed(feed) {
       let result = [];
 
       let limitPerPage;
@@ -67,35 +87,29 @@ export default {
           break;
       }
 
-      let last_page = Math.ceil(this.pages.length/limitPerPage)
+      let last_page = Math.ceil(feed.length/limitPerPage)
 
       for (var page = 0; page < last_page; page++) {
         let start_index = ((page+1)-1) * limitPerPage;
-        result.push(this.pages.slice(start_index, start_index + limitPerPage))
+        result.push(feed.slice(start_index, start_index + limitPerPage))
       }
 
       return result;
     }
   },
-  methods: {
-    onHover() {
-      this.hovered = true;
-    },
-    onLeave() {
-      this.hovered = false;
-    },
-    onResize() {
-      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+  created() {
+    if (this.pages === undefined && this.source) {
+      api().get(this.source)
+        .then(res => {
+          this.feed = this.paginateFeed(res.data)
+        })
+        .catch(err => {
+          this.feed = [];
+        })
     }
-  },
-  mounted() {
-    // this.$nextTick(function () {
-    //   var lis = this.$refs.ul.$el.getElementsByTagName("li");
-    //   console.log(lis);
-    //   for (var i = 0, len = lis.length; i < len; i++) {
-    //     console.log(lis[i].clientWidth); // do something
-    //   }
-    // });
+    else if (this.pages) {
+      this.feed = this.paginateFeed(this.pages)
+    }
   },
 }
 </script>
