@@ -16,23 +16,26 @@
 
 <script>
 import ProductGrid from '../ProductGrid'
+import api from '../../api'
+
 export default {
   name: 'Browser',
   components: { 'product-grid': ProductGrid },
-  props: ['title', 'source'],
-  computed: {
-    feed() {
-      if (this.$store.state[this.$route.params.source + 'Feed'].length < 1) {
-        this.$store.dispatch(
-          'get' +
-          this.$route.params.source.charAt(0).toUpperCase() +
-          this.$route.params.source.slice(1) +
-          'Feed'
-        )
-      }
-
-      return this.$store.state[this.$route.params.source + 'Feed'];
+  props: ['title', 'source', 'sourceRoute'],
+  data() {
+    return {
+      feed: []
     }
+  },
+  mounted() {
+    api().get(this.sourceRoute)
+      .then(res => {
+        console.log(res.data);
+        this.feed = res.data;
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

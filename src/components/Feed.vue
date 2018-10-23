@@ -38,11 +38,11 @@ export default {
           name: 'new',
           source: '/store/news/get'
         },
-        {
-          title: 'Offers',
-          name: 'featured',
-          source: '/store/offers/get'
-        },
+        // {
+        //   title: 'Offers',
+        //   name: 'featured',
+        //   source: '/store/offers/get'
+        // },
       ]
     }
   },

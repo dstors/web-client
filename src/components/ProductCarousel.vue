@@ -11,7 +11,7 @@
       v-if="feed.length > 0"
       class="title font-weight-light"
       v-bind:style="{ float: 'right', 'margin-right': '45px', 'text-decoration': 'underline' }"
-      :to="'/browse/'+name">
+      :to="{ name: 'Browser', params: { source: name, sourceRoute: source } }">
       View more
       <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>
     </router-link>
@@ -97,7 +97,7 @@ export default {
       return result;
     }
   },
-  created() {
+  mounted() {
     if (this.pages === undefined && this.source) {
       api().get(this.source)
         .then(res => {
