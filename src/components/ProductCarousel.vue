@@ -7,6 +7,14 @@
       v-if="feed.length > 0"
       class="display-1 font-weight-light ma-5">
       {{ title }}
+    <router-link
+      v-if="feed.length > 0"
+      class="title font-weight-light"
+      v-bind:style="{ float: 'right', 'margin-right': '45px', 'text-decoration': 'underline' }"
+      :to="'/browse/'+name">
+      View more
+      <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>
+    </router-link>
     </span>
     <v-carousel
       v-if="feed.length > 0"
@@ -20,14 +28,6 @@
         <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
-    <router-link
-      v-if="feed.length > 0"
-      class="title"
-      v-bind:style="{float: 'right', 'margin-right': '45px', 'text-decoration': 'none'}"
-      :to="'/browse/'+name">
-      View more
-      <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>
-    </router-link>
   </div>
 </template>
 
