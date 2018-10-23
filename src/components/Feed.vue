@@ -24,6 +24,11 @@ export default {
     return {
       sections: [
         {
+          title: 'All Products',
+          name: 'all',
+          source: '/app/product/all'
+        },
+        {
           title: 'Featured Products',
           name: 'featured',
           source: '/store/featured/get'

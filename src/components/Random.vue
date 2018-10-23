@@ -4,6 +4,7 @@
     <v-btn @click="addProductToList">Add product to list</v-btn>
     <v-btn @click="getStore">Get Store</v-btn>
     <v-btn @click="getProductList">Get Product list</v-btn>
+    <v-btn @click="addProductToFeatured">Add product to featured</v-btn>
     <h1>res.data</h1>
     {{ res.data }}
     <hr>
@@ -31,6 +32,15 @@ export default {
     })
   },
   methods: {
+    addProductToFeatured() {
+      api().post('/store/featured/add/61', { id: 61 })
+        .then(res => {
+          console.log('Response')
+          console.log(res)
+          this.res = res;
+        })
+        .catch(err => console.log(err))
+    },
     createStore() {
       console.log('Create Store')
       api().post('/store/add', { name: 'The first Store', description: 'This is the first Store ever on dStors.' })
