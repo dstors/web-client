@@ -24,7 +24,7 @@
       hide-delimiters
       :hide-controls="!hovered"
       :cycle="false">
-      <v-carousel-item v-for="(page, i) in feed">
+      <v-carousel-item v-for="(page, i) in computedFeed">
         <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
@@ -53,6 +53,11 @@ export default {
       },
       feed: []
     }
+  },
+  computed: {
+    computedFeed() {
+      return this.paginateFeed(this.feed)
+    },
   },
   methods: {
     onHover() {
@@ -101,14 +106,14 @@ export default {
     if (this.pages === undefined && this.source) {
       api().get(this.source)
         .then(res => {
-          this.feed = this.paginateFeed(res.data)
+          this.feed = res.data
         })
         .catch(err => {
           this.feed = [];
         })
     }
     else if (this.pages) {
-      this.feed = this.paginateFeed(this.pages)
+      this.feed = this.pages
     }
   },
 }

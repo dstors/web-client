@@ -334,4 +334,4 @@ export const store = new Vuex.Store({
   }
 });
 
-store.dispatch('getProductsFeed')
+// store.dispatch('getProductsFeed')
