@@ -1,11 +1,12 @@
 <template>
-	<v-container class="ml-5">
+	<v-container>
    <v-layout row wrap>
      <v-layout column wrap>
        <v-flex xs1>
         <v-card>
           <v-card-text>
             <v-carousel
+              v-if="product.pictures && product.pictures.length > 0"
               height="200px"
               :cycle="false">
               <v-carousel-item
@@ -147,22 +148,7 @@ export default {
     'like-btn': LikeBtn,
     'add-to-cart-btn': AddToCartBtn
   },
-  props: ['product_id'],
-  computed: {
-    product() {
-      let product;
-
-      this.$store.state.productsFeed.map(prod => {
-        if (prod.id == this.product_id) {
-          product = prod;
-        }
-
-        return prod;
-      });
-
-      return product;
-    }
-  }
+  props: ['product']
 }
 </script>
 

@@ -2,11 +2,7 @@
   <v-container fluid grid-list-md>
     <v-layout row wrap>
       <v-flex v-if="!hideToggleButtons" xs12>
-        <span>
-          <v-btn @click="$router.go(-1)">
-            <font-awesome-icon size="lg" :icon="['fas', 'long-arrow-alt-left']"></font-awesome-icon>
-          </v-btn>
-        </span>
+        <go-back-btn></go-back-btn>
         <span style="float: right;">
           <v-btn-toggle v-model="toggle_exclusive">
             <v-btn>
@@ -42,13 +38,16 @@
 
 <script>
 import ProductItem from './ProductItem';
+import GoBackBtn from './Buttons/GoBackBtn';
+
 import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'ProductGrid',
   props: ['products', 'source', 'hideToggleButtons'],
   components: {
-    'product-item': ProductItem
+    'product-item': ProductItem,
+    'go-back-btn': GoBackBtn
   },
   data() {
     return {

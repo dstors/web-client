@@ -77,7 +77,8 @@ export const store = new Vuex.Store({
         outline: false
       }
     },
-    currentPost: { voters_list: [], title: "", content: "" }
+    currentPost: { voters_list: [], title: "", content: "" },
+    browserFeed: []
   },
   mutations: {
     logout(state) {
@@ -89,6 +90,16 @@ export const store = new Vuex.Store({
           router.push("/");
         })
         .catch(err => console.log(err))
+    },
+    getBrowserFeed(state, payload) {
+      state.browserFeed = [];
+      api().get(payload)
+        .then(res => {
+          state.browserFeed = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     toggleDrawer(state) {
       state.drawer = !state.drawer;
@@ -178,9 +189,9 @@ export const store = new Vuex.Store({
             }
           })
 
-          state.productsFeed.map((product, i) => {
+          state.browserFeed.map((product, i) => {
             if (product.id === id) {
-              Vue.set(state.productsFeed[i], 'wishlist', res.data)
+              Vue.set(state.browserFeed[i], 'wishlist', res.data)
             }
           })
 
@@ -217,7 +228,12 @@ export const store = new Vuex.Store({
     addToCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/' + id)
         .then(res => {
-          Vue.set(state[source + 'Feed'][index], 'shopcart', true)
+          state.browserFeed.map((product, i) => {
+            if (product.id === id) {
+              Vue.set(state.browserFeed[i], 'shopcart', res.data)
+            }
+          })
+
           api().get('/app/product/shopcart')
             .then(res => {
               state.cart = res.data;
@@ -237,12 +253,12 @@ export const store = new Vuex.Store({
                   return product.id
                 })
 
-                state.productsFeed.map(function(product, i){
+                state.browserFeed.map(function(product, i){
                   if (product_ids.indexOf(product.id) > -1) {
-                    Vue.set(state.productsFeed[i], 'shopcart', true);
+                    Vue.set(state.browserFeed[i], 'shopcart', true);
                   }
                   else if (product.id === product.id) {
-                    Vue.set(state.productsFeed[i], 'shopcart', false);
+                    Vue.set(state.browserFeed[i], 'shopcart', false);
                   }
                   return product;
                 })
@@ -325,7 +341,10 @@ export const store = new Vuex.Store({
     },
     getCategories({ commit }) {
       commit("getCategories")
-    }
+    },
+    getBrowserFeed({ commit }, payload) {
+      commit('getBrowserFeed', payload)
+    },
   },
   getters,
   modules: {

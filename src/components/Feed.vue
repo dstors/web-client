@@ -46,5 +46,8 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$store.state.browserFeed = [];
+  }
 }
 </script>

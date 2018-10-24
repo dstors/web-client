@@ -11,7 +11,7 @@ import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
 import Store from "@/components/Store";
 import Cart from "@/components/Cart";
-import ProductDetails from "@/components/ProductDetails";
+import Details from "@/components/Details";
 import Browser from "@/components/Browser/Browser";
 
 import Random from "@/components/Random";
@@ -37,8 +37,8 @@ export default new Router({
     },
     {
       path: "/product/details/:product_id",
-      name: "ProductDetails",
-      component: ProductDetails,
+      name: "Details",
+      component: Details,
       props: true
     },
     {
