@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-carousel__prev .v-btn, .v-carousel__next .v-btn {
     color: blue!important;
     background-color: rgba(255,255,255,0.75);

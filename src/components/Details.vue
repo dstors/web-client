@@ -33,7 +33,7 @@ import GoBackBtn from './Buttons/GoBackBtn';
 import api from '../api';
 
 export default {
-  name: 'details',
+  name: 'details-view',
   components: {
     'product-details': ProductDetails,
     'go-back-btn': GoBackBtn
@@ -52,9 +52,7 @@ export default {
         this.product = {
           ...res.data,
           categories: [
-            { text: res.data.category },
-            { text: 'Finances' },
-            { text: '' },
+            { text: res.data.category }
           ],
           id: this.product_id
         };
