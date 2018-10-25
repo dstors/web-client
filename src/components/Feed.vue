@@ -38,6 +38,11 @@ export default {
           name: 'new',
           source: '/store/news/get'
         },
+        {
+          title: 'Hot Products',
+          name: 'hot',
+          source: 'app/product/hot/get'
+        },
         // {
         //   title: 'Offers',
         //   name: 'featured',

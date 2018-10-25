@@ -98,13 +98,15 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs12>
+        <v-flex xs12 v-if="product.author">
           <v-card>
             <v-card-title class="display-1">
-              Other products from same author
+              {{ 'Other products from ' + product.author }}
             </v-card-title>
             <v-card-text>
-              A carousel should go here
+              <product-carousel
+                :source="`/app/product/all/user?steemUsername=${product.author}`">
+              </product-carousel>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -147,12 +149,14 @@
 <script>
 import LikeBtn from './Buttons/LikeBtn';
 import AddToCartBtn from './Buttons/AddToCartBtn';
+import ProductCarousel from './ProductCarousel';
 
 export default {
   name: 'product-details',
   components: {
     'like-btn': LikeBtn,
-    'add-to-cart-btn': AddToCartBtn
+    'add-to-cart-btn': AddToCartBtn,
+    'product-carousel': ProductCarousel
   },
   props: ['product']
 }

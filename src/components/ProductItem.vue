@@ -35,8 +35,8 @@
                     <br>
                     <span class="subheading" :title="product.name">
                       {{(
-                          (product.name.length > 30 && cardDirection.column)
-                            ? product.name.slice(0, 30) + '...'
+                          (product.name.length > 25 && cardDirection.column)
+                            ? product.name.slice(0, 25) + '...'
                             : product.name
                          )
                       }}

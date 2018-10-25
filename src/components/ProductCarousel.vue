@@ -8,7 +8,7 @@
       class="display-1 font-weight-light ma-5">
       {{ title }}
     <router-link
-      v-if="feed.length > 0"
+      v-if="feed.length > 0 && name"
       class="title font-weight-light"
       v-bind:style="{ float: 'right', 'margin-right': '45px', 'text-decoration': 'underline' }"
       :to="{ name: 'Browser', params: { source: name, sourceRoute: source, title: title } }">
@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .v-carousel__prev .v-btn, .v-carousel__next .v-btn {
     color: blue!important;
     background-color: rgba(255,255,255,0.75);

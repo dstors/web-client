@@ -46,21 +46,34 @@ export default {
       product: {}
     }
   },
-  mounted() {
-    api().get('/app/product/byId?id=' + this.product_id)
+  beforeRouteUpdate(to, from, next) {
+    this.fetchProduct(to.params.product_id, next)
+  },
+  methods: {
+    fetchProduct(id, doAfter) {
+      this.product = {};
+      api().get('/app/product/byId?id=' + id)
       .then(res => {
         this.product = {
           ...res.data,
           categories: [
             { text: res.data.category }
           ],
-          id: this.product_id
+          id: id
         };
+
+        if(doAfter) {
+          doAfter()
+        }
       })
       .catch(err => {
         console.log('Product Details')
         console.log(err)
       })
+    }
+  },
+  mounted() {
+    this.fetchProduct(this.product_id)
   }
 }
 </script>
