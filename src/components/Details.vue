@@ -55,7 +55,8 @@ export default {
             { text: res.data.category },
             { text: 'Finances' },
             { text: '' },
-          ]
+          ],
+          id: this.product_id
         };
       })
       .catch(err => {
