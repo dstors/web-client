@@ -24,7 +24,10 @@
           <v-card-title class="title">
             {{ product.name }}
             <v-spacer></v-spacer>
-            <like-btn></like-btn>
+            <like-btn
+              :id="product.id"
+              :liked="product.liked">
+            </like-btn>
           </v-card-title>
           <v-card-text>
             <span class="caption">

@@ -242,6 +242,17 @@ export const store = new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    likeProduct(state, { id }) {
+      api().post('/app/product/like/' + id)
+        .then(res => {
+          state.browserFeed.map((product, i) => {
+            if (product.id === id) {
+              Vue.set(state.browserFeed[i], 'liked', res.data)
+            }
+          })
+        })
+        .catch(err => console.log(err))
+    },
     deleteProductFromCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/delete/' + id)
         .then(res => {
@@ -332,6 +343,9 @@ export const store = new Vuex.Store({
     },
     addToCart({ commit, dispatch }, payload) {
       commit('addToCart', payload)
+    },
+    likeProduct({ commit, dispatch }, payload) {
+      commit('likeProduct', payload)
     },
     deleteFromCart({ commit, dispatch }, payload) {
       commit('deleteProductFromCart', payload)

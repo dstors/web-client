@@ -74,7 +74,9 @@
                 <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
                 <like-btn
                   :liked="product.liked"
-                  v-if="product.type !== 'giveaway'"></like-btn>
+                  :id="product.id"
+                  v-if="product.type !== 'giveaway'">
+                </like-btn>
                 <bookmark-btn
                   v-if="product.type === 'direct-sell'"
                   :addToWishlist="addToWishlist"
@@ -120,7 +122,9 @@
           <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
           <like-btn
             :liked="product.liked"
-            v-if="product.type !== 'giveaway'"></like-btn>
+            :id="product.id"
+            v-if="product.type !== 'giveaway'">
+          </like-btn>
           <bookmark-btn
             v-if="product.type === 'direct-sell'"
             :addToWishlist="addToWishlist"
@@ -161,7 +165,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import DetailsPopup from './DetailsPopup.vue';
 import ProductTypeLabel from './Buttons/ProductTypeLabel.vue';
 import LikeBtn from './Buttons/LikeBtn.vue';
@@ -210,9 +214,6 @@ export default {
     }
   },
   methods: {
-    // ...mapActions({
-    //   addToWishlist: 'addToWishlist'
-    // }),
     onHover() {
       this.hovered = true;
     },
