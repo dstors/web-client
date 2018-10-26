@@ -228,11 +228,11 @@ export const store = new Vuex.Store({
     addToCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/' + id)
         .then(res => {
-          state.browserFeed.map((product, i) => {
-            if (product.id === id) {
-              Vue.set(state.browserFeed[i], 'shopcart', res.data)
-            }
-          })
+          // state.browserFeed.map((product, i) => {
+          //   if (product.id === id) {
+          //     Vue.set(state.browserFeed[i], 'shopcart', res.data)
+          //   }
+          // })
 
           api().get('/app/product/shopcart')
             .then(res => {

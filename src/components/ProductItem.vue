@@ -73,7 +73,7 @@
                 <product-type-label v-if="cardDirection.row" :type="product.type"></product-type-label>
                 <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
                 <like-btn
-                  v-on:toggleliked="emitToggleLiked"
+                  v-on:toggleliked="toggleLiked"
                   v-bind:liked="product.liked"
                   :id="product.id"
                   v-if="product.type !== 'giveaway'">
@@ -91,6 +91,7 @@
                   <v-icon>add_alert</v-icon>
                 </v-btn>
                 <add-to-cart-btn
+                  v-on:toggleshopcart="toggleShopcart"
                   :shopcart="product.shopcart"
                   :product="product"
                   :source="source"
@@ -122,7 +123,7 @@
           <v-spacer></v-spacer>
           <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
           <like-btn
-            v-on:toggleliked="emitToggleLiked"
+            v-on:toggleliked="toggleLiked"
             v-bind:liked="product.liked"
             :id="product.id"
             v-if="product.type !== 'giveaway'">
@@ -140,6 +141,7 @@
             <v-icon>add_alert</v-icon>
           </v-btn>
           <add-to-cart-btn
+            v-on:toggleshopcart="toggleShopcart"
             :shopcart="product.shopcart"
             :product="product"
             :source="source"
@@ -222,8 +224,11 @@ export default {
     onLeave() {
       this.hovered = false;
     },
-    emitToggleLiked(e) {
+    toggleLiked(e) {
       this.$emit('toggleliked', e)
+    },
+    toggleShopcart(e) {
+      this.$emit('toggleshopcart', e)
     }
   }
 }

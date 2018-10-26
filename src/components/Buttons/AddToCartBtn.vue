@@ -20,9 +20,12 @@ export default {
     'source'
   ],
   methods: {
-    ...mapActions({
-      addToCart: 'addToCart'
-    })
+    addToCart({ id, index, source }) {
+      if (this.$store.state.loggedIn) {
+        this.$store.dispatch('addToCart', { id, index, source })
+        this.$emit('toggleshopcart', !this.shopcart)
+      }
+    }
   }
 }
 </script>

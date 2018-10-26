@@ -27,6 +27,7 @@
                 :index="n"
                 :dark="dark"
                 v-on:toggleliked="toggleLiked(n, $event)"
+                v-on:toggleshopcart="toggleShopcart(n, $event)"
                 :product="product">
               </product-item>
             </v-flex>
@@ -84,6 +85,9 @@ export default {
     }),
     toggleLiked(i, e) {
       Vue.set(this.products[i], 'liked', e)
+    },
+    toggleShopcart(i, e) {
+      Vue.set(this.products[i], 'shopcart', e)
     }
   }
 }
