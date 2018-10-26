@@ -42,11 +42,10 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-tabs v-model="tab">
-              <v-tabs-slider color="amber"></v-tabs-slider>
+              <v-tabs-slider :color="dark ? 'white' : 'black'"></v-tabs-slider>
               <v-tab :to="`${item.link}`" v-for="(item, i) in items" :key="i">
-                <v-icon :color="item.color" class="px-2">
-                  {{ item.icon }}
-                </v-icon>
+                <font-awesome-icon :icon="item.icon" size="lg" class="mx-2" :color="item.color">
+                </font-awesome-icon>
                 {{ item.label }}
               </v-tab>
             </v-tabs>
@@ -94,21 +93,21 @@ export default {
         {
           label:'Account Info',
           value: 'account-info',
-          icon: 'account_circle',
+          icon: ['fas', 'user'],
           color: 'blue',
           link: 'details'
         },
         {
           label:'Wishlist',
           value: 'wishlist',
-          icon: 'bookmark',
-          color: 'pink darlen-1',
+          icon: ['fas', 'bookmark'],
+          color: 'pink',
           link: 'wishlist'
         },
         {
           label:'Wallet',
           value: 'wallet',
-          icon: 'account_balance_wallet',
+          icon: ['fas', 'wallet'],
           color: 'green',
           link: 'wallet'
         }
@@ -118,7 +117,7 @@ export default {
   computed: {
     ...mapState({
       profile: state => state.profile,
-      dark: state => state.dark
+      dark: state => state.styles.dark
     })
   }
 }

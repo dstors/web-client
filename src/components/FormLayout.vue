@@ -11,9 +11,9 @@
         </v-btn> -->
       </slot>
       <v-card>
-        <v-toolbar color="amber lighten-3">
+        <v-toolbar :color="dark ? darkColor : color" :dark="dark">
           <v-btn icon dark @click.native="dialog = false">
-            <v-icon>close</v-icon>
+            <font-awesome-icon :color="dark ? 'white' : 'grey'" size="lg" :icon="['fas', 'window-close']"></font-awesome-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
         </v-toolbar>
@@ -37,7 +37,12 @@ export default {
       set(value) {
         this.$store.state.formDialog = value
       }
-    }
+    },
+    ...mapState({
+      dark: state => state.styles.dark,
+      darkColor: state => state.styles.darkColor,
+      color: state => state.styles.color
+    })
   },
   methods: {
     ...mapActions({

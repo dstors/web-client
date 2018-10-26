@@ -26,7 +26,8 @@ import {
   faThList,
   faStore,
   faLongArrowAltRight,
-  faLongArrowAltLeft
+  faLongArrowAltLeft,
+  faWindowClose
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -47,7 +48,8 @@ library.add(
   faThList,
   faStore,
   faLongArrowAltLeft,
-  faLongArrowAltRight
+  faLongArrowAltRight,
+  faWindowClose
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

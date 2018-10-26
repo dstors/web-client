@@ -1,9 +1,13 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs5 class="fields">
+    <v-flex xs12 sm12 md5 class="fields">
       <product-fields></product-fields>
+      <div class="hidden-md-and-up" style="float: right;">
+        <v-btn icon><v-icon color="red">delete</v-icon></v-btn>
+        <v-btn color="primary" @click.native="submitProduct">Save</v-btn>
+      </div>
     </v-flex>
-    <v-flex xs7 class="pa-3">
+    <v-flex xs7 class="pa-3 hidden-sm-and-down">
       <product-preview></product-preview>
       <div style="float: right;">
         <v-btn icon><v-icon color="red">delete</v-icon></v-btn>
