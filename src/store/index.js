@@ -245,11 +245,11 @@ export const store = new Vuex.Store({
     likeProduct(state, { id }) {
       api().post('/app/product/like/' + id)
         .then(res => {
-          state.browserFeed.map((product, i) => {
-            if (product.id === id) {
-              Vue.set(state.browserFeed[i], 'liked', res.data)
-            }
-          })
+          // state.browserFeed.map((product, i) => {
+          //   if (product.id === id) {
+          //     Vue.set(state.browserFeed[i], 'liked', res.data)
+          //   }
+          // })
         })
         .catch(err => console.log(err))
     },

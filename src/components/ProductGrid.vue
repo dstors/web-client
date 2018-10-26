@@ -26,6 +26,7 @@
                 :source="source"
                 :index="n"
                 :dark="dark"
+                v-on:toggleliked="toggleLiked(n, $event)"
                 :product="product">
               </product-item>
             </v-flex>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import ProductItem from './ProductItem';
 import GoBackBtn from './Buttons/GoBackBtn';
 
@@ -79,6 +82,9 @@ export default {
     ...mapActions({
       addToWishlist: 'addToWishlist'
     }),
+    toggleLiked(i, e) {
+      Vue.set(this.products[i], 'liked', e)
+    }
   }
 }
 </script>

@@ -10,7 +10,7 @@
     <router-link
       v-if="feed.length > 0 && name"
       class="title font-weight-light"
-      v-bind:style="{ float: 'right', 'margin-right': '45px', 'text-decoration': 'underline' }"
+      v-bind:style="{ 'margin-left': '45px', 'text-decoration': 'underline' }"
       :to="{ name: 'Browser', params: { source: name, sourceRoute: source, title: title } }">
       View more
       <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>

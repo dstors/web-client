@@ -73,7 +73,8 @@
                 <product-type-label v-if="cardDirection.row" :type="product.type"></product-type-label>
                 <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
                 <like-btn
-                  :liked="product.liked"
+                  v-on:toggleliked="emitToggleLiked"
+                  v-bind:liked="product.liked"
                   :id="product.id"
                   v-if="product.type !== 'giveaway'">
                 </like-btn>
@@ -121,7 +122,8 @@
           <v-spacer></v-spacer>
           <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
           <like-btn
-            :liked="product.liked"
+            v-on:toggleliked="emitToggleLiked"
+            v-bind:liked="product.liked"
             :id="product.id"
             v-if="product.type !== 'giveaway'">
           </like-btn>
@@ -219,6 +221,9 @@ export default {
     },
     onLeave() {
       this.hovered = false;
+    },
+    emitToggleLiked(e) {
+      this.$emit('toggleliked', e)
     }
   }
 }
