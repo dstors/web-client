@@ -1,6 +1,6 @@
 <template>
   <preview-layout>
-    <span slot="title">Preview Title</span>
+    <span slot="title">Preview</span>
     <template>
       <v-flex xs5 class="pa-3">
         <product-item :direction="0" :editable="true" @toggle-edition="toggleEdition" :product="editableProduct"></product-item>
