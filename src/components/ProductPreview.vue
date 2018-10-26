@@ -2,10 +2,10 @@
   <preview-layout>
     <span slot="title">Preview Title</span>
     <template>
-      <v-flex xs4 class="pa-3">
-        <product-item :editable="true" @toggle-edition="toggleEdition" :product="editableProduct"></product-item>
+      <v-flex xs5 class="pa-3">
+        <product-item :direction="0" :editable="true" @toggle-edition="toggleEdition" :product="editableProduct"></product-item>
       </v-flex>
-      <v-flex xs8 class="pa-3 ml-3">
+      <v-flex xs7 class="pa-3 ml-3">
         <v-card-text>
           {{
             ($vuetify.breakpoint.name === 'xs' || $vuetify.breakpoint.name === 'sm')

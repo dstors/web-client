@@ -2,7 +2,7 @@
 	<v-slide-y-transition>
     <v-container>
       <v-layout column>
-        <v-flex offset-xs1 xs4 >
+        <!-- <v-flex offset-xs1 xs4 >
           <span class="headline font-weight-regular">What kind of offer is it?</span>
           <v-btn small
             v-for="(type, i) in types"
@@ -14,7 +14,7 @@
             {{ type.label }}
             <v-icon right>{{ type.icon }}</v-icon>
           </v-btn>
-        </v-flex>
+        </v-flex> -->
         <v-flex offset-xs1 xs12 class="mb-4">
           <span class="headline font-weight-regular">Category</span>
           <v-select

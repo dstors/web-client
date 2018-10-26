@@ -7,7 +7,7 @@ export let newProduct = {
     author: '',
     permlink: 'a',
     price: ' SBD',
-    type: null,
+    type: 'direct-sell',
     wishlist: false,
     description: '',
     pictures: [''],
