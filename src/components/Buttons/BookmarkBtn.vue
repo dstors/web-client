@@ -11,9 +11,16 @@ export default {
   props: [
     'product',
     'index',
-    'source',
-    'addToWishlist'
-  ]
+    'source'
+  ],
+  methods: {
+    addToWishlist({ id, index, source}) {
+      if (this.$store.state.loggedIn) {
+        this.$store.dispatch('addToWishlist', { id, index, source})
+        this.$emit('togglebookmark', !this.wishlist)
+      }
+    }
+  }
 }
 </script>
 

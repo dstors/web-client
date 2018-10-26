@@ -2,7 +2,7 @@
 	<v-container fluid>
    <v-layout column wrap>
      <v-layout row wrap>
-      <v-flex xs6 style="max-width:600px;">
+      <v-flex xs12 sm6 style="max-width:600px;">
         <v-card>
           <v-card-text>
             <v-carousel
@@ -19,12 +19,17 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs6>
+      <v-flex xs12 sm6>
         <v-card fill-height>
           <v-card-title class="title">
             {{ product.name }}
             <v-spacer></v-spacer>
+            <bookmark-btn
+              v-on:togglebookmark="toggleBookmark"
+              :product="product">
+            </bookmark-btn>
             <like-btn
+              v-on:toggleliked="toggleLiked"
               :id="product.id"
               :liked="product.liked">
             </like-btn>
@@ -38,11 +43,20 @@
               {{ product.price }}
             </span>
             <add-to-cart-btn
+              v-if="!product.shopcart"
+              v-on:toggleshopcart="toggleShopcart"
               :product="product">
-              <v-btn :disabled="product.shopcart" block color="primary">
+              <v-btn block color="primary">
                 Add to cart
               </v-btn>
             </add-to-cart-btn>
+            <delete-form-cart-btn v-else
+              v-on:toggleshopcart="toggleShopcart"
+              :product="product">
+              <v-btn block flat color="red">
+                Remove from Cart
+              </v-btn>
+            </delete-form-cart-btn>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -147,8 +161,12 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import LikeBtn from './Buttons/LikeBtn';
 import AddToCartBtn from './Buttons/AddToCartBtn';
+import BookmarkBtn from './Buttons/BookmarkBtn';
+import DeleteFromCartBtn from './Buttons/DeleteFromCartBtn';
 import ProductCarousel from './ProductCarousel';
 
 export default {
@@ -156,9 +174,22 @@ export default {
   components: {
     'like-btn': LikeBtn,
     'add-to-cart-btn': AddToCartBtn,
-    'product-carousel': ProductCarousel
+    'product-carousel': ProductCarousel,
+    'delete-form-cart-btn': DeleteFromCartBtn,
+    'bookmark-btn': BookmarkBtn
   },
-  props: ['product']
+  props: ['product'],
+  methods: {
+    toggleLiked(e) {
+      Vue.set(this.product, 'liked', e)
+    },
+    toggleBookmark(e) {
+      Vue.set(this.product, 'wishlist', e)
+    },
+    toggleShopcart(e) {
+      Vue.set(this.product, 'shopcart', e);
+    }
+  }
 }
 </script>
 

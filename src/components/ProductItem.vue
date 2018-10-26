@@ -79,8 +79,8 @@
                   v-if="product.type !== 'giveaway'">
                 </like-btn>
                 <bookmark-btn
+                  v-on:togglebookmark="toggleBookmark"
                   v-if="product.type === 'direct-sell'"
-                  :addToWishlist="addToWishlist"
                   :source="source"
                   :index="index"
                   :product="product">
@@ -129,8 +129,8 @@
             v-if="product.type !== 'giveaway'">
           </like-btn>
           <bookmark-btn
+            v-on:togglebookmark="toggleBookmark"
             v-if="product.type === 'direct-sell'"
-            :addToWishlist="addToWishlist"
             :source="source"
             :index="index"
             :product="product">
@@ -185,7 +185,7 @@ export default {
     'add-to-cart-btn': AddToCartBtn
   },
   name: 'ProductItem',
-  props: [ 'product', 'index', 'addToWishlist', 'source', 'direction'],
+  props: [ 'product', 'index', 'source', 'direction'],
   data() {
     return {
       marked: false,
@@ -229,6 +229,9 @@ export default {
     },
     toggleShopcart(e) {
       this.$emit('toggleshopcart', e)
+    },
+    toggleBookmark(e) {
+      this.$emit('togglebookmark', e)
     }
   }
 }

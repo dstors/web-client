@@ -1,7 +1,11 @@
 <template>
-  <v-btn icon large flat @click="deleteFromCart({ id: product.id, index: index, source: source })">
-    <font-awesome-icon color="grey" size="lg" :icon="['fas', 'trash']"></font-awesome-icon>
-  </v-btn>
+  <div @click="deleteFromCart({ id: product.id, index: index, source: source })">
+    <slot>
+      <v-btn icon large flat>
+        <font-awesome-icon color="grey" size="lg" :icon="['fas', 'trash']"></font-awesome-icon>
+      </v-btn>
+    </slot>
+  </div>
 </template>
 
 <script>
@@ -14,9 +18,12 @@ export default {
     'index'
   ],
   methods: {
-    ...mapActions({
-      deleteFromCart: 'deleteFromCart'
-    })
+    deleteFromCart({ id, index, source }) {
+      if (this.$store.state.loggedIn) {
+        this.$store.dispatch('deleteFromCart', { id, index, source })
+        this.$emit('toggleshopcart', false)
+      }
+    }
   }
 }
 </script>

@@ -22,12 +22,12 @@
               xs12>
               <product-item
                 :direction="toggle_exclusive"
-                :addToWishlist="addToWishlist"
                 :source="source"
                 :index="n"
                 :dark="dark"
                 v-on:toggleliked="toggleLiked(n, $event)"
                 v-on:toggleshopcart="toggleShopcart(n, $event)"
+                v-on:togglebookmark="toggleBookmark(n, $event)"
                 :product="product">
               </product-item>
             </v-flex>
@@ -44,7 +44,7 @@ import Vue from 'vue';
 import ProductItem from './ProductItem';
 import GoBackBtn from './Buttons/GoBackBtn';
 
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'ProductGrid',
@@ -80,14 +80,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      addToWishlist: 'addToWishlist'
-    }),
     toggleLiked(i, e) {
       Vue.set(this.products[i], 'liked', e)
     },
     toggleShopcart(i, e) {
       Vue.set(this.products[i], 'shopcart', e)
+    },
+    toggleBookmark(i, e) {
+      Vue.set(this.products[i], 'wishlist', e)
     }
   }
 }
