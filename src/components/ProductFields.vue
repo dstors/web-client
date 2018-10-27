@@ -134,16 +134,14 @@
                 v-model="newProduct.pictures[i]"
                 solo>
               </v-text-field>
-              <v-btn
-                v-if="newProduct.pictures.length - 1 === i"
-                icon>
+              <v-btn icon>
                 <v-icon
                   @click="addPicture"
                   color="primary">
                   add_circle
                 </v-icon>
               </v-btn>
-              <v-btn icon v-else>
+              <v-btn  v-if="i > 0" icon>
                 <v-icon
                   @click="removePicture(i)"
                   color="primary">
