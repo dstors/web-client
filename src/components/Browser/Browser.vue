@@ -3,22 +3,14 @@
     <v-layout row wrap>
       <v-flex xs3 class="mt-5">
         Search filters go here
+        <br>
+        <v-btn @click="loading = !loading">Loading</v-btn>
       </v-flex>
       <v-flex xs9>
         <span class="display-1 font-weight-light ma-5">
           {{ title }}
         </span>
-        <v-container fluid v-if="loading">
-          <v-layout row wrap>
-            <v-flex xs12>
-              <v-progress-circular
-                indeterminate
-                :size="70"
-                color="primary"
-              ></v-progress-circular>
-            </v-flex>
-          </v-layout>
-        </v-container>
+        <ghost-product-grid v-if="loading"></ghost-product-grid>
         <product-grid v-else :products='browserFeed'></product-grid>
       </v-flex>
     </v-layout>
@@ -27,13 +19,17 @@
 
 <script>
 import ProductGrid from '../ProductGrid';
+import GhostProductGrid from '../GhostProductGrid';
 import api from '../../api';
 
 import { mapState } from 'vuex';
 
 export default {
   name: 'Browser',
-  components: { 'product-grid': ProductGrid },
+  components: {
+    'product-grid': ProductGrid,
+    'ghost-product-grid': GhostProductGrid
+  },
   props: ['title', 'source', 'sourceRoute'],
   data() {
     return {

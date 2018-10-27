@@ -1,6 +1,7 @@
 <template>
   <div>
-    <product-carousel title="This is a listing" :pages="feed"></product-carousel>
+    <ghost-product-grid></ghost-product-grid>
+    <!-- <product-carousel title="This is a listing" :pages="feed"></product-carousel> -->
     <v-btn @click="addProductToList">Add product to list</v-btn>
     <v-btn @click="getStore">Get Store</v-btn>
     <v-btn @click="getProductList">Get Product list</v-btn>
@@ -17,10 +18,11 @@
 import api from '../api';
 import ProductCarousel from './ProductCarousel';
 import { mapGetters } from 'vuex';
+import GhostProductGrid from './GhostProductGrid';
 
 export default {
   name: 'random',
-  components: { 'product-carousel': ProductCarousel },
+  components: { 'product-carousel': ProductCarousel, 'ghost-product-grid': GhostProductGrid },
   data() {
     return {
       res: ''

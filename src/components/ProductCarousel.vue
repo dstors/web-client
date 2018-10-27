@@ -24,7 +24,10 @@
       hide-delimiters
       :hide-controls="!hovered"
       :cycle="false">
-      <v-carousel-item v-for="(page, i) in computedFeed">
+      <v-carousel-item v-if="loading">
+        <ghost-product-grid :hideToggleButtons="true"></ghost-product-grid>
+      </v-carousel-item>
+      <v-carousel-item v-show="!loading" v-for="(page, i) in computedFeed">
         <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
@@ -32,12 +35,16 @@
 </template>
 
 <script>
-import ProductGrid from './ProductGrid'
+import ProductGrid from './ProductGrid';
+import GhostProductGrid from './GhostProductGrid';
 import api from '../api';
 
 export default {
   name: 'product-carousel',
-  components: { ProductGrid },
+  components: {
+    'product-grid': ProductGrid,
+    'ghost-product-grid': GhostProductGrid
+  },
   props: [
     'title',
     'pages',
@@ -51,7 +58,8 @@ export default {
         x: 0,
         y: 0
       },
-      feed: []
+      feed: [],
+      loading: false
     }
   },
   computed: {
@@ -104,11 +112,14 @@ export default {
   },
   mounted() {
     if (this.pages === undefined && this.source) {
+      this.loading = true;
       api().get(this.source)
         .then(res => {
-          this.feed = res.data
+          this.loading = false;
+          this.feed = res.data;
         })
         .catch(err => {
+          this.loading = false;
           this.feed = [];
         })
     }
