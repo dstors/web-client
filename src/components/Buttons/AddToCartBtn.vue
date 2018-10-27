@@ -2,7 +2,12 @@
   <div @click="addToCart({ id: product.id, index: index, source: source })">
     <slot>
       <v-btn icon large flat>
-        <font-awesome-icon :color="shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
+        <v-progress-circular
+          v-if="loading"
+          indeterminate
+          color="blue">
+        </v-progress-circular>
+        <font-awesome-icon v-else :color="shopcart ? 'blue' : 'grey'" size="lg" :icon="['fas', 'cart-plus']"></font-awesome-icon>
       </v-btn>
     </slot>
   </div>
@@ -19,11 +24,24 @@ export default {
     'index',
     'source'
   ],
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
     addToCart({ id, index, source }) {
       if (this.$store.state.loggedIn) {
+        this.loading = true;
         this.$store.dispatch('addToCart', { id, index, source })
-        this.$emit('toggleshopcart', true)
+          .then((res) => {
+            this.loading = false;
+            this.$emit('toggleshopcart', true)
+          })
+          .catch(() => {
+            this.loading = false;
+            console.log('Error on AddToCart')
+          })
       }
     }
   }

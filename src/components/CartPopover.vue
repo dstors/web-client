@@ -11,7 +11,7 @@
       <v-flex class="px-2 d-inline-flex hidden-xs-and-down">
         <v-badge bottom color="blue">
           <span slot="badge">{{ cart.length }}</span>
-          <font-awesome-icon color="grey" size="lg" :icon="['fas', 'shopping-cart']"></font-awesome-icon>
+          <font-awesome-icon :color="dark ? 'white' : 'grey'" size="lg" :icon="['fas', 'shopping-cart']"></font-awesome-icon>
         </v-badge>
       </v-flex>
     </template>

@@ -8,7 +8,18 @@
         <span class="display-1 font-weight-light ma-5">
           {{ title }}
         </span>
-        <product-grid :products='browserFeed'></product-grid>
+        <v-container fluid v-if="loading">
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-progress-circular
+                indeterminate
+                :size="70"
+                color="primary"
+              ></v-progress-circular>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <product-grid v-else :products='browserFeed'></product-grid>
       </v-flex>
     </v-layout>
   </v-container>
@@ -26,7 +37,8 @@ export default {
   props: ['title', 'source', 'sourceRoute'],
   data() {
     return {
-      feed: []
+      feed: [],
+      loading: false
     }
   },
   computed: {
@@ -58,7 +70,12 @@ export default {
     }
 
     if (this.$store.state.browserFeed.length < 1) {
+      this.loading = true;
       this.$store.dispatch('getBrowserFeed', sourceRoute)
+        .then(() => {
+          this.loading = false
+        })
+        .catch(() => console.log('Error fetching feed'))
     }
   }
 }

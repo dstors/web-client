@@ -180,30 +180,8 @@ export const store = new Vuex.Store({
         .then(res => state.scLoginUrl = res.data)
         .catch((err) => console.log(err));
     },
-    addToWishlist(state, { id, index, source }) {
-      api().post('/app/product/wishlist/' + id)
-        .then(res => {
-          state.wishlistFeed.map((product, i) => {
-            if (product.id === id) {
-              Vue.set(state.wishlistFeed[i], 'wishlist', res.data)
-            }
-          })
-
-          state.browserFeed.map((product, i) => {
-            if (product.id === id) {
-              Vue.set(state.browserFeed[i], 'wishlist', res.data)
-            }
-          })
-
-          if (source === 'wishlist') {
-            api().get('/app/product/wishlist')
-              .then(res => {
-                state.wishlistFeed = res.data
-              })
-              .catch(err => console.log(err))
-          }
-        })
-        .catch(err => console.log(err))
+    setWishlist(state, payload) {
+      state.wishlistFeed = payload;
     },
     getCart(state) {
       api().get('/app/product/shopcart')
@@ -225,33 +203,8 @@ export const store = new Vuex.Store({
         })
         .catch(err => console.log(err));
     },
-    addToCart(state, { id, index, source }) {
-      api().post('/app/product/shopcart/' + id)
-        .then(res => {
-          // state.browserFeed.map((product, i) => {
-          //   if (product.id === id) {
-          //     Vue.set(state.browserFeed[i], 'shopcart', res.data)
-          //   }
-          // })
-
-          api().get('/app/product/shopcart')
-            .then(res => {
-              state.cart = res.data;
-            })
-            .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err))
-    },
-    likeProduct(state, { id }) {
-      api().post('/app/product/like/' + id)
-        .then(res => {
-          // state.browserFeed.map((product, i) => {
-          //   if (product.id === id) {
-          //     Vue.set(state.browserFeed[i], 'liked', res.data)
-          //   }
-          // })
-        })
-        .catch(err => console.log(err))
+    setCartProducts(state, payload) {
+      state.cart = payload;
     },
     deleteProductFromCart(state, { id, index, source }) {
       api().post('/app/product/shopcart/delete/' + id)
@@ -339,13 +292,43 @@ export const store = new Vuex.Store({
       commit('setSCLoginUrl')
     },
     addToWishlist({ commit }, payload) {
-      commit('addToWishlist', payload)
+      return new Promise((resolve, reject) => {
+        api().post('/app/product/wishlist/' + payload.id)
+          .then(res => {
+            resolve(res.data);
+            if (payload.source === 'wishlist') {
+              api().get('/app/product/wishlist')
+                .then(res => {
+                  commit('setWishlist', res.data)
+                })
+                .catch(err => reject(err))
+            }
+          })
+          .catch(err => reject(err))
+      });
     },
     addToCart({ commit, dispatch }, payload) {
-      commit('addToCart', payload)
+      return new Promise((resolve, reject) => {
+        api().post('/app/product/shopcart/' + payload.id)
+          .then(res => {
+            resolve(res.data)
+            api().get('/app/product/shopcart')
+              .then(res => {
+                commit('setCartProducts', res.data);
+              })
+              .catch(err => reject(err));
+          })
+          .catch(err => reject(err))
+      });
     },
     likeProduct({ commit, dispatch }, payload) {
-      commit('likeProduct', payload)
+      return new Promise((resolve, reject) => {
+        api().post('/app/product/like/' + payload.id)
+          .then(res => {
+            resolve(res.data)
+          })
+          .catch(err => reject(err))
+      });
     },
     deleteFromCart({ commit, dispatch }, payload) {
       commit('deleteProductFromCart', payload)
