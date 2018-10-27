@@ -1,11 +1,12 @@
 <template>
   <div>
-    <ghost-product-grid></ghost-product-grid>
+    <!-- <ghost-product-grid></ghost-product-grid> -->
     <!-- <product-carousel title="This is a listing" :pages="feed"></product-carousel> -->
-    <v-btn @click="addProductToList">Add product to list</v-btn>
-    <v-btn @click="getStore">Get Store</v-btn>
-    <v-btn @click="getProductList">Get Product list</v-btn>
-    <v-btn @click="addProductToFeatured">Add product to featured</v-btn>
+    <v-btn @click="addProductToList">Add product to list</v-btn><br>
+    <v-btn @click="getStore">Get Store</v-btn><br>
+    <v-btn @click="getProductList">Get Product list</v-btn><br>
+    <input type="text" v-model="featuredId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="addProductToFeatured">Add product to featured id: {{ featuredId }}</v-btn><br>
+    <input type="text" v-model="deleteId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="deleteProduct">Delete product id: {{ deleteId }}</v-btn><br>
     <h1>res.data</h1>
     {{ res.data }}
     <hr>
@@ -25,7 +26,9 @@ export default {
   components: { 'product-carousel': ProductCarousel, 'ghost-product-grid': GhostProductGrid },
   data() {
     return {
-      res: ''
+      res: '',
+      featuredId: null,
+      deleteId: null
     }
   },
   computed: {
@@ -34,8 +37,17 @@ export default {
     })
   },
   methods: {
+    deleteProduct() {
+      api().post('/app/product/delete/' + this.deleteId)
+        .then(res => {
+          console.log('Response')
+          console.log(res)
+          this.res = res;
+        })
+        .catch(err => console.log(err))
+    },
     addProductToFeatured() {
-      api().post('/store/featured/add/61', { id: 61 })
+      api().post('/store/featured/add/' + this.featuredId)
         .then(res => {
           console.log('Response')
           console.log(res)

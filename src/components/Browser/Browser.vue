@@ -3,8 +3,6 @@
     <v-layout row wrap>
       <v-flex xs3 class="mt-5">
         Search filters go here
-        <br>
-        <v-btn @click="loading = !loading">Loading</v-btn>
       </v-flex>
       <v-flex xs9>
         <span class="display-1 font-weight-light ma-5">
