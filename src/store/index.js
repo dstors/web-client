@@ -184,26 +184,24 @@ export const store = new Vuex.Store({
       state.wishlistFeed = payload;
     },
     getCart(state) {
-      // api().get('/app/product/shopcart')
-      //   .then(res => {
-      //     state.cart = res.data;
-      //     if (res.data.length > 0) {
-      //       let product_ids = res.data.map(function(product, i) {
-      //         return product.id
-      //       })
+      api().get('/app/product/shopcart')
+        .then(res => {
+          state.cart = res.data;
+          if (res.data.length > 0) {
+            let product_ids = res.data.map(function(product, i) {
+              return product.id
+            })
 
-      //       state.productsFeed.map(function(product, i){
-      //         if (product_ids.indexOf(product.id) > -1) {
-      //           Vue.set(state.productsFeed[i], 'shopcart', true);
-      //         }
+            state.productsFeed.map(function(product, i){
+              if (product_ids.indexOf(product.id) > -1) {
+                Vue.set(state.productsFeed[i], 'shopcart', true);
+              }
 
-      //         return product;
-      //       })
-      //     }
-      //   })
-      //   .catch(err => console.log(err));
-      // state.cart = [{"date":{"year":{"low":2018,"high":0},"month":{"low":10,"high":0},"day":{"low":27,"high":0},"hour":{"low":2,"high":0},"minute":{"low":19,"high":0},"second":{"low":20,"high":0},"nanosecond":{"low":978000000,"high":0},"timeZoneOffsetSeconds":{"low":0,"high":0},"timeZoneId":null},"likesQuantity":{"low":2,"high":0},"author":"julianmnst","price":"12.91 SBD","name":"You Can Draw in 30 Days: The Fun, Easy Way to Learn to Draw in One Month or Less","description":"Learn to draw in 30 days with Emmy award-winning PBS host Mark Kistler\n\nDrawing is an acquired skill, not a talent--anyone can learn to draw! All you need is a pencil, a piece of paper, and the willingness to tap into your hidden artistic abilities. With Emmy award-winning, longtime PBS host Mark Kistler as your guide, you'll learn the secrets of sophisticated three-dimensional renderings, and have fun along the way--in just 20 minutes a day for a month. Inside you'll find:\nQuick and easy step-by-step instructions for drawing everything from simple spheres to apples, trees, buildings, and the human hand and face\nMore than 500 line drawings, illustrating each step\nTime-tested tips, techniques, and tutorials for drawing in 3-D\nThe 9 Fundamental Laws of Drawing to create the illusion of depth in any drawing\n75 student examples to help gauge your own progress","stock":"10","category":"Books","type":"direct-sell","permlink":"a","pictures":["https://images-na.ssl-images-amazon.com/images/I/51CQss429hL._SX400_BO1,204,203,200_.jpg","https://images-na.ssl-images-amazon.com/images/I/31OP-J2JcbL.jpg",""],"id":73,"wishlist":true},{"date":{"year":{"low":2018,"high":0},"month":{"low":10,"high":0},"day":{"low":27,"high":0},"hour":{"low":2,"high":0},"minute":{"low":27,"high":0},"second":{"low":34,"high":0},"nanosecond":{"low":746000000,"high":0},"timeZoneOffsetSeconds":{"low":0,"high":0},"timeZoneId":null},"likesQuantity":{"low":8,"high":0},"author":"julianmnst","price":"8.99 SBD","name":"River Bodies (Northampton County Book 1)","description":"n this dark, gripping mystery, a brutal murder unearths old secrets that should have stayed buried.\n\nA body just turned up in the small town of Portland, Pennsylvania. The crime is eerily similar to a twenty-year-old cold case: another victim, brutally murdered, found in the Delaware River. Lead detective Parker Reed is intent on connecting the two murders, but the locals are on lockdown, revealing nothing.\n\nThe past meets the present when Becca Kingsley, who returns to Portland to be with her estranged but dying father, runs into Parker, her childhood love. As the daughter of the former police chief, Becca’s quickly drawn into the case. Coming home has brought something ominous to the surface—memories long buried, secrets best kept hidden. Becca starts questioning all her past relationships, including one with a man who’s watched over her for years. For the first time, she wonders if he’s more predator than protector.\n\nIn a small town where darkness hides in plain sight, the truth could change Becca’s life—or end it.","stock":"10","category":"Books","type":"direct-sell","permlink":"a","pictures":["https://images-na.ssl-images-amazon.com/images/I/51L66lixpLL.jpg"],"id":92,"wishlist":false},{"date":{"year":{"low":2018,"high":0},"month":{"low":10,"high":0},"day":{"low":29,"high":0},"hour":{"low":3,"high":0},"minute":{"low":3,"high":0},"second":{"low":1,"high":0},"nanosecond":{"low":43000000,"high":0},"timeZoneOffsetSeconds":{"low":0,"high":0},"timeZoneId":null},"like":true,"author":"julianmnst","shopcart":false,"description":"Test","type":"direct-sell","pictures":["https://images-na.ssl-images-amazon.com/images/I/51CQss429hL._SX400_BO1,204,203,200_.jpg"],"likesQuantity":{"low":1,"high":0},"price":"10 SBD","name":"Test","stock":"10","category":"Baby","permlink":"a","id":165,"wishlist":false}]
-      state.cart = []
+              return product;
+            })
+          }
+        })
+        .catch(err => console.log(err));
     },
     setCartProducts(state, payload) {
       state.cart = payload;
