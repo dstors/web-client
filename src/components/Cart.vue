@@ -1,10 +1,11 @@
 <template>
   <v-container class="pa-5" fluid fill-height>
     <v-layout xs12 row d-inline-block>
-      <v-card>
-        <div class="headline pl-5" style="padding-top: 40px;">Cart</div><br>
-        <div class="title pl-5 font-weight-thin">You have {{ cart.length }} items in your cart. Please carefully verify the list before buying.</div>
-
+      <v-card v-if="cart.length > 0">
+        <div class="headline pl-5" style="padding-top: 40px;">Cart</div>
+        <div class="title pl-5 font-weight-thin">
+          You have {{ cart.length }} items in your cart. Please carefully verify the list before buying.
+        </div>
 
         <v-layout column wrap class="pa-5">
           <v-flex xs12>
@@ -108,6 +109,28 @@
               <v-btn color="primary" class="font-weight-light display-1" :style="{ 'float': 'right', 'width': '25%', 'height': '50px' }">
                 Buy now
               </v-btn>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-card>
+      <v-card v-else>
+        <v-layout column wrap class="pa-5">
+          <v-flex xs12>
+            <div :style="{ 'text-align': 'center', 'padding-top': '30px' }">
+              <v-layout row wrap>
+                <v-flex xs12>
+                  <div class="display-3 font-weight-light">
+                    Your cart is empty
+                  </div>
+                  <br>
+                  <div class="display-1 font-weight-light">
+                    Still don't know what to buy?
+                    <router-link to="/">
+                      Check out out hottest products!
+                    </router-link>
+                  </div>
+                </v-flex>
+              </v-layout>
             </div>
           </v-flex>
         </v-layout>

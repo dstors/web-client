@@ -15,7 +15,8 @@
       <v-toolbar-side-icon class="hidden-sm-and-down" @click.stop="extended = !extended"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" :style="{'text-decoration': 'none', color: dark ? 'white' : 'black'}">
-          D<strong>stors</strong>
+          <img style="height: 46px; width: 70; object-fit: cover; margin: 10px;" :src="logo" alt="">
+          <!-- D<strong>stors</strong> -->
         </router-link>
       </v-toolbar-title>
       <v-flex>
@@ -126,6 +127,7 @@ import { mapState, mapActions } from 'vuex';
 import ProfilePopover from './components/ProfilePopover';
 import LoginPopover from './components/LoginPopover';
 import CartPopover from './components/CartPopover';
+import logo from './components/assets/DSTORS.png';
 
 export default {
   components: { ProfilePopover, LoginPopover, CartPopover },
@@ -133,7 +135,8 @@ export default {
   data() {
     return {
       navbar: false,
-      extended: false
+      extended: false,
+      logo: logo
     }
   },
   computed: {
