@@ -50,7 +50,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-card-actions class="pa-3">
-                    <v-btn>More</v-btn>
+                    <v-btn :to="`/product/details/${product.id}`">More</v-btn>
                     <v-btn v-if="product.type === 'direct-sell'">Add to cart <v-icon right>add_shopping_cart</v-icon> </v-btn>
                     <v-btn v-else-if="product.type === 'giveaway'">Join giveaway <v-icon right>person_add</v-icon> </v-btn>
                     <v-btn v-else-if="product.type === 'auction'">Place bid <v-icon right>gavel</v-icon> </v-btn>

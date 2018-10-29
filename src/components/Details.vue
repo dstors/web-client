@@ -20,7 +20,8 @@
         </v-layout>
       </v-flex>
       <v-flex xs12>
-        <product-details :product="product">
+        <ghost-product-details v-if="loading"></ghost-product-details>
+        <product-details v-else :product="product">
         </product-details>
       </v-flex>
     </v-layout>
@@ -29,6 +30,7 @@
 
 <script>
 import ProductDetails from './ProductDetails'
+import GhostProductDetails from './GhostProductDetails'
 import GoBackBtn from './Buttons/GoBackBtn';
 import api from '../api';
 
@@ -36,6 +38,7 @@ export default {
   name: 'details-view',
   components: {
     'product-details': ProductDetails,
+    'ghost-product-details': GhostProductDetails,
     'go-back-btn': GoBackBtn
   },
   props: [
@@ -43,7 +46,8 @@ export default {
   ],
   data() {
     return {
-      product: {}
+      product: {},
+      loading: false
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -51,6 +55,7 @@ export default {
   },
   methods: {
     fetchProduct(id, doAfter) {
+      this.loading = true;
       this.product = {};
       api().get('/app/product/byId?id=' + id)
       .then(res => {
@@ -61,6 +66,8 @@ export default {
           ],
           id: id
         };
+
+        this.loading = false;
 
         if(doAfter) {
           doAfter()

@@ -5,6 +5,7 @@
     <v-btn @click="addProductToList">Add product to list</v-btn><br>
     <v-btn @click="getStore">Get Store</v-btn><br>
     <v-btn @click="getProductList">Get Product list</v-btn><br>
+    <v-btn @click="getCategories">Get Categories</v-btn><br>
     <input type="text" v-model="featuredId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="addProductToFeatured">Add product to featured id: {{ featuredId }}</v-btn><br>
     <input type="text" v-model="deleteId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="deleteProduct">Delete product id: {{ deleteId }}</v-btn><br>
     <h1>res.data</h1>
@@ -94,6 +95,17 @@ export default {
           this.res = res;
         })
         .catch(err => console.log(err))
+    },
+    getCategories() {
+      console.log('Get categories')
+      api().get('/app/product/categories/get')
+        .then(res => {
+          console.log(res)
+          this.res = res
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

@@ -133,7 +133,7 @@ export default {
   data() {
     return {
       navbar: false,
-      extended: false,
+      extended: false
     }
   },
   computed: {
