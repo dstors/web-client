@@ -186,7 +186,10 @@ export const store = new Vuex.Store({
     getCart(state) {
       api().get('/app/product/shopcart')
         .then(res => {
-          state.cart = res.data;
+          let cart = res.data.map(prod => {
+            return {...prod, amount: 1}
+          })
+          state.cart = cart;
           if (res.data.length > 0) {
             let product_ids = res.data.map(function(product, i) {
               return product.id
@@ -211,7 +214,10 @@ export const store = new Vuex.Store({
         .then(res => {
           api().get('/app/product/shopcart')
             .then(res => {
-              state.cart = res.data;
+              let cart = res.data.map(prod => {
+                return {...prod, amount: 1}
+              })
+              state.cart = cart;
               if (res.data.length > 0) {
                 let product_ids = res.data.map(function(product, i) {
                   return product.id
@@ -314,7 +320,10 @@ export const store = new Vuex.Store({
             resolve(res.data)
             api().get('/app/product/shopcart')
               .then(res => {
-                commit('setCartProducts', res.data);
+                let cart = res.data.map(prod => {
+                  return {...prod, amount: 1}
+                })
+                commit('setCartProducts', cart);
               })
               .catch(err => reject(err));
           })

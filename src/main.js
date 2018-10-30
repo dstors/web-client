@@ -27,7 +27,9 @@ import {
   faStore,
   faLongArrowAltRight,
   faLongArrowAltLeft,
-  faWindowClose
+  faWindowClose,
+  faAngleUp,
+  faAngleDown
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -49,7 +51,9 @@ library.add(
   faStore,
   faLongArrowAltLeft,
   faLongArrowAltRight,
-  faWindowClose
+  faWindowClose,
+  faAngleUp,
+  faAngleDown
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

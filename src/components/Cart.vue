@@ -30,66 +30,37 @@
                       </router-link>
                     </v-list-tile-title>
                     <v-list-tile-sub-title class="blue--text" style="padding-left: 10px; padding-top: 10px;">
-                      <!-- <v-layout row wrap> -->
-                        <!-- <v-flex xs1> -->
-                          <bookmark-btn
+                          <!-- <bookmark-btn
                             :index="i"
                             :product="product">
-                          </bookmark-btn>
-                        <!-- </v-flex> -->
-                        <!-- <v-flex xs1> -->
+                          </bookmark-btn> -->
                           <details-popup
                             :product="product"
                             :hovered="true">
                           </details-popup>
-                        <!-- </v-flex> -->
-                        <!-- <v-flex xs1> -->
                           <delete-form-cart-btn
                             :product="product"
                             :index="i">
                           </delete-form-cart-btn>
-                        <!-- </v-flex> -->
-                      <!-- </v-layout> -->
                     </v-list-tile-sub-title>
                   </v-list-tile-content>
 
-                  <!-- <v-list-tile-action>
-                    <v-flex xs12 sm6>
-                      <v-text-field
-                        label="0"
-                        type="number"
-                        single-line
-                        solo flat
-                      ></v-text-field>
-                    </v-flex>
-                  </v-list-tile-action> -->
-
                   <v-list-tile-action style="width: 300px;">
-                    <h3 class="display-1 font-weight-light">{{ product.price }}</h3>
-                    <!-- <v-text-field
-                      label="0"
-                      type="number"
-                      single-line
-                      solo flat>
-                    </v-text-field>
-                    <v-btn icon flat color="red lighten-2">
-                      <v-icon>bookmark</v-icon>
-                    </v-btn>
-                    <details-popup
-                      :product="product"
-                      :hovered="true"></details-popup>
-                    <v-btn icon flat color="red">
-                      <v-icon>delete</v-icon>
-                    </v-btn> -->
+                    <h3 class="display-1 font-weight-light">
+                      {{ (product.price.split(' ')[0] * product.amount) + ' SBD' }}
+                    </h3>
+                    <div :style="{  'float': 'right' }">
+                      <product-amount
+                        @deletefromcart="deleteFromCart({ id: product.id })"
+                        v-model="product.amount">
+                      </product-amount>
+                    </div>
                   </v-list-tile-action>
                 </v-list-tile>
                 <v-divider v-if="i + 1 < cart.length"></v-divider>
               </template>
             </v-list>
           </v-flex>
-          <!-- <v-flex xs1>
-            <v-divider vertical class="mx-1"></v-divider>
-          </v-flex> -->
           <v-flex xs12>
             <v-divider></v-divider>
             <div :style="{ 'float': 'right', 'width': '50%', 'padding-top': '30px' }">
@@ -116,9 +87,12 @@
       <v-card v-else>
         <v-layout column wrap class="pa-5">
           <v-flex xs12>
-            <div :style="{ 'text-align': 'center', 'padding-top': '30px' }">
+            <div :style="{ 'text-align': 'center', 'padding-top': '0px' }">
               <v-layout row wrap>
                 <v-flex xs12>
+                  <div>
+                    <img style="height: 250px;" :src="dstorsLogo" alt="DStors.com">
+                  </div>
                   <div class="display-3 font-weight-light">
                     Your cart is empty
                   </div>
@@ -141,15 +115,22 @@
 
 <script>
 import DetailsPopup from './DetailsPopup.vue';
-import { mapState, mapGetters } from 'vuex';
+import {
+  mapState,
+  mapGetters,
+  mapActions
+} from 'vuex';
 import DeleteFromCartBtn from './Buttons/DeleteFromCartBtn';
 import BookmarkBtn from './Buttons/BookmarkBtn';
+import ProductAmount from './ProductAmount';
+import dstorsLogo from './assets/DSTORS-LOGO.png';
 
 export default {
   components: {
     'details-popup': DetailsPopup,
     'delete-form-cart-btn': DeleteFromCartBtn,
-    'bookmark-btn': BookmarkBtn
+    'bookmark-btn': BookmarkBtn,
+    'product-amount': ProductAmount
   },
   name: 'cart',
   computed: {
@@ -159,6 +140,14 @@ export default {
     }),
     ...mapGetters({
       total: 'cartTotal'
+    }),
+    dstorsLogo() {
+      return dstorsLogo;
+    }
+  },
+  methods: {
+    ...mapActions({
+      deleteFromCart: 'deleteFromCart'
     })
   },
   data() {

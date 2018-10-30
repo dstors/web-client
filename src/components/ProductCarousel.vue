@@ -3,19 +3,12 @@
     v-resize="onResize"
     v-on:mouseover="onHover"
     v-on:mouseleave="onLeave">
-    <span
-      v-if="feed.length > 0"
-      class="display-1 font-weight-light ma-5">
-      {{ title }}
     <router-link
-      v-if="feed.length > 0 && name"
-      class="title font-weight-light"
-      v-bind:style="{ 'margin-left': '45px', 'text-decoration': 'underline' }"
-      :to="{ name: 'Browser', params: { source: name, sourceRoute: source, title: title } }">
-      View more
-      <font-awesome-icon :icon="['fas', 'long-arrow-alt-right']"></font-awesome-icon>
+      :to="{ name: 'Browser', params: { source: name, sourceRoute: source, title: title } }"
+      v-if="feed.length > 0"
+      class="router-link display-1 ma-5">
+      {{ title }}
     </router-link>
-    </span>
     <v-carousel
       v-if="feed.length > 0"
       ref="ul"
@@ -132,10 +125,21 @@ export default {
 
 <style>
 .v-carousel__prev .v-btn, .v-carousel__next .v-btn {
-    color: blue!important;
-    background-color: rgba(255,255,255,0.75);
-    -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
-    -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
-    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+  color: blue!important;
+  background-color: rgba(255,255,255,0.75);
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+  -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+}
+
+.router-link {
+  text-decoration: none;
+  color: black;
+  font-weight: 100;
+  transition: color 0.5s;
+}
+
+.router-link:hover {
+  color: #90caf9;
 }
 </style>
