@@ -8,7 +8,6 @@
             <v-list-tile-content>
               <v-list-tile-sub-title>{{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }}</v-list-tile-sub-title>
               <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
-              <!-- <v-spacer></v-spacer> -->
             </v-list-tile-content>
             <v-list-tile-action>
               <form-layout>
@@ -52,12 +51,6 @@
           </v-flex>
           <v-flex xs12>
             <v-tabs-items v-model="tab">
-              <!-- <v-tab-item v-for="(item, i) in items" :key="i">
-                <component
-                  :bookmarks="profile.bookmarks"
-                  :profile="profile"
-                  :is="item.value"></component>
-              </v-tab-item> -->
               <router-view></router-view>
             </v-tabs-items>
           </v-flex>
@@ -94,21 +87,21 @@ export default {
           label:'Account Info',
           value: 'account-info',
           icon: ['fas', 'user'],
-          color: 'blue',
+          color: '#4C678C',
           link: 'details'
         },
         {
           label:'Wishlist',
           value: 'wishlist',
           icon: ['fas', 'bookmark'],
-          color: 'pink',
+          color: '#d46a6a',
           link: 'wishlist'
         },
         {
           label:'Wallet',
           value: 'wallet',
           icon: ['fas', 'wallet'],
-          color: 'green',
+          color: '#629833',
           link: 'wallet'
         }
       ]

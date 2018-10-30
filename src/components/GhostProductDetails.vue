@@ -1,39 +1,38 @@
 <template>
 	<v-container fluid>
-   <v-layout column wrap>
-     <v-layout row wrap>
-      <v-flex xs12 sm6 style="max-width:600px;">
-        <v-card>
-          <v-card-text>
-            <v-card-media
-              height="200px">
-              <div class="image-box"></div>
-            </v-card-media>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 sm6>
-        <v-card fill-height>
-          <v-card-title class="title">
-            <span class="title-box">
-            </span>
-            <v-spacer></v-spacer>
-            <v-btn icon></v-btn>
-            <v-btn icon></v-btn>
-          </v-card-title>
-          <v-card-text>
-            <span class="title-box">
-            </span>
-            <br>
-            <span class="display-1">
-              Price
-            </span>
-            <v-btn block>
-              Add to cart
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-flex>
+    <v-layout column wrap>
+      <v-layout row wrap>
+        <v-flex xs12 sm6 style="max-width:600px;">
+          <v-card>
+            <v-card-text>
+              <v-card-media
+                height="377px">
+                <div class="image-box"></div>
+              </v-card-media>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 sm6>
+          <v-card fill-height>
+            <v-card-title class="title">
+              <span class="title-box">
+              </span>
+              <v-spacer></v-spacer>
+              <v-btn icon color="grey lighten-1"></v-btn>
+              <v-btn icon color="grey lighten-1"></v-btn>
+            </v-card-title>
+            <v-card-text>
+              <span class="title-box">
+              </span>
+              <br>
+              <span class="title-box">
+              </span>
+              <v-btn disabled block>
+                Add to cart
+              </v-btn>
+            </v-card-text>
+          </v-card>
+        </v-flex>
       </v-layout>
       <v-layout row wrap class="mt-3">
         <v-flex xs12>
@@ -42,7 +41,7 @@
               Description
             </v-card-title>
             <v-card-text>
-              Description
+              ...
             </v-card-text>
           </v-card>
         </v-flex>
@@ -80,11 +79,9 @@ export default {
 .image-box {
   background-color: #cacaca;
   position: absolute;
-  height: 100%;
+  height: 377px!important;
   width: 100%;
-  left: 0px;
-  top: 0%;
-  border-radius: 1px;
+  border-radius: 3px;
 }
 
 .title-box {
@@ -98,17 +95,17 @@ export default {
 }
 
 .title-box:nth-of-type(2) {
-  background-color: red;
+  background-color: #cacaca;
   position: absolute;
-  height: 5%;
-  width: 200px;
+  height: 20%;
+  width: 110px;
   left: 15px;
-  margin-top: 20px;
+  margin-top: 60px;
   border-radius: 5px;
 }
 
 .title-box:nth-of-type(3) {
-  background-color: red;
+  background-color: #cacaca;
   position: absolute;
   height: 9%;
   width: 50px;

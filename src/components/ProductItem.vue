@@ -74,7 +74,7 @@
                 <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
                 <like-btn
                   v-on:toggleliked="toggleLiked"
-                  v-bind:likes="product.likesQuantity.low"
+                  :likes="product.likesQuantity.low || 0"
                   v-bind:liked="product.liked"
                   :id="product.id"
                   v-if="product.type !== 'giveaway'">
@@ -125,7 +125,7 @@
           <!-- <details-popup v-if="cardDirection.row" :product="product" :hovered="true"></details-popup> -->
           <like-btn
             v-on:toggleliked="toggleLiked"
-            v-bind:likes="product.likesQuantity.low"
+            :likes="product.likesQuantity.low || 0"
             v-bind:liked="product.liked"
             :id="product.id"
             v-if="product.type !== 'giveaway'">
