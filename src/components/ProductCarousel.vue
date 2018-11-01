@@ -4,7 +4,9 @@
     v-on:mouseover="onHover"
     v-on:mouseleave="onLeave">
     <router-link
-      :to="{ name: 'Browser', params: { source: name, sourceRoute: source, title: title } }"
+      :to="username
+        ? { name: 'ListBrowser', params: { source: name, sourceRoute: source, title: title, username: username } }
+        : { name: 'Browser', params: { source: name, sourceRoute: source, title: title } }"
       v-if="feed.length > 0"
       class="router-link display-1 ma-5">
       {{ title }}
@@ -42,7 +44,8 @@ export default {
     'title',
     'pages',
     'name',
-    'source'
+    'source',
+    'username'
   ],
   data() {
     return {

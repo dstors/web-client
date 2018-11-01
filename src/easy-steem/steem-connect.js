@@ -95,6 +95,7 @@ export function handleProfile (res) {
 
   const {
     balance,
+    id,
     sbd_balance,
     reputation,
     voting_power,
@@ -117,6 +118,7 @@ export function handleProfile (res) {
     return {
       name,
       balance,
+      id,
       sbd_balance,
       ...sp,
       reputation: simplifyReputation(reputation),

@@ -10,20 +10,6 @@
               <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <form-layout>
-                <v-btn slot="activator" block color="primary" class="pl-3 pr-2">
-                  <span class="black--text">
-                    Create Offer
-                  </span>
-                  <v-icon right>
-                    queue
-                  </v-icon>
-                </v-btn>
-                <product-stepper>
-                </product-stepper>
-              </form-layout>
-            </v-list-tile-action>
-            <v-list-tile-action>
               <v-btn block color="yellow darken-1" class="pl-3 pr-2">
                   <span class="black--text">
                     DStore

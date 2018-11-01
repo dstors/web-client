@@ -29,11 +29,7 @@
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
           <span class="title font-weight-light">Listing</span>
-          <v-text-field
-            class="pt-2"
-            v-model="newProduct.listing"
-            solo>
-          </v-text-field>
+          <listing-selector></listing-selector>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
           <span class="title font-weight-light">Product Name</span>
@@ -172,10 +168,14 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import ListingSelector from './ListingSelector';
 
 export default {
   name: 'product-fields',
   props: ['dark', 'content', 'featured', 'title'],
+  components: {
+    ListingSelector
+  },
   data() {
     return {
       date: null,
@@ -243,20 +243,12 @@ export default {
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
-    // allowedDates(val) {
-    //   console.log('value')
-    //   console.log(val)
-    //   console.log('value parsed')
-    //   console.log(Date.parse(val))
-    //   console.log('tday parsed')
-    //   console.log(Date.parse(new Date()))
-    //   console.log('resta')
-    //   console.log(Date.parse(val)-Date.parse(new Date()))
-    //   console.log('condicion')
-    //   console.log((Date.parse(val)-Date.parse(new Date())<0))
-    //   return (Date.parse(val)-Date.parse(new Date())<0)
-    // }
     allowedDates: val => parseInt(val.split('-')[2], 10) % 2 === 0
+  },
+  mounted() {
+    if (this.$store.state.profile.id) {
+      this.$store.dispatch('newProduct/getListingNames')
+    }
   }
 }
 </script>

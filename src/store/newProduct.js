@@ -13,7 +13,8 @@ export let newProduct = {
     pictures: [''],
     stock: 0,
     category: null,
-    listing: null
+    listing: null,
+    listingNames: []
   },
   mutations: {
     setType(state, payload) {
@@ -29,6 +30,13 @@ export let newProduct = {
       api().post('/app/product/add', { ...state, author: payload.profile.username })
         .then(res => console.log(res))
         .catch(err => console.log(err))
+    },
+    getListingNames(state, payload) {
+      api().get('/store/product_list/get/names/' + payload.rootState.profile.id)
+        .then(res => {
+          state.listingNames = res.data.map(item => item.productListName)
+        })
+        .catch(err => console.log(err))
     }
   },
   actions: {
@@ -43,6 +51,9 @@ export let newProduct = {
     },
     createProduct({ commit, rootState }) {
       commit('createProduct', rootState)
+    },
+    getListingNames({ commit, rootState }, payload) {
+      commit('getListingNames',  { ...payload, rootState })
     }
   }
 }

@@ -28,7 +28,7 @@ export default {
     'product-grid': ProductGrid,
     'ghost-product-grid': GhostProductGrid
   },
-  props: ['title', 'source', 'sourceRoute'],
+  props: ['title', 'source', 'sourceRoute', 'username'],
   data() {
     return {
       feed: [],
@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
     let sourceRoute;
+    this.loading = true;
 
     if (!this.sourceRoute) {
       switch(this.source) {
@@ -58,13 +59,17 @@ export default {
         //   sourceRoute = '/store/offers/get';
         //   break;
       }
+
+      if (!sourceRoute && (this.username && this.source)) {
+        sourceRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
+      }
     }
     else {
       sourceRoute = this.sourceRoute;
     }
 
     if (this.$store.state.browserFeed.length < 1) {
-      this.loading = true;
+      // this.loading = true;
       this.$store.dispatch('getBrowserFeed', sourceRoute)
         .then(() => {
           this.loading = false

@@ -5,19 +5,23 @@ export let userStore = {
 	state: {
     name: '',
     description: '',
-    listings: []
+    listings: [],
+    owner: ''
   },
   mutations: {
     getStore(state) {
+      state.listings = []
       api().get('/store/get/user')
-        .then(res => {
+        .then(function(res) {
           for (let i = 0; i < res.data.length; i++) {
             if (Object.keys(res.data[i]).indexOf('properties') > -1) {
-              this.name = res.data[i].properties.name
-              this.description = res.data[i].properties.description
+              console.log(res.data[i])
+              state.name = res.data[i].properties.name
+              state.description = res.data[i].properties.description
+              state.owner = res.data[i].properties.username
             }
             else {
-              this.listings = [res.data[i].productListNames]
+              state.listings.push(res.data[i].productListNames)
             }
           }
         })
