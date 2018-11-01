@@ -3,7 +3,7 @@
     <v-container>
       <v-layout column>
         <!-- <v-flex offset-xs1 xs4 >
-          <span class="headline font-weight-regular">What kind of offer is it?</span>
+          <span class="title font-weight-light">What kind of offer is it?</span>
           <v-btn small
             v-for="(type, i) in types"
             block
@@ -16,26 +16,37 @@
           </v-btn>
         </v-flex> -->
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="headline font-weight-regular">Category</span>
+          <span class="title font-weight-light">Category</span>
           <v-select
             :items="categories"
             v-model="newProduct.category"
             label="Pick a product"
             item-text="title"
             return-object
+            class="pt-2"
             solo>
           </v-select>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="headline font-weight-regular">Product Name</span>
+          <span class="title font-weight-light">Listing</span>
           <v-text-field
+            class="pt-2"
+            v-model="newProduct.listing"
+            solo>
+          </v-text-field>
+        </v-flex>
+        <v-flex offset-xs1 xs12 class="mb-4">
+          <span class="title font-weight-light">Product Name</span>
+          <v-text-field
+            class="pt-2"
             v-model="newProduct.name"
             solo>
           </v-text-field>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="headline font-weight-regular">Description</span>
+          <span class="title font-weight-light">Description</span>
           <v-textarea
+            class="pt-2"
             v-model="newProduct.description"
             name="input-7-1"
             solo>
@@ -43,7 +54,7 @@
         </v-flex>
         <template v-if="(newProduct.type && newProduct.type !== 'direct-sell')">
           <v-flex offset-xs1 xs12 class="mb-4">
-            <span class="headline font-weight-regular">Ends at</span>
+            <span class="title font-weight-light">Ends at</span>
             <v-menu
               ref="dateMenu"
               :close-on-content-click="false"
@@ -100,7 +111,7 @@
         </template>
         <template v-if="newProduct.type === 'auction'">
           <v-flex offset-xs1 xs12 class="mb-4">
-            <span class="headline font-weight-regular">Starting price</span>
+            <span class="title font-weight-light">Starting price</span>
             <v-text-field
               v-model="startingPrice"
               solo
@@ -110,16 +121,18 @@
         </template>
         <template v-if="newProduct.type === 'direct-sell'">
           <v-flex offset-xs1 xs12 class="mb-4">
-            <span class="headline font-weight-regular">Price</span>
+            <span class="title font-weight-light">Price (expressed in SBD)</span>
             <v-text-field
+              class="pt-2"
               v-model="price"
               solo
               type="number">
             </v-text-field>
           </v-flex>
           <v-flex offset-xs1 xs12 class="mb-4">
-            <span class="headline font-weight-regular">Stock</span>
+            <span class="title font-weight-light">Stock</span>
             <v-text-field
+              class="pt-2"
               solo
               v-model="newProduct.stock"
               type="number">
@@ -127,10 +140,11 @@
           </v-flex>
         </template>
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="headline font-weight-regular">Images</span>
+          <span class="title font-weight-light">Images</span>
           <div v-for="(imageLink, i) in newProduct.pictures">
             <v-layout row wrap>
               <v-text-field
+                class="pt-2"
                 v-model="newProduct.pictures[i]"
                 solo>
               </v-text-field>

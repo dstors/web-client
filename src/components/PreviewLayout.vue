@@ -1,15 +1,15 @@
 <template>
-  <v-card>
-    <v-card-title>
+  <div>
+    <div>
       <span class="headline">
         <slot name="title">
         </slot>
       </span>
-    </v-card-title>
+    </div>
     <v-layout row justify-center>
       <slot></slot>
     </v-layout>
-  </v-card>
+  </div>
 </template>
 
 <script>

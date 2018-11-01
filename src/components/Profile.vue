@@ -19,8 +19,8 @@
                     queue
                   </v-icon>
                 </v-btn>
-                <product-form>
-                </product-form>
+                <product-stepper>
+                </product-stepper>
               </form-layout>
             </v-list-tile-action>
             <v-list-tile-action>
@@ -69,6 +69,7 @@ import AccountInfo from './AccountInfo';
 import Wishlist from './Wishlist';
 import FormLayout from './FormLayout';
 import ProductForm from './ProductForm';
+import ProductStepper from './ProductStepper';
 
 export default {
   components: {
@@ -76,7 +77,8 @@ export default {
     AccountInfo,
     Wishlist,
     FormLayout,
-    ProductForm
+    ProductForm,
+    ProductStepper
   },
   name: 'profile',
   data() {

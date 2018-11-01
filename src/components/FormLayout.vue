@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap justify-end>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog" persistent transition="dialog-bottom-transition">
       <slot name="activator" slot="activator">
         <!-- <v-btn
           slot="activator"
@@ -11,12 +11,12 @@
         </v-btn> -->
       </slot>
       <v-card>
-        <v-toolbar :color="dark ? darkColor : color" :dark="dark">
+        <!-- <v-toolbar :color="dark ? darkColor : color" :dark="dark">
           <v-btn icon dark @click.native="dialog = false">
             <font-awesome-icon :color="dark ? 'white' : 'grey'" size="lg" :icon="['fas', 'window-close']"></font-awesome-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
-        </v-toolbar>
+        </v-toolbar> -->
         <slot></slot>
       </v-card>
     </v-dialog>

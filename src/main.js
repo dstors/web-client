@@ -29,7 +29,10 @@ import {
   faLongArrowAltLeft,
   faWindowClose,
   faAngleUp,
-  faAngleDown
+  faAngleDown,
+  faDollarSign,
+  faGavel,
+  faGift
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -53,7 +56,10 @@ library.add(
   faLongArrowAltRight,
   faWindowClose,
   faAngleUp,
-  faAngleDown
+  faAngleDown,
+  faDollarSign,
+  faGavel,
+  faGift
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

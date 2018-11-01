@@ -8,6 +8,9 @@
     <v-btn @click="getCategories">Get Categories</v-btn><br>
     <input type="text" v-model="featuredId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="addProductToFeatured">Add product to featured id: {{ featuredId }}</v-btn><br>
     <input type="text" v-model="deleteId" style="border: 3px solid; border-radius: 10px;"><v-btn @click="deleteProduct">Delete product id: {{ deleteId }}</v-btn><br>
+    <input type="text" v-model="store.name" style="border: 3px solid; border-radius: 10px;">
+    <input type="text" v-model="store.description" style="border: 3px solid; border-radius: 10px;">
+    <v-btn @click="createStore">Create Store</v-btn><br>
     <h1>res.data</h1>
     {{ res.data }}
     <hr>
@@ -29,7 +32,11 @@ export default {
     return {
       res: '',
       featuredId: null,
-      deleteId: null
+      deleteId: null,
+      store: {
+        name: '',
+        description: ''
+      }
     }
   },
   computed: {
@@ -58,7 +65,7 @@ export default {
     },
     createStore() {
       console.log('Create Store')
-      api().post('/store/add', { name: 'The first Store', description: 'This is the first Store ever on dStors.' })
+      api().post('/store/add', { name: this.store.name, description: this.store.description })
         .then(res => {
           console.log('Response')
           console.log(res)

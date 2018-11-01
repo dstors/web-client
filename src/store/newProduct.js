@@ -7,12 +7,13 @@ export let newProduct = {
     author: '',
     permlink: 'a',
     price: ' SBD',
-    type: 'direct-sell',
+    type: null,
     wishlist: false,
     description: '',
     pictures: [''],
     stock: 0,
-    category: null
+    category: null,
+    listing: null
   },
   mutations: {
     setType(state, payload) {
