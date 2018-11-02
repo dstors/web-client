@@ -246,9 +246,9 @@ export default {
     allowedDates: val => parseInt(val.split('-')[2], 10) % 2 === 0
   },
   mounted() {
-    if (this.$store.state.profile.id) {
-      this.$store.dispatch('newProduct/getListingNames')
-    }
+    // if (this.$store.state.profile.id) {
+    //   // this.$store.dispatch('newProduct/getListingNames')
+    // }
   }
 }
 </script>
