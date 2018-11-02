@@ -9,10 +9,13 @@ export let userStore = {
     owner: ''
   },
   mutations: {
-    getStore(state) {
+    getStore(state, payload) {
       state.listings = []
-      api().get('/store/get/user')
+      let URL = (payload !== undefined) ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
+      console.log(URL)
+      api().get(URL)
         .then(function(res) {
+          let listings = [];
           for (let i = 0; i < res.data.length; i++) {
             if (Object.keys(res.data[i]).indexOf('properties') > -1) {
               console.log(res.data[i])
@@ -21,16 +24,18 @@ export let userStore = {
               state.owner = res.data[i].properties.username
             }
             else {
-              state.listings.push(res.data[i].productListNames)
+              listings.push(res.data[i].productListNames)
             }
           }
+
+          state.listings = listings
         })
         .catch(err => console.log(err))
     }
   },
   actions: {
-    getStore({ commit }) {
-      commit('getStore');
+    getStore({ commit }, payload) {
+      commit('getStore', payload);
     }
   }
 }

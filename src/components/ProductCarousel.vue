@@ -8,7 +8,7 @@
         ? { name: 'ListBrowser', params: { source: name, sourceRoute: source, title: title, username: username } }
         : { name: 'Browser', params: { source: name, sourceRoute: source, title: title } }"
       v-if="feed.length > 0"
-      class="router-link display-1 ma-5">
+      class="router-link display-1 mb-5 mt-5 ml-3">
       {{ title }}
     </router-link>
     <v-carousel

@@ -6,16 +6,17 @@
     v-on:mouseleave="onLeave"
     raised
     :color="dark ? '' : 'grey lighten-2'"
-    :class="this.cardDirection.row ? 'pa-2' : 'pt-1'"
-  >
+    :class="this.cardDirection.row ? 'pa-2' : 'pt-1'">
     <v-layout v-bind="cardDirection" wrap>
       <v-flex xs2>
-        <v-card-media
-          :src="product.pictures ? product.pictures[0] : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
-          height="200px"
-          :style="this.cardDirection.row ? 'width: 200px' : '200px'">
-          <!-- <details-popup v-if="cardDirection.column" :product="product" :hovered="hovered"></details-popup> -->
-        </v-card-media>
+        <router-link :to="'/product/details/' + product.id" v-bind:style="linkToProductDetails">
+          <v-card-media
+            :src="product.pictures ? product.pictures[0] : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg'"
+            height="200px"
+            :style="this.cardDirection.row ? 'width: 200px' : '200px'">
+            <!-- <details-popup v-if="cardDirection.column" :product="product" :hovered="hovered"></details-popup> -->
+          </v-card-media>
+        </router-link>
       </v-flex>
       <v-flex xs6>
         <v-container class="pa-0">

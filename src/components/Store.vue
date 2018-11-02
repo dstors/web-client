@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-layout row wrap>
-      <v-flex xs12 class="ma-5">
+    <v-layout row wrap class="ma-5">
+      <v-flex xs12>
         <span class="display-1">
           {{ name }}
         </span>
@@ -10,7 +10,7 @@
           {{ description }}
         </span>
         <v-spacer></v-spacer>
-        <form-layout>
+        <form-layout v-if="$route.name === 'Store'">
           <v-btn slot="activator">
             New Product
             <font-awesome-icon :icon="['fas', 'store']" size="lg" class="mx-2"></font-awesome-icon>
@@ -45,6 +45,7 @@ export default {
     ProductStepper,
     ProductCarousel
   },
+  props: ['username'],
   computed: {
     ...mapState({
       name: state => state.userStore.name,
@@ -54,7 +55,7 @@ export default {
     })
   },
   mounted() {
-    this.$store.dispatch('userStore/getStore')
+    this.$store.dispatch('userStore/getStore', this.username)
   }
 }
 </script>

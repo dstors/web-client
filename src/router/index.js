@@ -25,6 +25,12 @@ export default new Router({
       component: Feed
     },
     {
+      path: "/s/:username",
+      name: "StoreBrowser",
+      component: Store,
+      props: true
+    },
+    {
       path: "/browse/:username/:source",
       name: "ListBrowser",
       component: Browser,

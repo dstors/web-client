@@ -35,8 +35,14 @@
             </like-btn>
           </v-card-title>
           <v-card-text>
-            <span class="caption">
-              by <strong>{{ product.author }}</strong>
+            <span class="caption"> by
+              <router-link
+                :style="{
+                  'text-decoration': 'none'
+                }"
+                :to="{ name: 'StoreBrowser', params: { username: product.author } }" class="caption">
+                {{ product.author }}
+              </router-link>
             </span>
             <br>
             <span class="display-1">
