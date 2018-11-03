@@ -18,6 +18,9 @@
           <img style="height: 46px; width: 70; object-fit: cover; margin: 10px;" :src="logo" alt="">
           <!-- D<strong>stors</strong> -->
         </router-link>
+        <span class="caption font-weight-light" style="position: relative; bottom: 10px; right: 65px;">
+          αlphα
+        </span>
       </v-toolbar-title>
       <v-flex>
         <v-text-field

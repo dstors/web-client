@@ -35,7 +35,9 @@
             </like-btn>
           </v-card-title>
           <v-card-text>
-            <span class="caption"> by
+            <span v-if="product.date" class="font-weight-light">{{ 'published at ' + product.date.month.low + '/' + product.date.day.low + '/' + product.date.year.low }}</span>
+            <br>
+            <span class="caption" v-if="product.author"> by
               <router-link
                 :style="{
                   'text-decoration': 'none'

@@ -1,10 +1,6 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <div>
-        <span class="display-1 font-weight-light">What kind of offer is it?</span>
-        <slot></slot>
-      </div>
       <v-flex xs4 @click="type.disabled? '' : setType(type.value)" v-for="(type, i) in types">
         <v-card :style="{
             'text-align': 'center',

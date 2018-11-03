@@ -13,16 +13,18 @@
     </v-stepper-header>
 
     <v-stepper-items>
-      <v-stepper-content step="1">
-        <v-btn
-          style="float: right;"
-          color="primary"
-          @click="e1 = 2"
-        >
-          Continue
-        </v-btn>
 
-        <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
+      <v-stepper-content step="1">
+        <div style="text-align: center; padding-right: 40px; padding-top: 10px;">
+          <v-btn
+            style="float: right;"
+            color="primary"
+            @click="e1 = 2">
+            Continue
+          </v-btn>
+          <span class="display-1 font-weight-light">What kind of offer is it?</span>
+          <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
+        </div>
         <product-type-selector></product-type-selector>
       </v-stepper-content>
 
