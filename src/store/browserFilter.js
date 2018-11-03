@@ -1,20 +1,20 @@
 import api from '../api';
 
-export let userStore = {
+export let browserFilter = {
   namespaced: true,
 	state: {
-    name: '',
-    description: '',
+    countries: ['United States', 'South Korea', 'Canada', 'Argentina'],
+    price: {
+      min: 0,
+      max: 10000
+    },
     listings: [],
-    owner: '',
-    banner: 'https://www.uncommongoods.com/images/items/22400/22413_1_1200px.jpg',
-    avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg'
+    owner: ''
   },
   mutations: {
     getStore(state, payload) {
       state.listings = []
       let URL = (payload !== undefined) ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
-      console.log(URL)
       api().get(URL)
         .then(function(res) {
           let listings = [];

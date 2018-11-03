@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="newListing = !newListing" style="float: right;">
-      {{ newListing ? 'Pick a listing' : 'New listing' }}
+      {{ newListing ? 'Pick a shelve' : 'List a new Shelve' }}
     </v-btn>
     <v-select
       v-if="!newListing"

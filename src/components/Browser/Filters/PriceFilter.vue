@@ -13,7 +13,6 @@
       </v-flex>
       <v-text-field
         label="Min"
-        v-model="$store.state.filters.price.min"
         class="mt-0"
         hide-details
         single-line
@@ -21,7 +20,6 @@
       ></v-text-field>
       <v-text-field
           label="Max"
-          v-model="$store.state.filters.price.max"
           class="mt-0"
           hide-details
           single-line
@@ -32,6 +30,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'PriceFilter',
   data() {
@@ -43,13 +43,13 @@ export default {
     price: {
       get() {
         return [
-          this.$store.state.filters.price.min,
-          this.$store.state.filters.price.max
+          this.$store.state.browserFilter.price.min,
+          this.$store.state.browserFilter.price.max
         ]
       },
       set(newPrice) {
-        this.$store.state.filters.price.min = newPrice[0],
-        this.$store.state.filters.price.max = newPrice[1]
+        this.$store.state.browserFilter.price.min = newPrice[0],
+        this.$store.state.browserFilter.price.max = newPrice[1]
       }
     }
   }

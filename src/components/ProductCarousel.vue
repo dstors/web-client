@@ -8,6 +8,7 @@
         ? { name: 'ListBrowser', params: { source: name, sourceRoute: source, title: title, username: username } }
         : { name: 'Browser', params: { source: name, sourceRoute: source, title: title } }"
       v-if="feed.length > 0"
+      :style="{ color: dark ? 'white' : 'black' }"
       class="router-link display-1 mb-5 mt-5 ml-3">
       {{ title }}
     </router-link>
@@ -33,6 +34,7 @@
 import ProductGrid from './ProductGrid';
 import GhostProductGrid from './GhostProductGrid';
 import api from '../api';
+import { mapState } from 'vuex';
 
 export default {
   name: 'product-carousel',
@@ -59,6 +61,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      dark: state => state.styles.dark
+    }),
     computedFeed() {
       return this.paginateFeed(this.feed)
     },
@@ -129,7 +134,14 @@ export default {
 <style>
 .v-carousel__prev .v-btn, .v-carousel__next .v-btn {
   color: blue!important;
-  background-color: rgba(255,255,255,0.75);
+  background-color: rgba(255,255,255,0.25);
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+  -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
+}
+
+.v-carousel__prev .v-btn:hover, .v-carousel__next .v-btn:hover {
+  background-color: rgba(255,255,255,1);
   -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
   -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
   box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
@@ -137,12 +149,11 @@ export default {
 
 .router-link {
   text-decoration: none;
-  color: black;
   font-weight: 100;
   transition: color 0.5s;
 }
 
 .router-link:hover {
-  color: #90caf9;
+  color: #90caf9!important;
 }
 </style>

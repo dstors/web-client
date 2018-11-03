@@ -4,12 +4,12 @@
       <v-flex my-3>
         <v-overflow-btn
           clearable
-          :items="$store.state.filters.categories.items"
+          :items="categories"
           label="Main Category"
-          v-model="$store.state.filters.categories.value"
+          v-model="category"
         ></v-overflow-btn>
       </v-flex>
-      <v-flex my-3>
+      <!-- <v-flex my-3>
         <v-select
             v-model="$store.state.filters.categories.tags.value"
             :items="$store.state.filters.categories.tags.items"
@@ -18,7 +18,7 @@
             label="Tags"
             multiple
           ></v-select>
-      </v-flex>
+      </v-flex> -->
     </v-flex>
   </v-layout>
 </template>
@@ -28,7 +28,8 @@ export default {
   name: 'categories-filter',
   data() {
     return {
-      msg: 'This is the browser'
+      category: null,
+      categories: ['a', 'b', 'c']
     }
   }
 }

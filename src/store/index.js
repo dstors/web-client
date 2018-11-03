@@ -15,6 +15,7 @@ import { renderMd } from "../easy-steem/steemd";
 import router from "../router";
 import { newProduct } from './newProduct';
 import { userStore } from './userStore';
+import { browserFilter } from './browserFilter';
 
 Vue.use(Vuex);
 
@@ -355,7 +356,8 @@ export const store = new Vuex.Store({
   getters,
   modules: {
     newProduct,
-    userStore
+    userStore,
+    browserFilter
   }
 });
 

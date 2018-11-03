@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs3 class="mt-5">
-        Search filters go here
+        <!-- <filters-drawer></filters-drawer> -->
       </v-flex>
       <v-flex xs9>
         <span class="display-1 font-weight-light ma-5">
@@ -18,6 +18,7 @@
 <script>
 import ProductGrid from '../ProductGrid';
 import GhostProductGrid from '../GhostProductGrid';
+import FiltersDrawer from './FiltersDrawer';
 import api from '../../api';
 
 import { mapState } from 'vuex';
@@ -26,7 +27,8 @@ export default {
   name: 'Browser',
   components: {
     'product-grid': ProductGrid,
-    'ghost-product-grid': GhostProductGrid
+    'ghost-product-grid': GhostProductGrid,
+    'filters-drawer': FiltersDrawer
   },
   props: ['title', 'source', 'sourceRoute', 'username'],
   data() {
@@ -42,7 +44,6 @@ export default {
   },
   mounted() {
     let sourceRoute;
-    this.loading = true;
 
     if (!this.sourceRoute) {
       switch(this.source) {
@@ -69,7 +70,7 @@ export default {
     }
 
     if (this.$store.state.browserFeed.length < 1) {
-      // this.loading = true;
+      this.loading = true;
       this.$store.dispatch('getBrowserFeed', sourceRoute)
         .then(() => {
           this.loading = false

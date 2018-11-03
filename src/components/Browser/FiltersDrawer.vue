@@ -1,47 +1,14 @@
 <template>
-  <v-navigation-drawer
-      v-model="$store.state.drawer"
-      fixed
-      clipped
-      class="grey lighten-4"
-      app
-    >
-      <v-list
-        dense
-        class="grey lighten-4"
-        >
-        <template v-for="(item, i) in items">
-          <v-layout
-            v-if="item.heading"
-            :key="i"
-            row
-            align-center
-            >
-            <v-flex xs6 v-if="item.heading">
-              <v-subheader>
-                {{ item.heading }}
-              </v-subheader>
-            </v-flex>
-            <v-flex xs6 class="text-xs-right">
-            <v-spacer></v-spacer>
-              <v-checkbox v-model="$store.state.filters[item.filter].on"></v-checkbox>
-            </v-flex>
-          </v-layout>
-          <v-divider
-            v-else-if="item.divider"
-            :key="i"
-            dark
-            class="my-3"
-            >
-          </v-divider>
-          <component
-            v-else-if="$store.state.filters[item.name].on"
-            :key="i"
-              v-bind:is="item.component">
-          </component>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+  <div>
+    <ul>
+      <li>Product categories breadcrumb somewhere</li>
+      <li>Sort by: Lower price - higher price - relevant(?)</li>
+      <li>Availability - Include out of stock (checkbox)</li>
+    </ul>
+    <location-filter></location-filter>
+    <price-filter></price-filter>
+    <categories-filter></categories-filter>
+  </div>
 </template>
 
 <script>
@@ -61,13 +28,8 @@ export default {
     return {
       msg: 'This is the browser',
       items: [
-        { heading: 'Location filters', filter: 'location' },
         { component: 'location-filter', name: 'location' },
-        { divider: true },
-        { heading: 'Categories' , filter: 'categories' },
         { component: 'categories-filter', name: 'categories' },
-        { divider: true },
-        { heading: 'Price', filter: 'price' },
         { component: 'price-filter', name: 'price' },
       ]
     }
