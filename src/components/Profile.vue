@@ -2,29 +2,22 @@
   <v-container fluid fill-height>
     <v-layout xs12 row d-inline-block>
       <v-card>
-        <v-card-media :src="profile.cover_image" height="250px"></v-card-media>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-content>
-              <v-list-tile-sub-title>{{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }}</v-list-tile-sub-title>
-              <v-list-tile-title>{{ profile.about }}</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn block color="yellow darken-1" class="pl-3 pr-2">
-                  <span class="black--text">
-                    DStore
-                  </span>
-                  <v-icon right color="blue darken-3">
-                    store
-                  </v-icon>
-                </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
-
-        <v-divider></v-divider>
-
-        <v-layout row wrap>
+        <banner :src="profile.cover_image"></banner>
+        <!-- <v-card-media :src="profile.cover_image" height="250px"></v-card-media> -->
+        <v-flex xs12 style="position: relative; bottom: 80px; left: 30px;">
+          <avatar :src="profile.profile_image" size="120"></avatar>
+          <span class="display-1 font-weight-light pa-1" style="position: relative; bottom: 80px; color: black;">
+            {{ profile.realName || profile.username }} {{ profile.reputation ? '- (' + profile.reputation + ')' : '' }}
+            <span class="title font-weight-light" style="position: relative; left: 127px; bottom: 5px;">
+              <br>
+              {{ profile.about }}
+            </span>
+          </span>
+        </v-flex>
+        <v-flex xs12 style="float: right; bottom: 150px; position: relative; z-index: 999;">
+          <v-btn :to="`/s/${profile.username}`" flat>Go to Store</v-btn>
+        </v-flex>
+        <v-layout row wrap :style="{'position': 'relative', 'bottom': '100px'}">
           <v-flex xs12>
             <v-tabs v-model="tab">
               <v-tabs-slider :color="dark ? 'white' : 'black'"></v-tabs-slider>
@@ -56,6 +49,8 @@ import Wishlist from './Wishlist';
 import FormLayout from './FormLayout';
 import ProductForm from './ProductForm';
 import ProductStepper from './ProductStepper';
+import Banner from './Banner';
+import Avatar from './Avatar';
 
 export default {
   components: {
@@ -64,7 +59,9 @@ export default {
     Wishlist,
     FormLayout,
     ProductForm,
-    ProductStepper
+    ProductStepper,
+    Banner,
+    Avatar
   },
   name: 'profile',
   data() {

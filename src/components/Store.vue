@@ -17,7 +17,7 @@
           </span>
         </span>
       </v-flex>
-      <v-flex v-if="$route.name === 'Store'" xs12 style=" float: right; bottom: 150px; position: relative; z-index: 999;">
+      <v-flex v-if="$route.name === 'Store'" xs12 style="float: right; bottom: 150px; position: relative; z-index: 999;">
         <form-layout stateModule="userStore">
           <v-btn flat slot="activator" class="text-capitalize">
             <font-awesome-icon :icon="['fas', 'store']" size="md" class="mx-2"></font-awesome-icon>
