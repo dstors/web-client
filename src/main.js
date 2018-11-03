@@ -14,6 +14,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faMoon,
+  faSun,
   faHeart,
   faBookmark,
   faCartPlus,
@@ -41,6 +42,7 @@ library.add(
 	faFacebook,
 	faBitcoin,
 	faMoon,
+  faSun,
   faHeart,
   faBookmark,
   faCartPlus,

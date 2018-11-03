@@ -2,19 +2,6 @@
 	<v-slide-y-transition>
     <v-container>
       <v-layout column>
-        <!-- <v-flex offset-xs1 xs4 >
-          <span class="title font-weight-light">What kind of offer is it?</span>
-          <v-btn small
-            v-for="(type, i) in types"
-            block
-            :color="type.color"
-            :flat="newProduct.type !== type.value"
-            :key="i"
-            @click="setType(types[i].value)">
-            {{ type.label }}
-            <v-icon right>{{ type.icon }}</v-icon>
-          </v-btn>
-        </v-flex> -->
         <v-flex offset-xs1 xs12 class="mb-4">
           <span class="title font-weight-light">Category</span>
           <v-select
@@ -28,7 +15,7 @@
           </v-select>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="title font-weight-light">Listing</span>
+          <span class="title font-weight-light">Shelve</span>
           <listing-selector></listing-selector>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
@@ -172,7 +159,7 @@ import ListingSelector from './ListingSelector';
 
 export default {
   name: 'product-fields',
-  props: ['dark', 'content', 'featured', 'title'],
+  props: ['content', 'featured', 'title'],
   components: {
     ListingSelector
   },
@@ -196,7 +183,8 @@ export default {
   computed: {
     ...mapState({
       newProduct: state => state.newProduct,
-      categories: state => state.categories
+      categories: state => state.categories,
+      dark: state => state.styles.dark
     }),
     price: {
       get() {

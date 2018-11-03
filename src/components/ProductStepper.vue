@@ -86,11 +86,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      toggleFormDialog: 'toggleFormDialog'
+      toggleFormDialog: 'newProduct/toggleFormDialog'
     }),
     submitProduct() {
       this.$store.dispatch('newProduct/createProduct');
-      this.$store.state.formDialog = false
+      this.$store.state.newProduct.formDialog = false
     }
   }
 }

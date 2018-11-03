@@ -9,7 +9,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'banner',
-  props: ['src', 'size', 'radius'],
+  props: ['src'],
   computed: {
     ...mapState({
       dark: state => state.styles.dark

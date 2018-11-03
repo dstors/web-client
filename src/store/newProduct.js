@@ -14,7 +14,8 @@ export let newProduct = {
     stock: 0,
     category: null,
     listing: null,
-    listingNames: []
+    listingNames: [],
+    formDialog: false
   },
   mutations: {
     setType(state, payload) {
@@ -37,7 +38,10 @@ export let newProduct = {
           state.listingNames = res.data.map(item => item.productListName)
         })
         .catch(err => console.log(err))
-    }
+    },
+    toggleFormDialog(state) {
+      state.formDialog = !state.formDialog;
+    },
   },
   actions: {
     setType({ commit }, payload) {
@@ -54,6 +58,9 @@ export let newProduct = {
     },
     getListingNames({ commit, rootState }, payload) {
       commit('getListingNames',  { ...payload, rootState })
-    }
+    },
+    toggleFormDialog({ commit }) {
+      commit("toggleFormDialog");
+    },
   }
 }

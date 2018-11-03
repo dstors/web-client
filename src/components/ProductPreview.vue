@@ -1,6 +1,9 @@
 <template>
   <preview-layout>
-    <span slot="title" class="display-1 font-weight-light">Preview</span>
+    <div slot="title">
+      <span class="display-1 font-weight-light">Preview</span>
+      <slot></slot>
+    </div>
     <template>
       <v-flex :xs5="editableProduct.description" :xs12="!editableProduct.description" class="pa-3">
         <product-item :direction="0" :editable="true" @toggle-edition="toggleEdition" :product="editableProduct"></product-item>
@@ -21,11 +24,12 @@
 <script>
 import ProductItem from './ProductItem.vue';
 import PreviewLayout from './PreviewLayout.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: { ProductItem, PreviewLayout },
   name: 'product-preview',
-  props: ['dark', 'content', 'featured', 'title'],
+  props: ['content', 'featured', 'title'],
   data() {
     return {
       marked: false,
@@ -39,6 +43,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      dark: state => state.styles.dark
+    }),
     editableProduct: {
       get() {
         return this.$store.state.newProduct

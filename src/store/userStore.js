@@ -8,7 +8,8 @@ export let userStore = {
     listings: [],
     owner: '',
     banner: 'https://www.uncommongoods.com/images/items/22400/22413_1_1200px.jpg',
-    avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg'
+    avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg',
+    formDialog: false
   },
   mutations: {
     getStore(state, payload) {
@@ -33,11 +34,17 @@ export let userStore = {
           state.listings = listings
         })
         .catch(err => console.log(err))
-    }
+    },
+    toggleFormDialog(state) {
+      state.formDialog = !state.formDialog;
+    },
   },
   actions: {
     getStore({ commit }, payload) {
       commit('getStore', payload);
-    }
+    },
+    toggleFormDialog({ commit }) {
+      commit("toggleFormDialog");
+    },
   }
 }

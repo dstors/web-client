@@ -2,21 +2,8 @@
   <v-layout row wrap justify-end>
     <v-dialog v-model="dialog" persistent transition="dialog-bottom-transition">
       <slot name="activator" slot="activator">
-        <!-- <v-btn
-          slot="activator"
-          flat icon right color="primary">
-          <v-icon rigth>
-            edit
-          </v-icon>
-        </v-btn> -->
       </slot>
       <v-card>
-        <!-- <v-toolbar :color="dark ? darkColor : color" :dark="dark">
-          <v-btn icon dark @click.native="dialog = false">
-            <font-awesome-icon :color="dark ? 'white' : 'grey'" size="lg" :icon="['fas', 'window-close']"></font-awesome-icon>
-          </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
-        </v-toolbar> -->
         <slot></slot>
       </v-card>
     </v-dialog>
@@ -28,14 +15,17 @@ import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'form-layout',
+  props: [
+    'stateModule'
+  ],
   computed: {
     dialog: {
       get() {
-        return this.$store.state.formDialog
+        return this.$store.state[this.stateModule].formDialog
       },
 
       set(value) {
-        this.$store.state.formDialog = value
+        this.$store.state[this.stateModule].formDialog = value
       }
     },
     ...mapState({

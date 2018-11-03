@@ -17,17 +17,23 @@
           </span>
         </span>
       </v-flex>
-      <v-flex xs12 class="text-xs-center">
-        <v-spacer></v-spacer>
-        <form-layout v-if="$route.name === 'Store'">
-          <v-btn slot="activator">
-            New Product
+      <v-flex v-if="$route.name === 'Store'" xs12 style=" float: right; bottom: 150px; position: relative; z-index: 999;">
+        <form-layout stateModule="userStore">
+          <v-btn flat slot="activator" class="text-capitalize">
             <font-awesome-icon :icon="['fas', 'store']" size="md" class="mx-2"></font-awesome-icon>
+            Edit Store Details
+          </v-btn>
+          <store-fields></store-fields>
+        </form-layout>
+        <form-layout stateModule="newProduct">
+          <v-btn flat slot="activator" class="text-capitalize">
+            <font-awesome-icon :icon="['fas', 'dollar-sign']" size="md" class="mx-2"></font-awesome-icon>
+            New Product
           </v-btn>
           <product-stepper></product-stepper>
         </form-layout>
       </v-flex>
-      <v-flex xs12 v-for="listing in listings" style="position: relative; bottom: 80px;">
+      <v-flex xs12 v-for="listing in listings" :style="{'position': 'relative', 'bottom': $route.name === 'Store' ? '196px' : '100px'}">
         <product-carousel
           :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
           :name="listing"
@@ -47,16 +53,18 @@ import ProductStepper from './ProductStepper';
 import ProductCarousel from './ProductCarousel';
 import Avatar from './Avatar';
 import Banner from './Banner';
+import StoreFields from './StoreFields';
 
 export default {
   name: 'store',
   components: {
-    FormLayout,
-    ProductForm,
-    ProductStepper,
-    ProductCarousel,
-    Avatar,
-    Banner
+    'form-layout': FormLayout,
+    'product-form': ProductForm,
+    'product-stepper': ProductStepper,
+    'product-carousel': ProductCarousel,
+    'avatar': Avatar,
+    'banner': Banner,
+    'store-fields': StoreFields
   },
   props: ['username'],
   computed: {
