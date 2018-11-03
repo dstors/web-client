@@ -9,7 +9,7 @@
           size="120"
           radius="10">
         </avatar>
-        <span class="display-1 font-weight-light pa-1" style="position: relative; bottom: 80px;">
+        <span class="display-1 font-weight-light pa-1" style="position: relative; bottom: 80px; color: black;">
           {{ name }}
           <span class="title font-weight-light" style="position: relative; left: 127px; bottom: 5px;">
             <br>
@@ -27,7 +27,7 @@
           <product-stepper></product-stepper>
         </form-layout>
       </v-flex>
-      <v-flex xs12 v-for="listing in listings">
+      <v-flex xs12 v-for="listing in listings" style="position: relative; bottom: 80px;">
         <product-carousel
           :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
           :name="listing"
