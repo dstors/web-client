@@ -51,11 +51,20 @@
 
 <script>
 import logo from '../components/assets/DSTORS.png';
+import { store } from '../store/index.js';
 
 export default {
   name: 'Landing',
   props: {
     msg: String
+  },
+  beforeRouteEnter (to, from, next) {
+    store.state.styles.dark = true;
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    store.state.styles.dark = false;
+    next();
   },
   data() {
     return {
@@ -84,7 +93,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 .v-content {
   background: linear-gradient(10deg, #424242, #101010);
