@@ -33,7 +33,11 @@ import {
   faAngleDown,
   faDollarSign,
   faGavel,
-  faGift
+  faGift,
+  faEllipsisV,
+  faListUl,
+  faTimes,
+  faEdit
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -61,7 +65,11 @@ library.add(
   faAngleDown,
   faDollarSign,
   faGavel,
-  faGift
+  faGift,
+  faEllipsisV,
+  faListUl,
+  faTimes,
+  faEdit
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

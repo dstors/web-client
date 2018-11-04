@@ -21,10 +21,12 @@
               d-flex
               xs12>
               <product-item
+                :editable="editable"
                 :direction="toggle_exclusive"
                 :source="source"
                 :index="n"
                 :dark="dark"
+                :inShelve="inShelve"
                 v-on:toggleliked="toggleLiked(n, $event)"
                 v-on:toggleshopcart="toggleShopcart(n, $event)"
                 v-on:togglebookmark="toggleBookmark(n, $event)"
@@ -48,7 +50,13 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'ProductGrid',
-  props: ['products', 'source', 'hideToggleButtons'],
+  props: [
+    'products',
+    'source',
+    'hideToggleButtons',
+    'editable',
+    'inShelve'
+  ],
   components: {
     'product-item': ProductItem,
     'go-back-btn': GoBackBtn

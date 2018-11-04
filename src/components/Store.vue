@@ -17,7 +17,8 @@
           </span>
         </span>
       </v-flex>
-      <v-flex v-if="$route.name === 'Store'" xs12 style="float: right; bottom: 150px; position: relative; z-index: 999;">
+      <v-flex v-if="$route.name === 'Store'" xs12
+        style="float: right; bottom: 150px; position: relative; z-index: 1; margin-left: 600px;">
         <form-layout stateModule="userStore">
           <v-btn flat slot="activator" class="text-capitalize">
             <font-awesome-icon :icon="['fas', 'store']" size="md" class="mx-2"></font-awesome-icon>
@@ -35,8 +36,10 @@
       </v-flex>
       <v-flex xs12 v-for="listing in listings" :style="{'position': 'relative', 'bottom': $route.name === 'Store' ? '196px' : '100px'}">
         <product-carousel
+          :editable="$route.name === 'Store'"
           :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
           :name="listing"
+          :inShelve="true"
           :title="listing"
           :username="owner">
         </product-carousel>

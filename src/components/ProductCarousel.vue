@@ -24,7 +24,7 @@
         <ghost-product-grid :hideToggleButtons="true"></ghost-product-grid>
       </v-carousel-item>
       <v-carousel-item v-show="!loading" v-for="(page, i) in computedFeed">
-        <product-grid :hideToggleButtons="true" :key="i" source="products" :products="page"></product-grid>
+        <product-grid :inShelve="inShelve" :hideToggleButtons="true" :editable="editable" :key="i" source="products" :products="page"></product-grid>
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -47,7 +47,9 @@ export default {
     'pages',
     'name',
     'source',
-    'username'
+    'username',
+    'editable',
+    'inShelve'
   ],
   data() {
     return {
