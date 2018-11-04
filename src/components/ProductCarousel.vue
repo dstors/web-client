@@ -12,6 +12,24 @@
       class="router-link display-1 mb-5 mt-5 ml-3">
       {{ title }}
     </router-link>
+    <v-tooltip fixed top>
+      <font-awesome-icon
+        slot="activator"
+        v-if="editable && feed.length > 0"
+        class="font-weight-light ml-2" size="md"
+        :icon="['fas', 'times']">
+      </font-awesome-icon>
+      <span>Delete shelve <span class="caption">(No products will be lost)</span></span>
+    </v-tooltip>
+    <v-tooltip fixed top>
+      <font-awesome-icon
+        slot="activator"
+        v-if="editable && feed.length > 0"
+        class="font-weight-light ml-2" size="md"
+        :icon="['fas', 'edit']">
+      </font-awesome-icon>
+      <span>Edit shelve name</span>
+    </v-tooltip>
     <v-carousel
       v-if="feed.length > 0"
       ref="ul"
