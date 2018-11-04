@@ -15,7 +15,6 @@ export let userStore = {
     getStore(state, payload) {
       state.listings = []
       let URL = (payload !== undefined) ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
-      console.log(URL)
       api().get(URL)
         .then(function(res) {
           let listings = [];
