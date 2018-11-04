@@ -21,14 +21,14 @@
         style="float: right; bottom: 150px; position: relative; z-index: 1; margin-left: 600px;">
         <form-layout stateModule="userStore">
           <v-btn flat slot="activator" class="text-capitalize">
-            <font-awesome-icon :icon="['fas', 'store']" size="md" class="mx-2"></font-awesome-icon>
+            <font-awesome-icon :icon="['fas', 'store']" size="1x" class="mx-2"></font-awesome-icon>
             Edit Store Details
           </v-btn>
           <store-fields></store-fields>
         </form-layout>
         <form-layout stateModule="newProduct">
           <v-btn flat slot="activator" class="text-capitalize">
-            <font-awesome-icon :icon="['fas', 'dollar-sign']" size="md" class="mx-2"></font-awesome-icon>
+            <font-awesome-icon :icon="['fas', 'dollar-sign']" size="1x" class="mx-2"></font-awesome-icon>
             New Product
           </v-btn>
           <product-stepper></product-stepper>

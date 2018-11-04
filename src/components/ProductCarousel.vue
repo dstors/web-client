@@ -16,7 +16,7 @@
       <font-awesome-icon
         slot="activator"
         v-if="editable && feed.length > 0"
-        class="font-weight-light ml-2" size="md"
+        class="font-weight-light ml-2" size="1x"
         :icon="['fas', 'times']">
       </font-awesome-icon>
       <span>Delete shelve <span class="caption">(No products will be lost)</span></span>
@@ -25,7 +25,7 @@
       <font-awesome-icon
         slot="activator"
         v-if="editable && feed.length > 0"
-        class="font-weight-light ml-2" size="md"
+        class="font-weight-light ml-2" size="1x"
         :icon="['fas', 'edit']">
       </font-awesome-icon>
       <span>Edit shelve name</span>

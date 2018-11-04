@@ -11,7 +11,7 @@ export let newProduct = {
     wishlist: false,
     description: '',
     pictures: [''],
-    stock: 0,
+    stock: 1,
     category: null,
     listing: null,
     listingNames: [],

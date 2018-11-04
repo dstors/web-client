@@ -5,11 +5,11 @@
 
       <v-divider></v-divider>
 
-      <v-stepper-step editable :complete="e1 > 2" step="2">Describe your product</v-stepper-step>
+      <v-stepper-step :editable="secondStepCondition" :complete="e1 > 2" step="2">Describe your product</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step editable step="3">Confirm</v-stepper-step>
+      <v-stepper-step :editable="secondStepCondition && thirdStepCondition" step="3">Confirm</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
@@ -17,6 +17,7 @@
       <v-stepper-content step="1">
         <div style="text-align: center; padding-right: 40px; padding-top: 10px;">
           <v-btn
+            :disabled="!secondStepCondition"
             style="float: right;"
             color="primary"
             @click="e1 = 2">
@@ -30,15 +31,16 @@
 
       <v-stepper-content step="2">
         <v-btn
+          :disabled="!thirdStepCondition"
           style="float: right;"
           color="primary"
-          @click="e1 = 3"
-        >
+          @click="e1 = 3">
           Continue
         </v-btn>
         <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
         <v-flex xs12 style="text-align: center;">
           <span class="display-1 font-weight-light">Describe your product</span><br>
+          <span class="caption font-weight-light" v-if="!thirdStepCondition">At least one picture, name and price are required</span>
         </v-flex>
         <product-fields></product-fields>
 
@@ -83,8 +85,23 @@ export default {
   computed: {
     ...mapState({
       dialog: state => state.dialog,
-      dark: state => state.styles.dark
-    })
+      dark: state => state.styles.dark,
+      newProduct: state => state.newProduct
+    }),
+    secondStepCondition() {
+      return this.newProduct.type !== null
+    },
+    thirdStepCondition() {
+      const {
+        name,
+        pictures
+      } = this.newProduct
+
+      return (
+        (name !== '' && name !== undefined)
+        && (pictures[0] !== '')
+      )
+    }
   },
   methods: {
     ...mapActions({
