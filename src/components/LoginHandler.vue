@@ -11,7 +11,7 @@ export default {
 	mounted() {
     this.$store.dispatch('login');
     this.$store.steemAccess = this.$route.query.access;
-    this.$router.push('/');
+    this.$router.push('/feed');
   }
 }
 </script>
