@@ -10,7 +10,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faFacebook,
   faGoogle,
-  faBitcoin
+  faBitcoin,
+  faDiscord
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faMoon,
@@ -69,7 +70,8 @@ library.add(
   faEllipsisV,
   faListUl,
   faTimes,
-  faEdit
+  faEdit,
+  faDiscord
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Feed from "@/components/Feed";
+import Landing from "@/components/Landing";
 import LoginHandler from "@/components/LoginHandler";
 import Profile from "@/components/Profile";
 
@@ -21,6 +22,11 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "Landing",
+      component: Landing
+    },
+    {
+      path: "/feed",
       name: "Feed",
       component: Feed
     },

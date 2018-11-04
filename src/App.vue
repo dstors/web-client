@@ -4,6 +4,7 @@
     <slot name="messenger"></slot>
     <slot name="store-manager"></slot>
     <v-toolbar
+      v-show="$route.name !== 'Landing'"
       app
       scroll-off-screen
       :scroll-threshold="50"
