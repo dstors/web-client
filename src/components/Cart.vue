@@ -77,7 +77,7 @@
                   <span class="title font-weight-light">Current SBD balance:</span>
                 </v-flex>
                 <v-flex xs6>
-                  <span class="title">{{ sbdBalance }} SBD</span>
+                  <span class="title">{{ sbdBalance }}</span>
                 </v-flex>
               </v-layout>
             </div>
