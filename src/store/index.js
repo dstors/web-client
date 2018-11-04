@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
     profile: {},
     postsLimit: 30,
     styles: {
-      dark: true,
+      dark: false,
       color: 'grey lighten-4',
       darkColor: 'grey darken-2',
       flat: false,

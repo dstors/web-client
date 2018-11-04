@@ -37,6 +37,13 @@ export let userStore = {
     toggleFormDialog(state) {
       state.formDialog = !state.formDialog;
     },
+    deleteShelve(state, payload) {
+      api().post('/store/product_list/delete/0?name=' + payload)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    }
   },
   actions: {
     getStore({ commit }, payload) {
@@ -45,5 +52,8 @@ export let userStore = {
     toggleFormDialog({ commit }) {
       commit("toggleFormDialog");
     },
+    deleteShelve({ commit }, payload) {
+      commit("deleteShelve", payload)
+    }
   }
 }

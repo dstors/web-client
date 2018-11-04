@@ -12,15 +12,10 @@
       class="router-link display-1 mb-5 mt-5 ml-3">
       {{ title }}
     </router-link>
-    <v-tooltip fixed top>
-      <font-awesome-icon
-        slot="activator"
-        v-if="editable && feed.length > 0"
-        class="font-weight-light ml-2" size="1x"
-        :icon="['fas', 'times']">
-      </font-awesome-icon>
-      <span>Delete shelve <span class="caption">(No products will be lost)</span></span>
-    </v-tooltip>
+    <delete-shelve-btn
+      v-if="editable && feed.length > 0"
+      :shelveName="title">
+    </delete-shelve-btn>
     <v-tooltip fixed top>
       <font-awesome-icon
         slot="activator"
@@ -51,6 +46,7 @@
 <script>
 import ProductGrid from './ProductGrid';
 import GhostProductGrid from './GhostProductGrid';
+import DeleteShelveBtn from './Buttons/DeleteShelveBtn';
 import api from '../api';
 import { mapState } from 'vuex';
 
@@ -58,7 +54,8 @@ export default {
   name: 'product-carousel',
   components: {
     'product-grid': ProductGrid,
-    'ghost-product-grid': GhostProductGrid
+    'ghost-product-grid': GhostProductGrid,
+    'delete-shelve-btn': DeleteShelveBtn
   },
   props: [
     'title',
