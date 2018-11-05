@@ -184,10 +184,10 @@
                 :style="{ 'position': 'relative', left: '5px' }"
                 size="lg" color="grey" :icon="['fas', 'ellipsis-v']">
               </font-awesome-icon>
-              <!-- <v-icon>close</v-icon> -->
               <font-awesome-icon
                 :style="{ 'position': 'relative', left: '-3px' }"
-                size="lg" color="grey" :icon="['fas', 'times']"></font-awesome-icon>
+                size="lg" color="grey" :icon="['fas', 'times']">
+              </font-awesome-icon>
             </v-btn>
             <v-btn
               :style="{ 'position': 'relative', left: '15px', top: '10px' }"
@@ -202,6 +202,7 @@
             <v-btn
               :style="{ 'position': 'relative', left: '10px', top: '5px' }"
               fab dark
+              @click="deleteProduct(product.id)"
               small color="red">
               <v-tooltip fixed left>
                 <font-awesome-icon slot="activator" :icon="['fas', 'trash']"></font-awesome-icon>
@@ -211,6 +212,7 @@
             <v-btn
               :style="{ 'position': 'relative', left: '10px', top: '1px' }"
               fab dark v-if="inShelve"
+              @click="removeFromShelve"
               small color="red">
               <v-tooltip fixed left>
                 <font-awesome-icon slot="activator" :icon="['fas', 'list-ul']"></font-awesome-icon>
@@ -247,7 +249,8 @@ export default {
     'source',
     'direction',
     'editable',
-    'inShelve'
+    'inShelve',
+    'shelveName'
   ],
   data() {
     return {
@@ -296,7 +299,28 @@ export default {
     },
     toggleBookmark(e) {
       this.$emit('togglebookmark', e)
-    }
+    },
+    removeFromShelve(productId) {
+      console.log('remove from shelve ', productId)
+      this.$store.dispatch("userStore/removeFromShelve",
+        { productId: productId, shelveName: this.shelveName })
+        .then(() => {
+          this.$emit('removefromgrid', productId)
+        })
+        .catch(err => console.log(err))
+    },
+    deleteProduct(productId) {
+      console.log('delete product ', productId)
+      this.$store.dispatch("userStore/deleteProduct",
+        { productId: productId, shelveName: this.shelveName })
+        .then(() => {
+          this.$store.dispatch(
+            this.inShelve ? "userStore/getStore" : "userStore/getAllProducts",
+            this.$store.state.userStore.owner
+          )
+        })
+        .catch(err => console.log(err))
+    },
   }
 }
 </script>

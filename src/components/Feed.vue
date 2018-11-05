@@ -36,7 +36,7 @@ export default {
         {
           title: 'New Products',
           name: 'new',
-          source: '/store/news/get'
+          source: '/app/product/news/get'
         },
         {
           title: 'Hot Products',

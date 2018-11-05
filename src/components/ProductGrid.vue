@@ -21,6 +21,8 @@
               d-flex
               xs12>
               <product-item
+                :shelveName="shelveName"
+                @removefromgrid="removeFromGrid"
                 :editable="editable"
                 :direction="toggle_exclusive"
                 :source="source"
@@ -55,7 +57,8 @@ export default {
     'source',
     'hideToggleButtons',
     'editable',
-    'inShelve'
+    'inShelve',
+    'shelveName'
   ],
   components: {
     'product-item': ProductItem,
@@ -96,6 +99,9 @@ export default {
     },
     toggleBookmark(i, e) {
       Vue.set(this.products[i], 'wishlist', e)
+    },
+    removeFromGrid(productId) {
+      this.$emit('removefromgrid', productId)
     }
   }
 }

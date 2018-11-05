@@ -17,8 +17,8 @@
           </span>
         </span>
       </v-flex>
-      <v-flex v-if="$route.name === 'Store'" xs12
-        style="float: right; bottom: 150px; position: relative; z-index: 1; margin-left: 600px;">
+      <v-flex v-if="['Store', 'StoreAll'].indexOf($route.name) > -1" xs12
+        style="float: right; bottom: 155px; position: relative; z-index: 1; margin-left: 600px;">
         <form-layout stateModule="userStore">
           <v-btn flat slot="activator" class="text-capitalize">
             <font-awesome-icon :icon="['fas', 'store']" size="1x" class="mx-2"></font-awesome-icon>
@@ -34,10 +34,27 @@
           <product-stepper></product-stepper>
         </form-layout>
       </v-flex>
-      <v-flex xs12 v-for="(listing, i) in listings" :style="{'position': 'relative', 'bottom': $route.name === 'Store' ? '196px' : '100px'}">
+      <v-flex xs12>
+        <span :style="{
+            'left': '33px',
+            'bottom': '210px',
+            'position': 'relative'
+          }">
+          <router-link v-if="all" :to="{ name: 'Store', params: { username: owner, all: !all } }">
+            See shelves
+          </router-link>
+          <router-link v-else :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
+            See all products
+          </router-link>
+        </span>
+      </v-flex>
+      <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="{
+        'position': 'relative',
+        'bottom': ['Store', 'StoreAll'].indexOf($route.name) > -1 ? '196px' : '100px'
+      }">
         <product-carousel
           @changename="changeShelveName(i, $event)"
-          :editable="$route.name === 'Store'"
+          :editable="['Store', 'StoreAll'].indexOf($route.name) > -1"
           :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
           :name="listing"
           :inShelve="true"
@@ -45,6 +62,16 @@
           :username="owner">
         </product-carousel>
       </v-flex>
+      <product-grid
+        :style="{
+          'position': 'relative',
+          'bottom': ['Store', 'StoreAll'].indexOf($route.name) > -1 ? '196px' : '100px'
+        }"
+        v-if="all"
+        :editable="true"
+        :hideToggleButtons="true"
+        :products="feed">
+      </product-grid>
     </v-layout>
   </v-container>
 </template>
@@ -54,6 +81,7 @@ import { mapState } from 'vuex';
 import FormLayout from './FormLayout';
 import ProductForm from './ProductForm';
 import ProductStepper from './ProductStepper';
+import ProductGrid from './ProductGrid';
 import ProductCarousel from './ProductCarousel';
 import Avatar from './Avatar';
 import Banner from './Banner';
@@ -66,6 +94,7 @@ export default {
     'product-form': ProductForm,
     'product-stepper': ProductStepper,
     'product-carousel': ProductCarousel,
+    'product-grid': ProductGrid,
     'avatar': Avatar,
     'banner': Banner,
     'store-fields': StoreFields
@@ -86,20 +115,37 @@ export default {
       description: state => state.userStore.description,
       banner: state => state.userStore.banner,
       avatar: state => state.userStore.avatar,
-      owner: state => state.userStore.owner
-    })
+      owner: state => state.userStore.owner,
+      feed: state => state.userStore.allProducts
+    }),
+    all() {
+      return this.$route.name === 'StoreAll'
+    }
   },
   mounted() {
     this.$store.dispatch('userStore/getStore', this.username)
   },
   beforeRouteEnter(to, form, next){
     next(vm => {
-      vm.$store.dispatch('userStore/getStore', vm.username)
+      vm.$store.dispatch('userStore/getStore', to.params.username)
+        .then(() => {
+          if (to.params.all || to.name === 'StoreAll') {
+            vm.$store.dispatch('userStore/getAllProducts', {
+              steemUsername: to.params.username || vm.$store.state.userStore.owner
+            })
+          }
+
+        })
+        .catch(err => console.log(err))
     })
   },
   beforeRouteUpdate(to, form, next){
-    this.$store.dispatch('userStore/getStore', to.params.username)
+    console.log('update')
+    this.$store.dispatch('userStore/getStore', to.params.username || this.$store.state.userStore.owner)
       .then(res => {
+        if (to.params.all) {
+          this.$store.dispatch('userStore/getAllProducts', to.params.username || this.$store.state.userStore.owner)
+        }
         next()
       })
       .catch(err => console.log(err))

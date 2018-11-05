@@ -65,6 +65,12 @@ export default new Router({
       component: Store
     },
     {
+      path: "/store/all",
+      name: "StoreAll",
+      component: Store,
+      props: true
+    },
+    {
       path: "/cart",
       name: "Cart",
       component: Cart

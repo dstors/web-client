@@ -33,7 +33,16 @@
         <ghost-product-grid :hideToggleButtons="true"></ghost-product-grid>
       </v-carousel-item>
       <v-carousel-item v-show="!loading" v-for="(page, i) in computedFeed">
-        <product-grid :inShelve="inShelve" :hideToggleButtons="true" :editable="editable" :key="i" source="products" :products="page"></product-grid>
+        <product-grid
+          :inShelve="inShelve"
+          @removefromgrid="removeFromGrid"
+          :shelveName="title"
+          :hideToggleButtons="true"
+          :editable="editable"
+          :key="i"
+          source="products"
+          :products="page">
+        </product-grid>
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -95,6 +104,11 @@ export default {
     },
     changeShelveName(newName) {
       this.$emit('changename', newName)
+    },
+    removeFromGrid(productId) {
+      this.feed = this.feed.filter(product => {
+        return product.id !== productId;
+      })
     },
     paginateFeed(feed) {
       let result = [];
