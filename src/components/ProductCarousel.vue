@@ -16,15 +16,11 @@
       v-if="editable && feed.length > 0"
       :shelveName="title">
     </delete-shelve-btn>
-    <v-tooltip fixed top>
-      <font-awesome-icon
-        slot="activator"
-        v-if="editable && feed.length > 0"
-        class="font-weight-light ml-2" size="1x"
-        :icon="['fas', 'edit']">
-      </font-awesome-icon>
-      <span>Edit shelve name</span>
-    </v-tooltip>
+    <edit-shelve-popup
+      @changename="changeShelveName"
+      v-if="editable && feed.length > 0"
+      :shelveName="title">
+    </edit-shelve-popup>
     <v-carousel
       v-if="feed.length > 0"
       ref="ul"
@@ -47,6 +43,7 @@
 import ProductGrid from './ProductGrid';
 import GhostProductGrid from './GhostProductGrid';
 import DeleteShelveBtn from './Buttons/DeleteShelveBtn';
+import EditShelvePopup from './Buttons/EditShelvePopup';
 import api from '../api';
 import { mapState } from 'vuex';
 
@@ -55,7 +52,8 @@ export default {
   components: {
     'product-grid': ProductGrid,
     'ghost-product-grid': GhostProductGrid,
-    'delete-shelve-btn': DeleteShelveBtn
+    'delete-shelve-btn': DeleteShelveBtn,
+    'edit-shelve-popup': EditShelvePopup
   },
   props: [
     'title',
@@ -94,6 +92,9 @@ export default {
     },
     onResize() {
       this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+    },
+    changeShelveName(newName) {
+      this.$emit('changename', newName)
     },
     paginateFeed(feed) {
       let result = [];

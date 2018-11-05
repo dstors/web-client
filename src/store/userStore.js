@@ -1,4 +1,5 @@
 import api from '../api';
+import Vue from 'vue';
 
 export let userStore = {
   namespaced: true,
@@ -43,6 +44,19 @@ export let userStore = {
           console.log(res)
         })
         .catch(err => console.log(err))
+    },
+    editShelveName(state, payload) {
+      api().post('/store/product_list/name/edit',
+        { listName: payload.listName, finalName: payload.newName })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    },
+    changeListName(state, payload) {
+      state.listings = state.listings.map((list, i) => {
+        return i === payload.index ? payload.newName : list
+      })
     }
   },
   actions: {
@@ -54,6 +68,9 @@ export let userStore = {
     },
     deleteShelve({ commit }, payload) {
       commit("deleteShelve", payload)
+    },
+    editShelveName({ commit }, payload) {
+      commit("editShelveName", payload)
     }
   }
 }

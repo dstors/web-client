@@ -34,8 +34,9 @@
           <product-stepper></product-stepper>
         </form-layout>
       </v-flex>
-      <v-flex xs12 v-for="listing in listings" :style="{'position': 'relative', 'bottom': $route.name === 'Store' ? '196px' : '100px'}">
+      <v-flex xs12 v-for="(listing, i) in listings" :style="{'position': 'relative', 'bottom': $route.name === 'Store' ? '196px' : '100px'}">
         <product-carousel
+          @changename="changeShelveName(i, $event)"
           :editable="$route.name === 'Store'"
           :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
           :name="listing"
@@ -70,6 +71,14 @@ export default {
     'store-fields': StoreFields
   },
   props: ['username'],
+  methods: {
+    changeShelveName(i, newName) {
+      this.$store.commit("userStore/changeListName", {
+        index: i,
+        newName
+      })
+    }
+  },
   computed: {
     ...mapState({
       name: state => state.userStore.name,

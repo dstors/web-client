@@ -3,6 +3,7 @@
     <font-awesome-icon
       @click="deleteShelve"
       slot="activator"
+      :style="{ 'cursor': 'pointer' }"
       class="font-weight-light ml-2" size="1x"
       :icon="['fas', 'times']">
     </font-awesome-icon>
