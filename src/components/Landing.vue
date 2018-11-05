@@ -84,10 +84,6 @@ export default {
       ],
       logo: logo
     }
-  },
-  mounted() {
-    // this.$vuetify.dark = true
-    console.log(this.$vuetify.dark)
   }
 }
 </script>

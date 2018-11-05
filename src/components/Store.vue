@@ -31,7 +31,7 @@
             <font-awesome-icon :icon="['fas', 'dollar-sign']" size="1x" class="mx-2"></font-awesome-icon>
             New Product
           </v-btn>
-          <product-stepper></product-stepper>
+          <product-stepper @newproduct="refreshStoreData"></product-stepper>
         </form-layout>
       </v-flex>
       <v-flex xs12>
@@ -106,6 +106,13 @@ export default {
         index: i,
         newName
       })
+    },
+    refreshStoreData() {
+      this.$store.dispatch('userStore/getStore', this.username || this.$store.state.userStore.owner)
+        .then(() => {
+            this.$store.dispatch('userStore/getAllProducts', { steemUsername: this.username })
+        })
+        .catch(err => console.log(err))
     }
   },
   computed: {
@@ -127,14 +134,9 @@ export default {
   },
   beforeRouteEnter(to, form, next){
     next(vm => {
-      vm.$store.dispatch('userStore/getStore', to.params.username)
+      vm.$store.dispatch('userStore/getStore', to.params.username || vm.$store.state.userStore.owner)
         .then(() => {
-          if (to.params.all || to.name === 'StoreAll') {
-            vm.$store.dispatch('userStore/getAllProducts', {
-              steemUsername: to.params.username || vm.$store.state.userStore.owner
-            })
-          }
-
+            vm.$store.dispatch('userStore/getAllProducts', { steemUsername: to.params.username })
         })
         .catch(err => console.log(err))
     })

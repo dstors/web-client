@@ -1,11 +1,11 @@
 <template>
-  <v-stepper :dark="dark" v-model="e1" non-linear>
+  <v-stepper :dark="dark" v-model="step" non-linear>
     <v-stepper-header>
-      <v-stepper-step editable :complete="e1 > 1" step="1">What are you going to publish?</v-stepper-step>
+      <v-stepper-step editable :complete="step > 1" step="1">What are you going to publish?</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step :editable="secondStepCondition" :complete="e1 > 2" step="2">Describe your product</v-stepper-step>
+      <v-stepper-step :editable="secondStepCondition" :complete="step > 2" step="2">Describe your product</v-stepper-step>
 
       <v-divider></v-divider>
 
@@ -20,7 +20,7 @@
             :disabled="!secondStepCondition"
             style="float: right;"
             color="primary"
-            @click="e1 = 2">
+            @click="step = 2">
             Continue
           </v-btn>
           <span class="display-1 font-weight-light">What kind of offer is it?</span>
@@ -34,7 +34,7 @@
           :disabled="!thirdStepCondition"
           style="float: right;"
           color="primary"
-          @click="e1 = 3">
+          @click="step = 3">
           Continue
         </v-btn>
         <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
@@ -52,7 +52,7 @@
           style="float: right;"
           color="primary"
           @click="submitProduct">
-          Publish your product
+          {{ newProduct.id === null ? 'Publish' : 'Edit' }} your product
         </v-btn>
         <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
         <product-preview></product-preview>
@@ -65,7 +65,7 @@
 <script>
 import ProductPreview from './ProductPreview.vue';
 import ProductFields from './ProductFields.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import ProductTypeSelector from './ProductTypeSelector.vue';
 
 export default {
@@ -78,7 +78,7 @@ export default {
   data () {
     return {
       componentToEdit: { name: 'product' },
-      e1: 0,
+      step: 0,
       directSellColor: '#cacaca'
     }
   },
@@ -104,13 +104,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      toggleFormDialog: 'newProduct/toggleFormDialog'
-    }),
+    toggleFormDialog() {
+      this.$store.dispatch('newProduct/toggleFormDialog')
+        .then(() => {
+          this.step = 1;
+        })
+        .catch(err => console.log(err))
+    },
     submitProduct() {
-      this.$store.dispatch('newProduct/createProduct');
-      this.$store.state.newProduct.formDialog = false
-    }
+      this.$store.dispatch('newProduct/createProduct')
+        .then(res => {
+          this.step = 1;
+          this.$store.state.newProduct.formDialog = false
+          this.$emit('newproduct')
+        })
+        .catch(err => console.log(err))
+    },
   }
 }
 </script>

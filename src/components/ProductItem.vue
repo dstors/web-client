@@ -192,6 +192,7 @@
             <v-btn
               :style="{ 'position': 'relative', left: '15px', top: '10px' }"
               fab dark
+              @click="editProduct"
               small color="primary">
               <v-tooltip fixed left nudge-left="10">
                 <font-awesome-icon slot="activator" :icon="['fas', 'edit']">
@@ -300,17 +301,24 @@ export default {
     toggleBookmark(e) {
       this.$emit('togglebookmark', e)
     },
-    removeFromShelve(productId) {
-      console.log('remove from shelve ', productId)
-      this.$store.dispatch("userStore/removeFromShelve",
-        { productId: productId, shelveName: this.shelveName })
+    editProduct(){
+      console.log('edit product')
+      this.$store.dispatch("newProduct/editProduct", { product: this.product })
         .then(() => {
-          this.$emit('removefromgrid', productId)
+          this.$store.dispatch("newProduct/toggleFormDialog")
+        })
+        .catch(err => console.log(err))
+    },
+    removeFromShelve(productId) {
+      console.log('remove from shelve ', this.product.id)
+      this.$store.dispatch("userStore/removeFromShelve",
+        { productId: this.product.id, shelveName: this.shelveName })
+        .then(() => {
+          this.$emit('removefromgrid', this.product.id)
         })
         .catch(err => console.log(err))
     },
     deleteProduct(productId) {
-      console.log('delete product ', productId)
       this.$store.dispatch("userStore/deleteProduct",
         { productId: productId, shelveName: this.shelveName })
         .then(() => {

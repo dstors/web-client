@@ -16,7 +16,7 @@ export let userStore = {
   mutations: {
     getStore(state, payload) {
       state.listings = []
-      let URL = (payload !== undefined) ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
+      let URL = (payload !== undefined && payload !== '') ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
       api().get(URL)
         .then(function(res) {
           let listings = [];
@@ -36,7 +36,11 @@ export let userStore = {
         .catch(err => console.log(err))
     },
     getAllProducts(state, payload) {
-      api().get('/app/product/all?steemUsername=' + payload.steemUsername)
+      let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
+        ? '/app/product/all?steemUsername=' + payload.steemUsername
+        :'/app/product/all'
+
+      api().get(URL)
         .then(res => {
           state.allProducts = res.data;
         })
