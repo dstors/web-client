@@ -111,7 +111,7 @@ export default {
       })
     },
     refreshStoreData() {
-      this.$store.dispatch('userStore/getStore', this.username || this.$store.state.userStore.owner)
+      this.$store.dispatch('userStore/getStore', { steemUsername: this.username || this.$store.state.userStore.owner})
         .then(() => {
             this.$store.dispatch('userStore/getAllProducts', { steemUsername: this.username })
         })
