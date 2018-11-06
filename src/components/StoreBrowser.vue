@@ -1,6 +1,24 @@
 <template>
   <v-container fluid>
-    <v-layout row wrap class="ma-3">
+    <v-layout column wrap class="ma-0" v-if="storeIsEmpty">
+      <v-flex xs12 :style="{ 'text-align': 'center', 'margin-top': '3px' }">
+        <span class="display-3 font-weight-light">Woops!</span>
+      </v-flex>
+      <v-flex xs12 :style="{ 'text-align': 'center', 'margin-top': '100px' }">
+        <div>
+          <img :style="{
+            'height': '250px',
+            'position': 'relative',
+            'bottom': '100px'
+          }" :src="dstorsLogo" alt="DStors.com">
+        </div>
+        <span :style="{
+            'position': 'relative',
+            'bottom': '100px'
+          }" class="display-1 font-weight-light">It looks like this user doesn't exist!</span>
+      </v-flex>
+    </v-layout>
+    <v-layout v-else row wrap class="ma-3">
       <v-flex v-if="banner" xs12>
         <banner :src="banner"></banner>
       </v-flex>
@@ -36,15 +54,15 @@
       </v-flex>
       <v-flex xs12>
         <span :style="switchAllStyle">
-          <router-link v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
+          <router-link v-if="all && active && listings.length > 0" :to="{ name: 'StoreBrowser', params: { username: owner, all:false } }">
             See shelves
           </router-link>
-          <router-link v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
+          <router-link v-if="!all" :to="{ name: 'StoreBrowserAll', params: { username: owner, all: true } }">
             See all products
           </router-link>
         </span>
       </v-flex>
-      <v-flex xs12 v-if="!active">
+      <!-- <v-flex xs12 v-if="!active">
         <span :style="{ 'position': 'relative', bottom: '50px' }" class="title font-weight-light">
           Looks like your Store is not activated yet. What are you waiting for?
         </span>
@@ -54,6 +72,9 @@
           <span slot="activator" class="title font-weight-light">Activate your Store now.</span>
           <store-stepper></store-stepper>
         </form-layout>
+      </v-flex> -->
+      <v-flex xs12 v-if="!active && feed.length < 1">
+        <span class="display-4">There are no products on this store</span>
       </v-flex>
       <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="carouselStyle">
         <product-carousel
@@ -88,9 +109,10 @@ import ProductCarousel from './ProductCarousel';
 import Avatar from './Avatar';
 import Banner from './Banner';
 import StoreFields from './StoreFields';
+import dstorsLogo from './assets/DSTORS-LOGO.png';
 
 export default {
-  name: 'store',
+  name: 'store-browser',
   components: {
     'form-layout': FormLayout,
     'product-form': ProductForm,
@@ -127,10 +149,14 @@ export default {
       avatar: state => state.userStore.avatar,
       active: state => state.userStore.active,
       owner: state => state.userStore.owner,
-      feed: state => state.userStore.allProducts
+      feed: state => state.userStore.allProducts,
+      storeIsEmpty: state => state.userStore.storeIsEmpty
     }),
+    dstorsLogo() {
+      return dstorsLogo;
+    },
     all() {
-      return this.$route.name === 'StoreAll'
+      return this.$route.name === 'StoreBrowserAll'
     },
     storeActionsStyle() {
       let bottom = this.active ? 155 : 1;
@@ -168,7 +194,7 @@ export default {
       }
     },
     switchAllStyle() {
-      let bottom = this.active ? 210 : 100
+      let bottom = this.active ? 110 : 100
 
       if (!this.banner && !this.avatar) {
         bottom = 120
@@ -322,7 +348,7 @@ export default {
     next(vm => {
       vm.$store.dispatch('userStore/getStore', {
         steemUsername: to.params.username || vm.$store.state.userStore.owner,
-        redirectRoute: '/store/all'
+        redirectRoute: `/s/${to.params.username}/all`
       })
         .then(() => {
             vm.$store.dispatch('userStore/getAllProducts', { steemUsername: to.params.username })
@@ -331,10 +357,10 @@ export default {
     })
   },
   beforeRouteUpdate(to, form, next){
-    this.$store.dispatch('userStore/getStore')
+    this.$store.dispatch('userStore/getStore', { steemUsername: to.params.username, redirectRoute: `/s/${to.params.username}/all` })
       .then(res => {
         if (to.params.all) {
-          this.$store.dispatch('userStore/getAllProducts')
+          this.$store.dispatch('userStore/getAllProducts', { steemUsername: to.params.username })
         }
         next()
       })

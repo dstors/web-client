@@ -11,6 +11,7 @@ import Wallet from "@/components/Wallet";
 import Wishlist from "@/components/Wishlist";
 import SignIn from "@/components/SignIn";
 import Store from "@/components/Store";
+import StoreBrowser from "@/components/StoreBrowser";
 import Cart from "@/components/Cart";
 import Details from "@/components/Details";
 import Browser from "@/components/Browser/Browser";
@@ -33,7 +34,13 @@ export default new Router({
     {
       path: "/s/:username",
       name: "StoreBrowser",
-      component: Store,
+      component: StoreBrowser,
+      props: true
+    },
+    {
+      path: "/s/:username/all",
+      name: "StoreBrowserAll",
+      component: StoreBrowser,
       props: true
     },
     {

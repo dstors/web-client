@@ -5,6 +5,7 @@ import router from '../router';
 export let userStore = {
   namespaced: true,
 	state: {
+    storeIsEmpty: false,
     name: '',
     description: '',
     listings: [],
@@ -25,34 +26,37 @@ export let userStore = {
   mutations: {
     getStore(state, payload) {
       state.listings = []
-      let URL = (payload !== undefined && payload !== '') ? `/store/get/user?steemUsername=${payload}` : '/store/get/user'
+      let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '') ? `/store/get/user?steemUsername=${payload.steemUsername}` : '/store/get/user'
       api().get(URL)
         .then(function(res) {
-          let listings = [];
-          for (let i = 0; i < res.data.length; i++) {
-            if (Object.keys(res.data[i]).indexOf('properties') > -1) {
-              state.name = res.data[i].properties.name
-              state.description = res.data[i].properties.description
-              state.banner = res.data[i].properties.banner
-              state.avatar = res.data[i].properties.avatar
-              state.owner = res.data[i].properties.username
-              state.active = res.data[i].properties.active
-              if(!res.data[i].properties.active) {
-                router.push('/store/all')
-              }
-            }
-            else {
-              if (res.data[i].productListNames !== "null" && res.data[i].productListNames !== null) {
-                listings.push(res.data[i].productListNames)
-              }
-            }
+          if (res.data === "") {
+            state.storeIsEmpty = true
           }
 
-          if(listings.length < 1) {
-            router.push('/store/all')
-          }
+          else {
+            let listings = [];
+            for (let i = 0; i < res.data.length; i++) {
+              if (Object.keys(res.data[i]).indexOf('properties') > -1) {
+                state.name = res.data[i].properties.name
+                state.description = res.data[i].properties.description
+                state.banner = res.data[i].properties.banner
+                state.avatar = res.data[i].properties.avatar
+                state.owner = res.data[i].properties.username
+                state.active = res.data[i].properties.active
+              }
+              else {
+                if (res.data[i].productListNames !== "null" && res.data[i].productListNames !== null) {
+                  listings.push(res.data[i].productListNames)
+                }
+              }
+            }
 
-          state.listings = listings
+            if (listings.length < 1 && payload.redirect !== undefined) {
+              router.push(payload.redirectRoute)
+            }
+
+            state.listings = listings
+          }
         })
         .catch(err => console.log(err))
     },
