@@ -45,7 +45,10 @@
                     </span>
                     <br>
                     <span class="headline">
-                      {{ product.price }}
+                      {{ product.currency !== undefined
+                        ? product.priceValue + ' ' + product.currency
+                        : product.price
+                      }}
                     </span>
                   </span>
                   <span
@@ -302,7 +305,6 @@ export default {
       this.$emit('togglebookmark', e)
     },
     editProduct(){
-      console.log('edit product')
       this.$store.dispatch("newProduct/editProduct", { product: this.product })
         .then(() => {
           this.$store.dispatch("newProduct/toggleFormDialog")
@@ -310,7 +312,6 @@ export default {
         .catch(err => console.log(err))
     },
     removeFromShelve(productId) {
-      console.log('remove from shelve ', this.product.id)
       this.$store.dispatch("userStore/removeFromShelve",
         { productId: this.product.id, shelveName: this.shelveName })
         .then(() => {

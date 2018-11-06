@@ -55,10 +55,7 @@
           <store-stepper></store-stepper>
         </form-layout>
       </v-flex>
-      <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="{
-        'position': 'relative',
-        'bottom': ['Store', 'StoreAll'].indexOf($route.name) > -1 ? '196px' : '100px'
-      }">
+      <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="carouselStyle">
         <product-carousel
           @changename="changeShelveName(i, $event)"
           :editable="['Store', 'StoreAll'].indexOf($route.name) > -1"
@@ -191,7 +188,7 @@ export default {
         'position': 'relative'
       }
     },
-    allProductsStyle() {
+    carouselStyle() {
       let bottom = ['Store', 'StoreAll'].indexOf(this.$route.name) > -1 ? 196 : 100;
 
       if (this.listings.length < 1) {
@@ -214,7 +211,33 @@ export default {
         bottom = 30
       }
 
-      console.log(bottom)
+      return {
+        'position': 'relative',
+        'bottom': bottom + 'px'
+      }
+    },
+    allProductsStyle() {
+      let bottom = ['Store', 'StoreAll'].indexOf(this.$route.name) > -1 ? 196 : 100;
+
+      if (this.listings.length < 1) {
+        bottom = 145
+      }
+
+      if (!this.active) {
+        bottom = 50
+      }
+
+      if (!this.banner && !this.avatar) {
+        bottom = 40
+      }
+
+      if (!this.banner && this.avatar) {
+        bottom = 120
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 30
+      }
 
       return {
         'position': 'relative',
@@ -305,11 +328,10 @@ export default {
     })
   },
   beforeRouteUpdate(to, form, next){
-    console.log('update')
-    this.$store.dispatch('userStore/getStore', to.params.username || this.$store.state.userStore.owner)
+    this.$store.dispatch('userStore/getStore')
       .then(res => {
         if (to.params.all) {
-          this.$store.dispatch('userStore/getAllProducts', to.params.username || this.$store.state.userStore.owner)
+          this.$store.dispatch('userStore/getAllProducts')
         }
         next()
       })

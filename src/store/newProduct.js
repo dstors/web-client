@@ -6,7 +6,8 @@ let initialProduct = {
   id: null,
   author: '',
   permlink: 'a',
-  price: ' SBD',
+  currency: null,
+  priceValue: null,
   type: null,
   wishlist: false,
   description: '',
@@ -22,7 +23,8 @@ export let newProduct = {
     id: null,
     author: '',
     permlink: 'a',
-    price: ' SBD',
+    currency: null,
+    priceValue: null,
     type: null,
     wishlist: false,
     description: '',
@@ -41,7 +43,6 @@ export let newProduct = {
       state.pictures.push('')
     },
     removePicture(state, payload) {
-      console.log(payload)
       state.pictures.splice(payload, 1)
     },
     createProduct(state, payload) {
@@ -56,7 +57,6 @@ export let newProduct = {
           .catch(err => console.log(err))
       }
       else {
-        console.log('edit')
         api().post('/app/product/edit/' + state.id, { ...state })
           .then(res => console.log(res))
           .catch(err => console.log(err))
@@ -80,11 +80,6 @@ export let newProduct = {
     editProduct(state, payload) {
       Object.keys(payload.product).map(key => {
         state[key] = payload.product[key]
-      })
-    },
-    reset(state) {
-      Object.keys(state).map(key => {
-        console.log(key)
       })
     }
   },

@@ -105,13 +105,26 @@
         <template v-if="newProduct.type === 'direct-sell'">
           <v-flex offset-xs1 xs12 class="mb-4">
             <span class="title font-weight-light">Price (expressed in SBD)</span>
-            <v-text-field
-              class="pt-2"
-              v-model="price"
-              solo
-              type="number">
-            </v-text-field>
           </v-flex>
+          <v-layout row wrap>
+            <v-flex offset-xs1 xs8 class="mb-4">
+              <v-text-field
+                class="pt-2"
+                v-model="priceValue"
+                solo
+                type="number">
+              </v-text-field>
+            </v-flex>
+            <v-flex xs3 class="mb-4">
+              <v-select
+                :items="['SBD','STEEM']"
+                v-model="currency"
+                label="Currency"
+                class="pt-2"
+                solo>
+              </v-select>
+            </v-flex>
+          </v-layout>
           <v-flex offset-xs1 xs12 class="mb-4">
             <span class="title font-weight-light">Stock</span>
             <v-text-field
@@ -183,18 +196,11 @@ export default {
   computed: {
     ...mapState({
       newProduct: state => state.newProduct,
+      priceValue: state => state.newProduct.priceValue,
+      currency: state => state.newProduct.currency,
       categories: state => state.categories,
       dark: state => state.styles.dark
     }),
-    price: {
-      get() {
-        return this.$store.state.newProduct.price.split(' ')[0]
-      },
-
-      set(price) {
-        this.$store.state.newProduct.price = price + ' SBD'
-      }
-    },
     startingPrice: {
       get() {
         return this.$store.state.newProduct.startingPrice.split(' ')[0]
