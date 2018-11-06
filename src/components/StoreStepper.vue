@@ -59,7 +59,7 @@
         <v-flex xs12 style="text-align: center;">
           <span class="display-1 font-weight-light">Describe your Store</span><br>
         </v-flex>
-        <store-fields :hideControls="true"></store-fields>
+        <store-fields @updatestore="$emit('updatestore')" :hideControls="true"></store-fields>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>

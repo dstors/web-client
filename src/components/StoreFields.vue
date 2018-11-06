@@ -80,7 +80,7 @@ export default {
       this.$store.dispatch("userStore/updateStore")
         .then(() => {
           this.$store.dispatch("userStore/toggleFormDialog")
-          this.$store.dispatch("userStore/getStore")
+          this.$emit('updatestore')
         })
         .catch(err => console.log(err))
     }

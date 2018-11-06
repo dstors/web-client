@@ -24,7 +24,7 @@
             <font-awesome-icon :icon="['fas', 'store']" size="1x" class="mx-2"></font-awesome-icon>
             Edit Store Details
           </v-btn>
-          <store-fields></store-fields>
+          <store-fields @updatestore="refreshStoreData"></store-fields>
         </form-layout>
         <form-layout stateModule="newProduct">
           <v-btn flat slot="activator" class="text-capitalize">
@@ -52,7 +52,7 @@
       <v-flex xs12>
         <form-layout v-if="!active" stateModule="userStore" :style="{ 'position': 'relative', bottom: '50px', 'float': 'left' }">
           <span slot="activator" class="title font-weight-light">Activate your Store now.</span>
-          <store-stepper></store-stepper>
+          <store-stepper @updatestore="refreshStoreData"></store-stepper>
         </form-layout>
       </v-flex>
       <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="carouselStyle">
@@ -171,7 +171,7 @@ export default {
       let bottom = this.active ? 210 : 100
 
       if (!this.banner && !this.avatar) {
-        bottom = 120
+        bottom = 105
       }
 
       if (!this.banner && this.avatar) {
@@ -183,7 +183,7 @@ export default {
       }
 
       return {
-        'left': this.active ? '33px' : '10px',
+        'left': this.active ? '37px' : '10px',
         'bottom': bottom + 'px',
         'position': 'relative'
       }
@@ -315,9 +315,6 @@ export default {
       }
     }
   },
-  // mounted() {
-  //   this.$store.dispatch('userStore/getStore', this.username)
-  // },
   beforeRouteEnter(to, form, next){
     next(vm => {
       vm.$store.dispatch('userStore/getStore', {
