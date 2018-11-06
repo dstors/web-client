@@ -36,10 +36,10 @@
       </v-flex>
       <v-flex xs12>
         <span :style="switchAllStyle">
-          <router-link v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
+          <router-link :style="{ color: dark ? 'white' : 'black' }" class="router-link" v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
             See shelves
           </router-link>
-          <router-link v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
+          <router-link :style="{ color: dark ? 'white' : 'black' }" class="router-link" v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
             See all products
           </router-link>
         </span>
@@ -127,7 +127,8 @@ export default {
       avatar: state => state.userStore.avatar,
       active: state => state.userStore.active,
       owner: state => state.userStore.owner,
-      feed: state => state.userStore.allProducts
+      feed: state => state.userStore.allProducts,
+      dark: state => state.styles.dark
     }),
     all() {
       return this.$route.name === 'StoreAll'
@@ -175,7 +176,7 @@ export default {
       }
 
       if (!this.banner && this.avatar) {
-        bottom = 110
+        bottom = 140
       }
 
       if (this.banner && !this.avatar) {
@@ -341,4 +342,13 @@ export default {
 </script>
 
 <style>
+.router-link {
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.5s;
+}
+
+.router-link:hover {
+  color: #90caf9!important;
+}
 </style>

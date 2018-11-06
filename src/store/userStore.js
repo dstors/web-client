@@ -19,7 +19,7 @@ export let userStore = {
       description: '',
       avatar: '',
       banner: '',
-      active: false
+      active: true
     },
     allProducts: []
   },
