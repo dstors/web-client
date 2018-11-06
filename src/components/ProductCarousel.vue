@@ -27,7 +27,6 @@
       style="height: 100%!important; box-shadow: none"
       class="ma-0 pa-0"
       hide-delimiters
-      :hide-controls="!hovered"
       :cycle="false">
       <v-carousel-item v-if="loading">
         <ghost-product-grid :hideToggleButtons="true"></ghost-product-grid>

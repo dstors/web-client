@@ -21,7 +21,6 @@
           <span class="display-1 font-weight-light">Pick your plan</span>
           <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
         </div>
-        <!-- <product-type-selector></product-type-selector> -->
         <v-container>
           <v-layout row wrap>
             <v-flex xs12>
@@ -31,7 +30,6 @@
                   width: '250px',
                   'padding-top': '10px'
                 }"
-                :key="i"
                 class="ma-2" hover>
                 <span class="display-1">Free</span>
                 <br>
@@ -54,8 +52,8 @@
         <v-btn
           style="float: right;"
           color="primary"
-          @click="step = 3">
-          Continue
+          @click="updateStore">
+          Activate your Store!
         </v-btn>
         <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
         <v-flex xs12 style="text-align: center;">

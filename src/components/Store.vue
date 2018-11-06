@@ -4,14 +4,14 @@
       <v-flex v-if="banner" xs12>
         <banner :src="banner"></banner>
       </v-flex>
-      <v-flex xs12 v-if="avatar" style="position: relative; bottom: 80px; left: 30px;">
-        <avatar :src="avatar"
+      <v-flex xs12 :style="avatarTitleStyle">
+        <avatar v-if="avatar" :src="avatar"
           size="120"
           radius="10">
         </avatar>
-        <span class="display-1 font-weight-light pa-1" style="position: relative; bottom: 80px; color: black;">
+        <span :class="nameClass" :style="nameStyle">
           {{ name }}
-          <span class="title font-weight-light" style="position: relative; left: 127px; bottom: 5px;">
+          <span v-if="description" class="title font-weight-light" :style="descriptionStyle">
             <br>
             {{ description }}
           </span>
@@ -36,7 +36,7 @@
       </v-flex>
       <v-flex xs12>
         <span :style="switchAllStyle">
-          <router-link v-if="all && active" :to="{ name: 'Store', params: { username: owner, all: !all } }">
+          <router-link v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
             See shelves
           </router-link>
           <router-link v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
@@ -44,7 +44,7 @@
           </router-link>
         </span>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12 v-if="!active">
         <span :style="{ 'position': 'relative', bottom: '50px' }" class="title font-weight-light">
           Looks like your Store is not activated yet. What are you waiting for?
         </span>
@@ -136,31 +136,159 @@ export default {
       return this.$route.name === 'StoreAll'
     },
     storeActionsStyle() {
+      let bottom = this.active ? 155 : 1;
+
+      if (this.listings.length < 1) {
+        bottom = 130
+      }
+
+      if (!this.banner && !this.avatar) {
+        bottom = 45
+
+        if (this.description) {
+          bottom = 90
+        }
+      }
+
+      if (!this.banner && this.avatar) {
+        bottom = 140
+
+        if (this.description) {
+          bottom = 180
+        }
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 30
+      }
+
       return {
         'float': 'right',
-        'bottom': this.active ? '155px' : '1px',
+        'bottom': bottom + 'px',
         'position': 'relative',
         'z-index': '1',
         'margin-left': '600px'
       }
     },
     switchAllStyle() {
+      let bottom = this.active ? 210 : 100
+
+      if (!this.banner && !this.avatar) {
+        bottom = 120
+      }
+
+      if (!this.banner && this.avatar) {
+        bottom = 110
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 120
+      }
+
       return {
         'left': this.active ? '33px' : '10px',
-        'bottom': this.active ? '210px' : '100px',
+        'bottom': bottom + 'px',
         'position': 'relative'
       }
     },
     allProductsStyle() {
-      let bottom = ['Store', 'StoreAll'].indexOf(this.$route.name) > -1 ? '196px' : '100px';
+      let bottom = ['Store', 'StoreAll'].indexOf(this.$route.name) > -1 ? 196 : 100;
+
+      if (this.listings.length < 1) {
+        bottom = 145
+      }
 
       if (!this.active) {
-        bottom = '50px'
+        bottom = 50
       }
+
+      if (!this.banner && !this.avatar) {
+        bottom = 40
+      }
+
+      if (!this.banner && this.avatar) {
+        bottom = 120
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 30
+      }
+
+      console.log(bottom)
 
       return {
         'position': 'relative',
-        'bottom': bottom
+        'bottom': bottom + 'px'
+      }
+    },
+    nameClass() {
+      let display = 'display-1'
+
+      if (this.banner && !this.description) {
+        display = 'display-2'
+      }
+
+      return display + ' font-weight-light pa-1'
+    },
+    nameStyle() {
+      let bottom = 80
+
+      if(!this.description) {
+          bottom = 50
+        }
+
+      if (!this.banner && !this.avatar) {
+        bottom = 1
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 10
+
+        if(!this.description) {
+          bottom = 20
+        }
+      }
+
+      return {
+        position: 'relative',
+        bottom: bottom + 'px',
+        color: 'black'
+      }
+    },
+    avatarTitleStyle() {
+      let bottom = 80;
+      let left = 30;
+
+      if (!this.banner && !this.avatar) {
+        bottom = 1
+      }
+
+      if (!this.banner && this.avatar) {
+        bottom = 10
+      }
+
+      if (this.banner && !this.avatar) {
+        bottom = 30
+        left = 10
+      }
+
+      return {
+        position: 'relative',
+        bottom: bottom + 'px',
+        left: left + 'px'
+      }
+    },
+    descriptionStyle() {
+      let left = 127
+
+      if (!this.banner && !this.avatar) {
+        left = 5
+      }
+
+      return {
+        position: 'relative',
+        left: left + 'px',
+        bottom: '5px'
       }
     }
   },

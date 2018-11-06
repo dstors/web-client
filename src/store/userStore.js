@@ -9,16 +9,16 @@ export let userStore = {
     description: '',
     listings: [],
     owner: '',
-    // banner: 'https://www.uncommongoods.com/images/items/22400/22413_1_1200px.jpg',
-    // avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg',
     avatar: '',
     banner: '',
+    active: false,
     formDialog: false,
     storeForm: {
       name: '',
       description: '',
       avatar: '',
-      banner: ''
+      banner: '',
+      active: false
     },
     allProducts: []
   },
@@ -46,6 +46,10 @@ export let userStore = {
                 listings.push(res.data[i].productListNames)
               }
             }
+          }
+
+          if(listings.length < 1) {
+            router.push('/store/all')
           }
 
           state.listings = listings
