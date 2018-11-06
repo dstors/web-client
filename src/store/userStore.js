@@ -58,13 +58,6 @@ export let userStore = {
         state.listings = listings
       }
     },
-    updateStore(state) {
-      api().post('/store/edit', { ...state.storeForm })
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => console.log(err))
-    },
     getAllProducts(state, payload) {
       let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
         ? '/app/product/all/user?steemUsername=' + payload.steemUsername
@@ -152,7 +145,17 @@ export let userStore = {
       commit("getAllProducts", payload)
     },
     updateStore({ commit }) {
-      commit("updateStore")
+      return new Promise((resolve, reject) => {
+        api().post('/store/edit', { ...state.storeForm })
+          .then(res => {
+            console.log(res)
+            resolve(res)
+          })
+          .catch(err => {
+            console.log(err)
+            reject(err)
+          })
+      })
     }
   }
 }
