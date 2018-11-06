@@ -7,11 +7,11 @@
         fill-height>
         <img width="70%" style="position: relative; bottom: 70px;" :src="logo" alt="">
         <!-- <span class="mb-2 text-xs-center display-4" style="color: #cacaca; position: relative; bottom: 70px;">Dstors</span> -->
-        <span class="display-1 font-weight-light mb-3 text-xs-center"
-          style="color: #cacaca; position: relative; bottom: 120px; left: 120px;">
+        <span class="title font-weight-light mb-3 text-xs-center"
+          :style="comingSoonStyle">
           Powered by Steem Blockchain
         </span>
-        <span class="mb-2 text-xs-center font-weight-light display-3" style="color: #cacaca; position: relative; bottom: 70px;">
+        <span class="mb-2 text-xs-center font-weight-light display-3" :style="comingSoonStyle">
           Coming soon
         </span>
     </v-layout>
@@ -65,6 +65,35 @@ export default {
   beforeRouteLeave (to, from, next) {
     store.state.styles.dark = false;
     next();
+  },
+  computed: {
+    comingSoonStyle() {
+      let bottom = 120
+
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          bottom = 1;
+          break;
+        case 'sm':
+          bottom = 10;
+          break;
+        case 'md':
+          bottom = 10;
+          break;
+        case 'lg':
+          bottom = 10;
+          break;
+        case 'xl':
+          bottom = 120;
+          break;
+      }
+
+      return {
+        color: '#cacaca',
+        position: 'relative',
+        bottom: bottom + 'px'
+      }
+    }
   },
   data() {
     return {
