@@ -116,8 +116,6 @@ export default {
         .then((res) => {
           this.step = 1;
           this.$store.state.newProduct.formDialog = false
-          console.log('RES D RES')
-          console.log(res)
           this.$emit('newproduct')
         })
         .catch(err => console.log(err))

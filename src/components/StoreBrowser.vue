@@ -330,9 +330,6 @@ export default {
       }
     }
   },
-  // mounted() {
-  //   this.$store.dispatch('userStore/getStore', this.username)
-  // },
   beforeRouteEnter(to, form, next){
     next(vm => {
       vm.$store.dispatch('userStore/getStore', {

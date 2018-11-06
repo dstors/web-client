@@ -26,45 +26,37 @@ export let userStore = {
   mutations: {
     getStore(state, payload) {
       state.listings = []
-      let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '') ? `/store/get/user?steemUsername=${payload.steemUsername}` : '/store/get/user'
-      api().get(URL)
-        .then(function(res) {
-          if (res.data === "") {
-            console.log(res)
-            state.storeIsEmpty = true
+      if (payload.data === "") {
+        state.storeIsEmpty = true
+      }
+      else {
+        let listings = [];
+        for (let i = 0; i < payload.data.length; i++) {
+          if (Object.keys(payload.data[i]).indexOf('properties') > -1) {
+            state.name = payload.data[i].properties.name
+            state.storeForm.name = payload.data[i].properties.name
+            state.description = payload.data[i].properties.description
+            state.storeForm.description = payload.data[i].properties.description
+            state.banner = payload.data[i].properties.banner
+            state.storeForm.banner = payload.data[i].properties.banner
+            state.avatar = payload.data[i].properties.avatar
+            state.storeForm.avatar = payload.data[i].properties.avatar
+            state.owner = payload.data[i].properties.username
+            state.active = payload.data[i].properties.active
           }
-
           else {
-            let listings = [];
-            for (let i = 0; i < res.data.length; i++) {
-              if (Object.keys(res.data[i]).indexOf('properties') > -1) {
-                state.name = res.data[i].properties.name
-                state.storeForm.name = res.data[i].properties.name
-                state.description = res.data[i].properties.description
-                state.storeForm.description = res.data[i].properties.description
-                state.banner = res.data[i].properties.banner
-                state.storeForm.banner = res.data[i].properties.banner
-                state.avatar = res.data[i].properties.avatar
-                state.storeForm.avatar = res.data[i].properties.avatar
-                state.owner = res.data[i].properties.username
-                state.active = res.data[i].properties.active
-              }
-              else {
-                if (res.data[i].productListNames !== "null" && res.data[i].productListNames !== null) {
-                  listings.push(res.data[i].productListNames)
-                }
-              }
+            if (payload.data[i].productListNames !== "null" && payload.data[i].productListNames !== null) {
+              listings.push(payload.data[i].productListNames)
             }
-
-            console.log(payload)
-            if (listings.length < 1 && payload.redirectRoute !== undefined) {
-              router.push(payload.redirectRoute)
-            }
-
-            state.listings = listings
           }
-        })
-        .catch(err => console.log(err))
+        }
+
+        if (listings.length < 1 && payload.redirectRoute !== undefined) {
+          router.push(payload.redirectRoute)
+        }
+
+        state.listings = listings
+      }
     },
     updateStore(state) {
       api().post('/store/edit', { ...state.storeForm })
@@ -128,7 +120,18 @@ export let userStore = {
   },
   actions: {
     getStore({ commit }, payload) {
-      commit('getStore', payload);
+      return new Promise((resolve, reject) => {
+        let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '') ? `/store/get/user?steemUsername=${payload.steemUsername}` : '/store/get/user'
+        api().get(URL)
+          .then(function(res) {
+            commit('getStore', { data: res.data });
+            resolve(res)
+          })
+          .catch(err => {
+            console.log(err)
+            reject(err)
+          })
+      })
     },
     toggleFormDialog({ commit }) {
       commit("toggleFormDialog");
