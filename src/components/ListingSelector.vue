@@ -7,7 +7,7 @@
       v-if="!newListing"
       :items="listings"
       v-model="newProduct.listing"
-      label="Pick a shelve"
+      label="Pick a shelf"
       class="pt-2"
       solo>
     </v-select>

@@ -15,7 +15,7 @@
           </v-select>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
-          <span class="title font-weight-light">Shelve</span>
+          <span class="title font-weight-light">Shelf</span>
           <listing-selector></listing-selector>
         </v-flex>
         <v-flex offset-xs1 xs12 class="mb-4">
@@ -196,11 +196,29 @@ export default {
   computed: {
     ...mapState({
       newProduct: state => state.newProduct,
-      priceValue: state => state.newProduct.priceValue,
-      currency: state => state.newProduct.currency,
       categories: state => state.categories,
       dark: state => state.styles.dark
     }),
+    currency: {
+      get() {
+        return this.$store.state.newProduct.currency
+      },
+
+      set(newValue) {
+        console.log(newValue)
+        this.$store.state.newProduct.currency = newValue
+      }
+    },
+    priceValue: {
+      get() {
+        return this.$store.state.newProduct.priceValue
+      },
+
+      set(newValue) {
+        console.log(newValue)
+        this.$store.state.newProduct.priceValue = newValue
+      }
+    },
     startingPrice: {
       get() {
         return this.$store.state.newProduct.startingPrice.split(' ')[0]

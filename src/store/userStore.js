@@ -30,6 +30,7 @@ export let userStore = {
       api().get(URL)
         .then(function(res) {
           if (res.data === "") {
+            console.log(res)
             state.storeIsEmpty = true
           }
 
@@ -51,7 +52,8 @@ export let userStore = {
               }
             }
 
-            if (listings.length < 1 && payload.redirect !== undefined) {
+            console.log(payload)
+            if (listings.length < 1 && payload.redirectRoute !== undefined) {
               router.push(payload.redirectRoute)
             }
 
@@ -69,8 +71,8 @@ export let userStore = {
     },
     getAllProducts(state, payload) {
       let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
-        ? '/app/product/all?steemUsername=' + payload.steemUsername
-        :'/app/product/all'
+        ? '/app/product/all/user?steemUsername=' + payload.steemUsername
+        :'/app/product/all/user'
 
       api().get(URL)
         .then(res => {
