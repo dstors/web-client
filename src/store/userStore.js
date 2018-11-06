@@ -39,9 +39,13 @@ export let userStore = {
             for (let i = 0; i < res.data.length; i++) {
               if (Object.keys(res.data[i]).indexOf('properties') > -1) {
                 state.name = res.data[i].properties.name
+                state.storeForm.name = res.data[i].properties.name
                 state.description = res.data[i].properties.description
+                state.storeForm.description = res.data[i].properties.description
                 state.banner = res.data[i].properties.banner
+                state.storeForm.banner = res.data[i].properties.banner
                 state.avatar = res.data[i].properties.avatar
+                state.storeForm.avatar = res.data[i].properties.avatar
                 state.owner = res.data[i].properties.username
                 state.active = res.data[i].properties.active
               }
