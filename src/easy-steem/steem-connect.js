@@ -110,7 +110,7 @@ export function handleProfile (res) {
       cover_image = '',
       location = '',
       name: realName,
-      profile_image = 'https://cdn1.tokendaily.co/post-images/postImage-2ba8698b79439589fdd2b0f7218d8b07.png'
+      profile_image = 'https://cdn.steemitimages.com/DQmWXAukqwnJTbXPST3D39KUgK6oQhxkYQmW3ozrHfZt3jC/apple-icon-144x144.png'
     }
   } = JSON.parse(account.json_metadata);
 

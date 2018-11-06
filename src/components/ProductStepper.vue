@@ -113,7 +113,7 @@ export default {
     },
     submitProduct() {
       this.$store.dispatch('newProduct/createProduct')
-        .then(res => {
+        .then(() => {
           this.step = 1;
           this.$store.state.newProduct.formDialog = false
           this.$emit('newproduct')

@@ -47,7 +47,12 @@ export let newProduct = {
     createProduct(state, payload) {
       if (state.id === null) {
         api().post('/app/product/add', { ...state, author: payload.profile.username })
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res)
+            Object.keys(initialProduct).map(key => {
+              state[key] = initialProduct[key]
+            })
+          })
           .catch(err => console.log(err))
       }
       else {

@@ -150,10 +150,14 @@ export default {
         .then(res => {
           this.loading = false;
           this.feed = res.data;
+          if (res.data.length === 0) {
+            this.$emit('emptycarousel')
+          }
         })
         .catch(err => {
           this.loading = false;
           this.feed = [];
+          this.$emit('emptycarousel')
         })
     }
     else if (this.pages) {
@@ -165,7 +169,7 @@ export default {
 
 <style>
 .v-carousel__prev .v-btn, .v-carousel__next .v-btn {
-  color: blue!important;
+  color: #cacaca!important;
   background-color: rgba(255,255,255,0.25);
   -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
   -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
@@ -173,6 +177,7 @@ export default {
 }
 
 .v-carousel__prev .v-btn:hover, .v-carousel__next .v-btn:hover {
+  color: blue!important;
   background-color: rgba(255,255,255,1);
   -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;
   -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75)!important;

@@ -2,9 +2,9 @@
 	<v-slide-y-transition>
     <v-container>
       <v-layout column>
-        <div v-bind:style="sticky">
+        <div v-bind:style="sticky" v-if="!hideControls">
           <span class="display-1 font-weight-light">Edit your store</span>
-          <v-btn style="float: right;" color="primary">Save changes</v-btn>
+          <v-btn style="float: right;" color="primary" @click="updateStore">Save changes</v-btn>
           <v-btn style="float: right;" @click="toggleFormDialog">Cancel</v-btn>
         </div>
         <v-flex offset-xs1 xs12 class="mb-4 mt-2">
@@ -52,9 +52,12 @@ import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'store-fields',
+  props: [
+    'hideControls'
+  ],
   computed: {
     ...mapState({
-      store: state => state.userStore,
+      store: state => state.userStore.storeForm,
       dark: state => state.styles.dark
     }),
     sticky() {
@@ -72,7 +75,15 @@ export default {
   methods: {
     ...mapActions({
       toggleFormDialog: 'userStore/toggleFormDialog'
-    })
+    }),
+    updateStore() {
+      this.$store.dispatch("userStore/updateStore")
+        .then(() => {
+          this.$store.dispatch("userStore/toggleFormDialog")
+          this.$store.dispatch("userStore/getStore")
+        })
+        .catch(err => console.log(err))
+    }
   }
 }
 </script>

@@ -1,5 +1,6 @@
 import api from '../api';
 import Vue from 'vue';
+import router from '../router';
 
 export let userStore = {
   namespaced: true,
@@ -8,9 +9,17 @@ export let userStore = {
     description: '',
     listings: [],
     owner: '',
-    banner: 'https://www.uncommongoods.com/images/items/22400/22413_1_1200px.jpg',
-    avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg',
+    // banner: 'https://www.uncommongoods.com/images/items/22400/22413_1_1200px.jpg',
+    // avatar: 'https://www.welovesolo.com/wp-content/uploads/2016/06/mszcccq4qpt.jpg',
+    avatar: '',
+    banner: '',
     formDialog: false,
+    storeForm: {
+      name: '',
+      description: '',
+      avatar: '',
+      banner: ''
+    },
     allProducts: []
   },
   mutations: {
@@ -24,14 +33,29 @@ export let userStore = {
             if (Object.keys(res.data[i]).indexOf('properties') > -1) {
               state.name = res.data[i].properties.name
               state.description = res.data[i].properties.description
+              state.banner = res.data[i].properties.banner
+              state.avatar = res.data[i].properties.avatar
               state.owner = res.data[i].properties.username
+              state.active = res.data[i].properties.active
+              if(!res.data[i].properties.active) {
+                router.push('/store/all')
+              }
             }
             else {
-              listings.push(res.data[i].productListNames)
+              if (res.data[i].productListNames !== "null" && res.data[i].productListNames !== null) {
+                listings.push(res.data[i].productListNames)
+              }
             }
           }
 
           state.listings = listings
+        })
+        .catch(err => console.log(err))
+    },
+    updateStore(state) {
+      api().post('/store/edit', { ...state.storeForm })
+        .then(res => {
+          console.log(res)
         })
         .catch(err => console.log(err))
     },
@@ -109,6 +133,9 @@ export let userStore = {
     },
     getAllProducts({ commit }, payload) {
       commit("getAllProducts", payload)
+    },
+    updateStore({ commit }) {
+      commit("updateStore")
     }
   }
 }
