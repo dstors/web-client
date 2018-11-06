@@ -46,21 +46,7 @@ export let newProduct = {
       state.pictures.splice(payload, 1)
     },
     createProduct(state, payload) {
-      if (state.id === null) {
-        api().post('/app/product/add', { ...state, author: payload.profile.username })
-          .then(res => {
-            console.log(res)
-            Object.keys(initialProduct).map(key => {
-              state[key] = initialProduct[key]
-            })
-          })
-          .catch(err => console.log(err))
-      }
-      else {
-        api().post('/app/product/edit/' + state.id, { ...state })
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
-      }
+
     },
     getListingNames(state, payload) {
       api().get('/store/product_list/get/names/' + payload.rootState.profile.id)
@@ -81,6 +67,11 @@ export let newProduct = {
       Object.keys(payload.product).map(key => {
         state[key] = payload.product[key]
       })
+    },
+    resetProduct(state) {
+      Object.keys(initialProduct).map(key => {
+        state[key] = initialProduct[key]
+      })
     }
   },
   actions: {
@@ -93,8 +84,34 @@ export let newProduct = {
     removePicture({ commit }, payload) {
       commit('removePicture', payload)
     },
-    createProduct({ commit, rootState }) {
-      commit('createProduct', rootState)
+    createProduct({ commit, state, rootState }) {
+      return new Promise((resolve, reject) => {
+        if (state.id === null) {
+          api().post('/app/product/add', {
+            ...state, author: rootState.profile.username
+          })
+            .then(res => {
+              commit('resetProduct')
+              resolve(res)
+            })
+            .catch(err => {
+              console.log(err)
+              reject(err)
+            })
+        }
+        else {
+          api().post('/app/product/edit/' + state.id, { ...state })
+            .then(res => {
+              console.log(res)
+              commit('resetProduct')
+              resolve(res)
+            })
+            .catch(err => {
+              console.log(err)
+              reject(err)
+            })
+        }
+      })
     },
     getListingNames({ commit, rootState }, payload) {
       commit('getListingNames',  { ...payload, rootState })

@@ -62,17 +62,6 @@
           </router-link>
         </span>
       </v-flex>
-      <!-- <v-flex xs12 v-if="!active">
-        <span :style="{ 'position': 'relative', bottom: '50px' }" class="title font-weight-light">
-          Looks like your Store is not activated yet. What are you waiting for?
-        </span>
-      </v-flex>
-      <v-flex xs12>
-        <form-layout v-if="!active" stateModule="userStore" :style="{ 'position': 'relative', bottom: '50px', 'float': 'left' }">
-          <span slot="activator" class="title font-weight-light">Activate your Store now.</span>
-          <store-stepper></store-stepper>
-        </form-layout>
-      </v-flex> -->
       <v-flex xs12 v-if="!active && feed.length < 1">
         <span class="display-4">There are no products on this store</span>
       </v-flex>
@@ -258,7 +247,7 @@ export default {
       }
 
       if (!this.banner && this.avatar) {
-        bottom = 120
+        bottom = 20
       }
 
       if (this.banner && !this.avatar) {
