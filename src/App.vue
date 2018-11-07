@@ -24,16 +24,7 @@
         </span>
       </v-toolbar-title>
       <v-flex>
-        <v-text-field
-          class="pa-3 hidden-sm-and-down"
-          solo
-          width="30px"
-          height="10px"
-          flat
-          hide-details
-          label="Search"
-          prepend-inner-icon="search">
-	      </v-text-field>
+        <product-search></product-search>
       </v-flex>
       <v-spacer></v-spacer>
       <login-popover v-if="!loggedIn">
@@ -137,10 +128,16 @@ import { mapState, mapActions } from 'vuex';
 import ProfilePopover from './components/ProfilePopover';
 import LoginPopover from './components/LoginPopover';
 import CartPopover from './components/CartPopover';
+import ProductSearch from './components/ProductSearch';
 import logo from './components/assets/DSTORS.png';
 
 export default {
-  components: { ProfilePopover, LoginPopover, CartPopover },
+  components: {
+    'profile-popover': ProfilePopover,
+    'login-popover': LoginPopover,
+    'cart-popover': CartPopover,
+    'product-search': ProductSearch
+  },
   name: 'app',
   data() {
     return {
