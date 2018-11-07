@@ -9,11 +9,12 @@
     color="white"
     hide-details
     hide-selected
+    hide-no-data
     solo flat
     label="Search"
     prepend-inner-icon="search"
     item-text="Description"
-    placeholder="Start typing to Search"
+    :placeholder="(currentCategory !== null) ? `Search in ${currentCategory}` : 'Start typing to Search'"
     prepend-icon="mdi-database-search"
     return-object>
   </v-autocomplete>
@@ -21,6 +22,7 @@
 
 <script>
 import api from '../api';
+import { mapState } from 'vuex';
 
 export default {
   name: 'product-search',
@@ -33,6 +35,9 @@ export default {
   }),
 
   computed: {
+    ...mapState({
+      currentCategory: state => state.currentCategory
+    }),
     items () {
       return this.entries
     }
@@ -45,10 +50,17 @@ export default {
 
       this.isLoading = true
 
+      let url = this.currentCategory
+        ? `/app/product/autocomplete?s=${val}&c=${encodeURIComponent(this.currentCategory)}`
+        : `/app/product/autocomplete?s=${val}`;
+
+        console.log(url)
       // Lazily load input items
-      api().get(`/app/product/autocomplete?s=${val}`)
+      api().get(url)
         .then(res => {
-          res.data.push(val)
+          if (val !== '') {
+            res.data.push(val)
+          }
           this.count = res.data.length
           this.entries = res.data
         })
@@ -58,14 +70,24 @@ export default {
         .finally(() => (this.isLoading = false))
     },
     model(val) {
-      console.log(val)
-      this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search?name=${val}` } })
-      // this.$store.dispatch('getBrowserFeed', `/browser/search?name=${val}`)
-      //   .then(() => {
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
+      api().post('/app/product/saveSearch', { searchString: encodeURIComponent(val) })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+
+      if (val !== null && val !== "null" && val !== undefined && val !== "undefined") {
+        if (this.$route.name !== "Search") {
+          this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search?name=${val}` } })
+        }
+        else if (this.$route.name === "Search") {
+          this.$store.dispatch("getBrowserFeed", `/browser/search?name=${val}`)
+            .then(res => {
+
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
+      }
     }
   }
 }

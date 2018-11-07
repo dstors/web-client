@@ -24,16 +24,8 @@ export const store = new Vuex.Store({
     steemAccess: null,
     filter: "trending",
     formDialog: false,
-    categories: [
-      'Arts, Crafts & Sweings',
-      'Automotive Parts & Accesories',
-      'Baby',
-      'Beauty & Personal Care',
-      'Books',
-      'CDs & Vinyl',
-      'Cell Phones & Accesories',
-      'Clothing, Shoes & Jewelry'
-    ],
+    categories: [],
+    currentCategory: null,
     filters: [
       'Trending',
       'Hot',
@@ -185,6 +177,10 @@ export const store = new Vuex.Store({
     getCart(state) {
       api().get('/app/product/shopcart')
         .then(res => {
+          if (res.data === "") {
+            state.cart = []
+            return false;
+          }
           let cart = res.data.map(prod => {
             return {...prod, amount: 1}
           })
@@ -238,11 +234,11 @@ export const store = new Vuex.Store({
         .catch(err => console.log(err))
     },
     getCategories(state) {
-      // api().get("/app/product/categories")
-      //   .then(res => {
-      //     state.categories = res.data;
-      //   })
-      //   .catch(err => console.log(err))
+      api().get("/app/product/categories/get")
+        .then(res => {
+          state.categories = res.data;
+        })
+        .catch(err => console.log(err))
     }
   },
   actions: {

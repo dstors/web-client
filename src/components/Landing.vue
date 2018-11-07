@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import api from '../api';
 import logo from '../components/assets/DSTORS.png';
 import { store } from '../store/index.js';
 
@@ -60,6 +61,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     store.state.styles.dark = true;
+    api().post('/app/product/saveVisit')
     next();
   },
   beforeRouteLeave (to, from, next) {
@@ -95,6 +97,7 @@ export default {
       }
     }
   },
+
   data() {
     return {
       links: [

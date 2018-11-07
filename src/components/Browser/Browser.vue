@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs3 class="mt-5">
-        <filters-drawer></filters-drawer>
+        <filters-drawer :currentCategory="category"></filters-drawer>
       </v-flex>
       <v-flex xs9>
         <span class="display-1 font-weight-light ma-5">
@@ -12,14 +12,14 @@
           <ghost-product-grid v-if="loading"></ghost-product-grid>
           <product-grid v-else :products='browserFeed'></product-grid>
         </v-fade-transition>
-      </v-flex>
-      <v-flex class="text-xs-center" xs12>
+        <v-flex class="text-xs-center" xs12>
           <v-pagination
             v-model="currentPage"
             :length="pagesCount"
             circle
-            :total-visible="7"
-          ></v-pagination>
+            :total-visible="7">
+          </v-pagination>
+        </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
@@ -40,7 +40,13 @@ export default {
     'ghost-product-grid': GhostProductGrid,
     'filters-drawer': FiltersDrawer
   },
-  props: ['title', 'source', 'sourceRoute', 'username'],
+  props: [
+    'title',
+    'source',
+    'sourceRoute',
+    'username',
+    'category'
+  ],
   data() {
     return {
       feed: [],
@@ -93,6 +99,8 @@ export default {
         case 'new':
           this.currentRoute = `/store/news/get?limit=${this.limit}&page=${this.currentPage}`;
           break;
+        default:
+          this.currentRoute = `/app/product/all?limit=${this.limit}&page=${this.currentPage}`;
         // case 'offers':
         //   this.currentRoute = '/store/offers/get';
         //   break;
@@ -114,6 +122,33 @@ export default {
         })
         .catch(() => console.log('Error fetching feed'))
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (to.name === "Search") {
+        console.log(to.params.category)
+        vm.$store.state.currentCategory = to.params.category
+      }
+    })
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (to.name === "Search") {
+      this.$store.dispatch("getBrowserFeed", to.params.sourceRoute)
+        .then(() =>{
+          this.$store.state.currentCategory = to.params.category
+          next()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    else {
+      next()
+    }
+  },
+  beforeRouteLeave(to, form, next) {
+    this.$store.state.currentCategory = null;
+    next()
   }
 }
 </script>

@@ -23,8 +23,9 @@ export let userStore = {
     },
     allProducts: [],
     pagination: {
-      limit: 12,
-      page: 1
+      limit: 20,
+      page: 1,
+      totalProducts: 0
     }
   },
   mutations: {
@@ -65,11 +66,14 @@ export let userStore = {
     },
     getAllProducts(state, payload) {
       let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
-        ? '/app/product/all/user?steemUsername=' + payload.steemUsername
-        :'/app/product/all/user'
+        ? `/app/product/all/user?steemUsername=${payload.steemUsername}&limit=${state.pagination.limit}&page=${state.pagination.page}`
+        :`/app/product/all/user?limit=${state.pagination.limit}&page=${state.pagination.page}`
 
       api().get(URL)
         .then(res => {
+          if (res.data.length > 0) {
+            state.pagination.totalProducts = res.data[0].count
+          }
           state.allProducts = res.data;
         })
         .catch(err => console.log(err))
@@ -116,10 +120,13 @@ export let userStore = {
       .catch(err => console.log(err))
     }
   },
+
   actions: {
-    getStore({ commit }, payload) {
+    getStore({ commit, state }, payload) {
       return new Promise((resolve, reject) => {
-        let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '') ? `/store/get/user?steemUsername=${payload.steemUsername}` : '/store/get/user'
+        let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
+          ? `/store/get/user?steemUsername=${payload.steemUsername}&limit=${state.pagination.limit}&page=${state.pagination.page}`
+          : `/store/get/user?limit=${state.pagination.limit}&page=${state.pagination.page}`
         api().get(URL)
           .then(function(res) {
             commit('getStore', { data: res.data, redirectRoute: payload.redirectRoute });
@@ -161,6 +168,15 @@ export let userStore = {
             reject(err)
           })
       })
+    }
+  },
+
+  getters: {
+    pagesCount(state) {
+      console.log(state)
+      if (state.pagination.totalProducts < 1) return 0
+      if (state.pagination.limit > state.pagination.totalProducts) return 1
+      return Math.floor(state.pagination.totalProducts / state.pagination.limit)
     }
   }
 }

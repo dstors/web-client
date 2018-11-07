@@ -8,8 +8,26 @@
     </v-flex>
     <v-divider></v-divider>
     <v-flex xs12 class="my-2">
+      <span class="title">
+        Categories
+        <br>
+      </span>
+      <router-link :to="{
+        name: 'Search',
+        params: {
+          sourceRoute: `/browser/search?category=${encodeURIComponent(category)}`,
+          category: category
+        } }"
+        class="router-link font-weight-regular"
+        v-for="category in categories">
+        <span v-if="category === currentCategory" class="font-weight-bold">{{ category }}</span>
+        <span v-else>{{ category }}</span>
+        <br>
+      </router-link>
+    </v-flex>
+    <v-divider></v-divider>
+    <v-flex xs12 class="my-2">
       <ul>
-        <li>Product categories breadcrumb somewhere</li>
         <li>Sort by: Lower price - higher price - relevant(?)</li>
         <li>Availability - Include out of stock (checkbox)</li>
       </ul>
@@ -23,9 +41,9 @@
       <price-filter></price-filter>
     </v-flex>
     <v-divider></v-divider>
-    <v-flex xs12 class="my-2">
+    <!-- <v-flex xs12 class="my-2">
       <categories-filter></categories-filter>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 
@@ -44,6 +62,12 @@ export default {
     'price-filter': PriceFilter,
     'categories-filter': CategoriesFilter
   },
+  props: ['currentCategory'],
+  // methods: {
+  //   switchCategory(category) {
+
+  //   }
+  // },
   data() {
     return {
       msg: 'This is the browser',
@@ -56,8 +80,21 @@ export default {
   },
   computed: {
     ...mapState({
-      totalResults: state => state.pagination.totalProducts
+      totalResults: state => state.pagination.totalProducts,
+      categories: state => state.categories
     })
   }
 }
 </script>
+
+<style scoped>
+.router-link {
+  text-decoration: none;
+  transition: color 0.5s;
+  cursor: pointer;
+}
+
+.router-link:hover {
+  color: #90caf9!important;
+}
+</style>

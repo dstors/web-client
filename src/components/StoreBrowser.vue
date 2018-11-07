@@ -65,19 +65,28 @@
           :username="owner">
         </product-carousel>
       </v-flex>
-      <product-grid
-        :style="allProductsStyle"
-        v-if="all"
-        :editable="true"
-        :hideToggleButtons="true"
-        :products="feed">
-      </product-grid>
+      <v-flex v-if="all" :style="allProductsStyle" xs12>
+        <span v-if="$store.state.userStore.pagination.totalProducts > 0" :style="{'position': 'relative', left: '20px'}">
+          Total products in this dStor: {{ $store.state.userStore.pagination.totalProducts }}
+        </span>
+        <product-grid
+          :editable="true"
+          :hideToggleButtons="true"
+          :products="feed">
+        </product-grid>
+        <v-pagination
+          v-model="currentPage"
+          :length="pagesCount"
+          circle
+          :total-visible="7">
+        </v-pagination>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import FormLayout from './FormLayout';
 import ProductForm from './ProductForm';
 import ProductStepper from './ProductStepper';
@@ -91,6 +100,7 @@ import dstorsLogo from './assets/DSTORS-LOGO.png';
 
 export default {
   name: 'store-browser',
+
   components: {
     'form-layout': FormLayout,
     'product-form': ProductForm,
@@ -102,7 +112,9 @@ export default {
     'store-fields': StoreFields,
     'store-stepper': StoreStepper
   },
+
   props: ['username'],
+
   methods: {
     changeShelveName(i, newName) {
       this.$store.commit("userStore/changeListName", {
@@ -118,6 +130,13 @@ export default {
         .catch(err => console.log(err))
     }
   },
+
+  watch: {
+    currentPage(newPage, old) {
+      this.refreshStoreData()
+    }
+  },
+
   computed: {
     ...mapState({
       name: state => state.userStore.name,
@@ -128,8 +147,21 @@ export default {
       active: state => state.userStore.active,
       owner: state => state.userStore.owner,
       feed: state => state.userStore.allProducts,
-      storeIsEmpty: state => state.userStore.storeIsEmpty
+      storeIsEmpty: state => state.userStore.storeIsEmpty,
+      limit: state => state.userStore.pagination.limit
     }),
+    ...mapGetters({
+      pagesCount: 'userStore/pagesCount'
+    }),
+    currentPage: {
+      get() {
+        return this.$store.state.userStore.pagination.page
+      },
+
+      set(page) {
+        this.$store.state.userStore.pagination.page = page
+      }
+    },
     dstorsLogo() {
       return dstorsLogo;
     },

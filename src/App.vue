@@ -11,7 +11,7 @@
       :absolute="absolute"
       :color="dark ? darkColor : color"
       :flat="flat"
-      :extended="extended"
+      :extended="true"
       :clipped-left="clippedLeft">
       <v-toolbar-side-icon class="hidden-sm-and-down" @click.stop="extended = !extended"></v-toolbar-side-icon>
       <v-toolbar-title>
@@ -44,17 +44,9 @@
         </v-layout>
       </div>
 
-      <v-flex xs12 slot="extension" v-if="config">
-        <v-tabs centered v-model="tab" color="amber lighten-3">
-          <v-tabs-slider color="amber"></v-tabs-slider>
-          <v-tab v-for="(t, i) in config.tabs" :key="i">
-            {{ t.name }}
-          </v-tab>
-        </v-tabs>
-      </v-flex>
-      <template v-else-if="extended" slot="extension">
+      <template slot="extension">
         <v-slide-y-transition>
-          <v-layout row wrap>
+          <v-layout v-show="true" row wrap>
             <v-flex>
               <v-menu open-on-hover bottom offset-y>
                 <v-btn
@@ -62,20 +54,25 @@
                   transparent
                   flat
                   :outline="navStyle.outline">
-                  All
+                  Categories
                 </v-btn>
 
                 <v-list>
                   <v-list-tile
                     v-for="(category, i) in categories"
                     :key="i"
-                    @click="">
+                    :to="{
+                      name: 'Search',
+                      params: {
+                        sourceRoute: `/browser/search?category=${encodeURIComponent(category)}`,
+                        category: category
+                      } }">
                     <v-list-tile-title>{{ category }}</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
               </v-menu>
             </v-flex>
-            <v-flex>
+            <!-- <v-flex>
               <v-menu
                 class="hidden-sm-and-up"
                 open-on-hover bottom offset-y>
@@ -96,8 +93,8 @@
                   </v-list-tile>
                 </v-list>
               </v-menu>
-            </v-flex>
-            <v-flex
+            </v-flex> -->
+            <!-- <v-flex
               v-for="(filter, i) in filters"
               :key="i">
               <v-btn
@@ -106,7 +103,7 @@
                 :outline="navStyle.outline"
                 v-on:click="">{{ filter }}
               </v-btn>
-            </v-flex>
+            </v-flex> -->
           </v-layout>
         </v-slide-y-transition>
       </template>
