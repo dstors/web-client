@@ -111,10 +111,16 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-footer class="pa-3" app>
+    <v-footer absolute class="pa-3" app>
       <v-spacer></v-spacer>
       <div>
-        &copy; 2018 - <span class="font-weight-bold">dStors</span>
+        <a href="https://www.instagram.com/dstorsofficial/" class="discord-link">
+          <font-awesome-icon size="lg" class="mx-2" :icon="['fab', 'instagram']"></font-awesome-icon>
+        </a>
+        <a href="https://discord.gg/a6F5PkQ" class="discord-link">
+          <font-awesome-icon size="lg" class="mx-2" :icon="['fab', 'discord']"></font-awesome-icon>
+        </a>
+        &copy; 2018 - <span class="font-weight-bold mx-2">dStors</span>
       </div>
     </v-footer>
   </v-app>
@@ -186,12 +192,21 @@ body {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 #keep main .container {
-    height: 660px;
-  }
-  .v-navigation-drawer__border {
-    display: none;
-  }
-  .text {
-    font-weight: 400;
-  }
+  height: 660px;
+}
+.v-navigation-drawer__border {
+  display: none;
+}
+.text {
+  font-weight: 400;
+}
+
+.discord-link {
+  color: #cacaca;
+  transition: color 0.5s
+}
+
+.discord-link:hover {
+  color: #90a8f9;
+}
 </style>

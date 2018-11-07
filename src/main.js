@@ -11,7 +11,8 @@ import {
   faFacebook,
   faGoogle,
   faBitcoin,
-  faDiscord
+  faDiscord,
+  faInstagram
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faMoon,
@@ -77,7 +78,8 @@ library.add(
   faTimes,
   faEdit,
   faCheckCircle,
-  faDiscord
+  faDiscord,
+  faInstagram
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
