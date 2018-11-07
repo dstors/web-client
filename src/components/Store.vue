@@ -57,7 +57,9 @@
       </v-flex>
       <v-flex xs12>
         <form-layout v-if="!active" stateModule="userStore" :style="{ 'position': 'relative', bottom: '70px', 'float': 'left' }">
-          <span slot="activator" class="title font-weight-light router-link">Activate your Store now.</span>
+          <span slot="activator" class="title font-weight-bold router-link">
+            Activate your Store now.
+          </span>
           <store-stepper @updatestore="refreshStoreData"></store-stepper>
         </form-layout>
       </v-flex>

@@ -47,7 +47,7 @@
 
                   <v-list-tile-action style="width: 300px;">
                     <h3 class="display-1 font-weight-light">
-                      {{ (product.price.split(' ')[0] * product.amount) + ' SBD' }}
+                      {{ (product.priceValue * product.amount) + ' ' + product.currency }}
                     </h3>
                     <div :style="{  'float': 'right' }">
                       <product-amount
@@ -65,11 +65,21 @@
             <v-divider></v-divider>
             <div :style="{ 'float': 'right', 'width': '50%', 'padding-top': '30px' }">
               <v-layout row wrap>
-                <v-flex xs6>
+                <v-flex xs12>
                   <span class="display-1 font-weight-light">Total:</span>
                 </v-flex>
-                <v-flex xs6>
-                  <span class="display-2">{{ total }} SBD</span>
+              </v-layout>
+              <v-layout row class="mt-3" wrap v-for="(t, currency) in total">
+                <v-flex xs7>
+                  <span
+                    :style="{ float: 'right', 'margin-right': '15px' }"
+                    class="display-1"> {{ total[currency] }} </span>
+                </v-flex>
+                <v-flex xs5>
+                  <span class="display-1 font-weight-light"> {{ currency }}</span>
+                  <!-- <span class="display-2">
+                    {{ total[currency] }}
+                  </span> -->
                 </v-flex>
               </v-layout>
               <v-layout v-if="sbdBalance" row wrap style="padding-top: 10px;">

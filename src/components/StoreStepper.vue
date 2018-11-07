@@ -34,7 +34,7 @@
                     }"
                     :icon="['far','check-circle']">
                   </font-awesome-icon>
-                  List up to 20 products
+                  List up to <span class="font-weight-regular">20 products</span>
                 </li>
                 <li :style="bulletStyle" class="headline font-weight-light">
                   <font-awesome-icon
@@ -46,7 +46,7 @@
                     }"
                     :icon="['far','check-circle']">
                   </font-awesome-icon>
-                  Create shelves to place your products on
+                  Create <span class="font-weight-regular">shelves</span> to place your products on
                 </li>
                 <li :style="bulletStyle" class="headline font-weight-light">
                   <font-awesome-icon
@@ -58,11 +58,13 @@
                     }"
                     :icon="['far','check-circle']">
                   </font-awesome-icon>
-                  Start selling and managing your catalog
+                  Start <span class="font-weight-regular">selling</span> and <span class="font-weight-regular">managing</span> your catalog
                 </li>
               </ul>
               <br>
-              <v-btn flat @click="toggleFormDialog">Cancel</v-btn>
+              <v-btn flat @click="toggleFormDialog">
+                Cancel
+              </v-btn>
               <v-btn
                 large
                 color="primary"

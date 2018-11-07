@@ -75,12 +75,19 @@ export default {
   },
   cartTotal(state) {
     if (state.cart.length < 1) return 0;
-    let prices = state.cart.map(product => {
-      return parseFloat(product.price.split(' ')[0], 2) * product.amount;
+
+    let totals = {};
+
+    state.cart.map(product => {
+      if (Object.keys(totals).indexOf(product.currency) > -1) {
+        totals[product.currency] += parseFloat(product.priceValue, 2) * product.amount
+      }
+      else {
+        totals[product.currency] = parseFloat(product.priceValue, 2) * product.amount
+      }
+      return product
     });
 
-    let total = prices.reduce((a, b) => a + b, 0);
-
-    return parseFloat(total).toFixed(2);
+    return totals;
   }
 };

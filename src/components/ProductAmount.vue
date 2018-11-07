@@ -7,7 +7,7 @@
         <font-awesome-icon
           v-on:mouseover="upColor = (value === 1) ? 'red' : '#90caf9'"
           v-on:mouseleave="upColor = '#cacaca'"
-          :color="upColor" :size="(value === 1) ? 'md' : 'lg'"
+          :color="upColor" :size="(value === 1) ? 'sm' : 'lg'"
           @click="decrease"
           :icon="value === 1 ? ['fas', 'trash'] : ['fas', 'angle-down']">
         </font-awesome-icon>
