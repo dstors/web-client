@@ -35,7 +35,7 @@
           </span>
         </span>
       </v-flex>
-      <v-flex v-if="['Store', 'StoreAll'].indexOf($route.name) > -1" xs12
+      <!-- <v-flex v-if="['Store', 'StoreAll'].indexOf($route.name) > -1" xs12
         :style="storeActionsStyle">
         <form-layout v-if="active" stateModule="userStore">
           <v-btn flat slot="activator" class="text-capitalize">
@@ -51,13 +51,19 @@
           </v-btn>
           <product-stepper @newproduct="refreshStoreData"></product-stepper>
         </form-layout>
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12>
         <span :style="switchAllStyle">
-          <router-link v-if="all && active && listings.length > 0" :to="{ name: 'StoreBrowser', params: { username: owner, all:false } }">
+          <router-link
+            :style="{ color: dark ? 'white' : 'black' }"
+            class="router-link font-weight-light"
+            v-if="all && active && listings.length > 0" :to="{ name: 'StoreBrowser', params: { username: owner, all:false } }">
             See shelves
           </router-link>
-          <router-link v-if="!all" :to="{ name: 'StoreBrowserAll', params: { username: owner, all: true } }">
+          <router-link
+            :style="{ color: dark ? 'white' : 'black' }"
+            class="router-link font-weight-light"
+            v-if="!all" :to="{ name: 'StoreBrowserAll', params: { username: owner, all: true } }">
             See all products
           </router-link>
         </span>
@@ -190,7 +196,7 @@ export default {
       }
 
       if (!this.banner && this.avatar) {
-        bottom = 110
+        bottom = 44
       }
 
       if (this.banner && !this.avatar) {
@@ -219,7 +225,7 @@ export default {
       }
 
       if (!this.banner && this.avatar) {
-        bottom = 120
+        bottom = 20
       }
 
       if (this.banner && !this.avatar) {
@@ -355,5 +361,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.router-link {
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+.router-link:hover {
+  color: #90caf9!important;
+}
 </style>

@@ -144,7 +144,7 @@ export let userStore = {
     getAllProducts({ commit }, payload) {
       commit("getAllProducts", payload)
     },
-    updateStore({ commit }) {
+    updateStore({ commit, state }) {
       return new Promise((resolve, reject) => {
         api().post('/store/edit', { ...state.storeForm })
           .then(res => {

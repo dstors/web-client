@@ -36,10 +36,16 @@
       </v-flex>
       <v-flex xs12>
         <span :style="switchAllStyle">
-          <router-link :style="{ color: dark ? 'white' : 'black' }" class="router-link" v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
+          <router-link
+            :style="{ color: dark ? 'white' : 'black' }"
+            class="router-link font-weight-light"
+            v-if="all && active && listings.length > 0" :to="{ name: 'Store', params: { username: owner, all: !all } }">
             See shelves
           </router-link>
-          <router-link :style="{ color: dark ? 'white' : 'black' }" class="router-link" v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
+          <router-link
+            :style="{ color: dark ? 'white' : 'black' }"
+            class="router-link font-weight-light"
+            v-if="!all" :to="{ name: 'StoreAll', params: { username: owner, all: !all } }">
             See all products
           </router-link>
         </span>
@@ -341,10 +347,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .router-link {
   text-decoration: none;
-  font-weight: 400;
   transition: color 0.5s;
 }
 
