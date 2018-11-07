@@ -66,7 +66,7 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-list-tile-action-text>{{ product.price }}</v-list-tile-action-text>
+              <v-list-tile-action-text>{{ product.priceValue + ' ' + product.currency }}</v-list-tile-action-text>
               <delete-form-cart-btn :product="product" :index="i" source="products"></delete-form-cart-btn>
             </v-list-tile-action>
           </v-list-tile>
@@ -76,8 +76,10 @@
         <v-spacer></v-spacer>
         <v-list-tile-content>
           <v-list-tile-sub-title> Total</v-list-tile-sub-title>
-          <v-list-tile-title>
-            <span class="title" v-bind:style="{ color: dark ? 'white' : 'black' }">{{ total }} SBD</span>
+          <v-list-tile-title v-for="(i, currency) in total">
+            <span class="title" v-bind:style="{ color: dark ? 'white' : 'black' }">
+              {{ total[currency] + ' ' + currency }}
+            </span>
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>

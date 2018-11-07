@@ -82,14 +82,14 @@
                   </span> -->
                 </v-flex>
               </v-layout>
-              <v-layout v-if="sbdBalance" row wrap style="padding-top: 10px;">
+              <!-- <v-layout v-if="sbdBalance" row wrap style="padding-top: 10px;">
                 <v-flex xs6>
                   <span class="title font-weight-light">Current SBD balance:</span>
                 </v-flex>
                 <v-flex xs6>
                   <span class="title">{{ sbdBalance }}</span>
                 </v-flex>
-              </v-layout>
+              </v-layout> -->
             </div>
           </v-flex>
           <v-divider></v-divider>
