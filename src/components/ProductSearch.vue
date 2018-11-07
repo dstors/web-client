@@ -7,7 +7,6 @@
     :loading="isLoading"
     :search-input.sync="search"
     color="white"
-    hide-no-data
     hide-details
     hide-selected
     solo flat
@@ -41,19 +40,15 @@ export default {
 
   watch: {
     search (val) {
-      // Items have already been loaded
-      if (this.items.length > 0) return
-
       // Items have already been requested
       if (this.isLoading) return
 
       this.isLoading = true
 
       // Lazily load input items
-      console.log(val)
       api().get(`/app/product/autocomplete?s=${val}`)
         .then(res => {
-          console.log(res.data)
+          res.data.push(val)
           this.count = res.data.length
           this.entries = res.data
         })
@@ -64,6 +59,13 @@ export default {
     },
     model(val) {
       console.log(val)
+      this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search?name=${val}` } })
+      // this.$store.dispatch('getBrowserFeed', `/browser/search?name=${val}`)
+      //   .then(() => {
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     }
   }
 }

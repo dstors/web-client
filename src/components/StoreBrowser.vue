@@ -35,23 +35,6 @@
           </span>
         </span>
       </v-flex>
-      <!-- <v-flex v-if="['Store', 'StoreAll'].indexOf($route.name) > -1" xs12
-        :style="storeActionsStyle">
-        <form-layout v-if="active" stateModule="userStore">
-          <v-btn flat slot="activator" class="text-capitalize">
-            <font-awesome-icon :icon="['fas', 'store']" size="1x" class="mx-2"></font-awesome-icon>
-            Edit Store Details
-          </v-btn>
-          <store-fields></store-fields>
-        </form-layout>
-        <form-layout stateModule="newProduct">
-          <v-btn flat slot="activator" class="text-capitalize">
-            <font-awesome-icon :icon="['fas', 'dollar-sign']" size="1x" class="mx-2"></font-awesome-icon>
-            New Product
-          </v-btn>
-          <product-stepper @newproduct="refreshStoreData"></product-stepper>
-        </form-layout>
-      </v-flex> -->
       <v-flex xs12>
         <span :style="switchAllStyle">
           <router-link
