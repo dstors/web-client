@@ -117,7 +117,7 @@ export let userStore = {
         let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '') ? `/store/get/user?steemUsername=${payload.steemUsername}` : '/store/get/user'
         api().get(URL)
           .then(function(res) {
-            commit('getStore', { data: res.data });
+            commit('getStore', { data: res.data, redirectRoute: payload.redirectRoute });
             resolve(res)
           })
           .catch(err => {
