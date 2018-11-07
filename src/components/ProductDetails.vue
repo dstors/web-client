@@ -21,7 +21,7 @@
       </v-flex>
       <v-flex xs12 sm6>
         <v-card fill-height>
-          <v-card-title class="title">
+          <v-card-title class="title text-capitalize">
             {{ product.name }}
             <v-spacer></v-spacer>
             <bookmark-btn
@@ -35,6 +35,11 @@
             </like-btn>
           </v-card-title>
           <v-card-text>
+            <span v-if="product.stock" class="font-weight-light">
+              <span v-if="product.stock < 1" class="font-weight-regular">This item is sold out</span>
+              <span v-else class="font-weight-regular">{{ product.stock }}</span> available
+            </span>
+            <br>
             <span v-if="product.date" class="font-weight-light">{{ 'published at ' + product.date.month.low + '/' + product.date.day.low + '/' + product.date.year.low }}</span>
             <br>
             <span class="caption" v-if="product.author"> by

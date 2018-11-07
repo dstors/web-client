@@ -34,7 +34,7 @@
                         : ''
                       }}
                     <br>
-                    <span class="subheading" :title="product.name">
+                    <span class="subheading text-capitalize" :title="product.name">
                       {{(
                           (product.name.length > 25 && cardDirection.column)
                             ? product.name.slice(0, 25) + '...'

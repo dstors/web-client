@@ -28,6 +28,7 @@ export let userStore = {
       state.listings = []
       if (payload.data === "") {
         state.storeIsEmpty = true
+        router.push(payload.redirectRoute)
       }
       else {
         let listings = [];

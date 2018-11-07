@@ -17,32 +17,58 @@
     <v-stepper-items>
 
       <v-stepper-content step="1">
-        <div style="text-align: center; padding-right: 40px; padding-top: 10px;">
-          <span class="display-1 font-weight-light">Pick your plan</span>
-          <v-btn style="float: right;" flat @click="toggleFormDialog">Cancel</v-btn>
+        <div style="text-align: center;">
+          <span class="display-1 font-weight-light">Set up your dStor for FREE</span>
         </div>
         <v-container>
           <v-layout row wrap>
-            <v-flex xs12>
-              <v-card :style="{
-                  'text-align': 'center',
-                  height: '330px',
-                  width: '250px',
-                  'padding-top': '10px'
-                }"
-                class="ma-2" hover>
-                <span class="display-1">Free</span>
-                <br>
-                <ul style="list-style-type: none">
-                  <li :style="bulletStyle" class="title font-weight-light">Up to 20 products</li>
-                  <li :style="bulletStyle" class="title font-weight-light">Organize your products in shelves</li>
-                  <li :style="bulletStyle" class="title font-weight-light">Get rewarded for posting</li>
-                </ul>
-                <br>
-                <v-btn flat @click="step = 2">
-                  Get Free Plan
-                </v-btn>
-              </v-card>
+            <v-flex xs12 style="text-align: center;">
+              <ul style="list-style-type: none;">
+                <li :style="bulletStyle" class="headline font-weight-light">
+                  <font-awesome-icon
+                    color="green"
+                    size="lg"
+                    :style="{
+                      'margin-right': '10px',
+                      'margin-top': '50px'
+                    }"
+                    :icon="['far','check-circle']">
+                  </font-awesome-icon>
+                  List up to 20 products
+                </li>
+                <li :style="bulletStyle" class="headline font-weight-light">
+                  <font-awesome-icon
+                    color="green"
+                    size="lg"
+                    :style="{
+                      'margin-right': '10px',
+                      'margin-top': '50px'
+                    }"
+                    :icon="['far','check-circle']">
+                  </font-awesome-icon>
+                  Create shelves to place your products on
+                </li>
+                <li :style="bulletStyle" class="headline font-weight-light">
+                  <font-awesome-icon
+                    color="green"
+                    size="lg"
+                    :style="{
+                      'margin-right': '10px',
+                      'margin-top': '50px'
+                    }"
+                    :icon="['far','check-circle']">
+                  </font-awesome-icon>
+                  Start selling and managing your catalog
+                </li>
+              </ul>
+              <br>
+              <v-btn flat @click="toggleFormDialog">Cancel</v-btn>
+              <v-btn
+                large
+                color="primary"
+                @click="step = 2">
+                Get Free Dstor
+              </v-btn>
             </v-flex>
           </v-layout>
         </v-container>

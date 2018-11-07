@@ -14,7 +14,7 @@
             solo>
           </v-select>
         </v-flex>
-        <v-flex offset-xs1 xs12 class="mb-4">
+        <v-flex v-if="storeIsActive" offset-xs1 xs12 class="mb-4">
           <span class="title font-weight-light">Shelf</span>
           <listing-selector></listing-selector>
         </v-flex>
@@ -197,7 +197,8 @@ export default {
     ...mapState({
       newProduct: state => state.newProduct,
       categories: state => state.categories,
-      dark: state => state.styles.dark
+      dark: state => state.styles.dark,
+      storeIsActive: state => state.userStore.active
     }),
     currency: {
       get() {

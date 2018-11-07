@@ -40,6 +40,11 @@ import {
   faTimes,
   faEdit
 } from '@fortawesome/free-solid-svg-icons'
+
+import {
+  faCheckCircle
+} from '@fortawesome/free-regular-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
@@ -71,6 +76,7 @@ library.add(
   faListUl,
   faTimes,
   faEdit,
+  faCheckCircle,
   faDiscord
 )
 
