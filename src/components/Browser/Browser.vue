@@ -1,15 +1,25 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <v-flex xs3 class="mt-5">
-        <!-- <filters-drawer></filters-drawer> -->
+      <v-flex xs3 class="mt-5">show
+        <filters-drawer></filters-drawer>
       </v-flex>
       <v-flex xs9>
         <span class="display-1 font-weight-light ma-5">
           {{ title }}
         </span>
-        <ghost-product-grid v-if="loading"></ghost-product-grid>
-        <product-grid v-else :products='browserFeed'></product-grid>
+        <v-fade-transition group>
+          <ghost-product-grid v-if="loading"></ghost-product-grid>
+          <product-grid v-else :products='browserFeed'></product-grid>
+        </v-fade-transition>
+      </v-flex>
+      <v-flex class="text-xs-center" xs12>
+          <v-pagination
+            v-model="currentPage"
+            :length="pagesCount"
+            circle
+            :total-visible="7"
+          ></v-pagination>
       </v-flex>
     </v-layout>
   </v-container>
@@ -21,7 +31,7 @@ import GhostProductGrid from '../GhostProductGrid';
 import FiltersDrawer from './FiltersDrawer';
 import api from '../../api';
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'Browser',
@@ -34,13 +44,40 @@ export default {
   data() {
     return {
       feed: [],
-      loading: false
+      loading: false,
+      currentRoute: ''
     }
   },
   computed: {
     ...mapState({
-      browserFeed: state => state.browserFeed
-    })
+      browserFeed: state => state.browserFeed,
+      limit: state => state.pagination.limit
+    }),
+    ...mapGetters({
+      pagesCount: 'pagesCount'
+    }),
+    currentPage: {
+      get() {
+        return this.$store.state.pagination.page
+      },
+
+      set(page) {
+        this.$store.state.pagination.page = page
+      }
+    }
+  },
+  watch: {
+    currentPage(newPage, old) {
+      let route = this.currentRoute.split('?')[0] + `?limit=${this.limit}&page=${newPage}`
+      this.loading = true
+      this.$store.dispatch('getBrowserFeed', route)
+        .then(res => {
+          this.loading = false
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   mounted() {
     let sourceRoute;
@@ -48,30 +85,30 @@ export default {
     if (!this.sourceRoute) {
       switch(this.source) {
         case 'all':
-          sourceRoute = '/app/product/all';
+          this.currentRoute = `/app/product/all?limit=${this.limit}&page=${this.currentPage}`;
           break;
         case 'featured':
-          sourceRoute = '/store/featured/get';
+          this.currentRoute = `/store/featured/get?limit=${this.limit}&page=${this.currentPage}`;
           break;
         case 'new':
-          sourceRoute = '/store/news/get';
+          this.currentRoute = `/store/news/get?limit=${this.limit}&page=${this.currentPage}`;
           break;
         // case 'offers':
-        //   sourceRoute = '/store/offers/get';
+        //   this.currentRoute = '/store/offers/get';
         //   break;
       }
 
-      if (!sourceRoute && (this.username && this.source)) {
-        sourceRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
+      if (!this.currentRoute && (this.username && this.source)) {
+        this.currentRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
       }
     }
     else {
-      sourceRoute = this.sourceRoute;
+      this.currentRoute = this.sourceRoute;
     }
 
     if (this.$store.state.browserFeed.length < 1) {
       this.loading = true;
-      this.$store.dispatch('getBrowserFeed', sourceRoute)
+      this.$store.dispatch('getBrowserFeed', this.currentRoute)
         .then(() => {
           this.loading = false
         })

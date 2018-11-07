@@ -35,6 +35,8 @@
 import ProductCarousel from './ProductCarousel';
 import dstorsLogo from './assets/DSTORS-LOGO.png';
 
+import { mapState } from 'vuex';
+
 export default {
   components: {
     'product-carousel': ProductCarousel
@@ -42,27 +44,41 @@ export default {
   name: 'Feed',
   data() {
     return {
-      isEmpty: 0,
-      sections: [
+      isEmpty: 0
+    }
+  },
+  mounted() {
+    this.$store.state.browserFeed = [];
+  },
+  computed: {
+    ...mapState({
+      limit: state => state.pagination.limit
+    }),
+    dstorsLogo() {
+      return dstorsLogo;
+    },
+    sections() {
+      this.$store.state.pagination.page = 1
+      return [
         {
           title: 'All Products',
           name: 'all',
-          source: '/app/product/all'
+          source: `/app/product/all?limit=${this.limit}&page=1`
         },
         {
           title: 'Featured Products',
           name: 'featured',
-          source: '/store/featured/get'
+          source: `/store/featured/get?limit=${this.limit}&page=1`
         },
         {
           title: 'New Products',
           name: 'new',
-          source: '/app/product/news/get'
+          source: `/app/product/news/get?limit=${this.limit}&page=1`
         },
         {
           title: 'Hot Products',
           name: 'hot',
-          source: 'app/product/hot/get'
+          source: `/app/product/hot/get?limit=${this.limit}&page=1`
         },
         // {
         //   title: 'Offers',
@@ -70,14 +86,6 @@ export default {
         //   source: '/store/offers/get'
         // },
       ]
-    }
-  },
-  mounted() {
-    this.$store.state.browserFeed = [];
-  },
-  computed: {
-    dstorsLogo() {
-      return dstorsLogo;
     }
   }
 }

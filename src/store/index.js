@@ -79,7 +79,12 @@ export const store = new Vuex.Store({
       }
     },
     currentPost: { voters_list: [], title: "", content: "" },
-    browserFeed: []
+    browserFeed: [],
+    pagination: {
+      limit: 20,
+      page: 1,
+      totalProducts: 0
+    }
   },
   mutations: {
     logout(state) {
@@ -93,14 +98,7 @@ export const store = new Vuex.Store({
         .catch(err => console.log(err))
     },
     getBrowserFeed(state, payload) {
-      state.browserFeed = [];
-      api().get(payload)
-        .then(res => {
-          state.browserFeed = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      state.browserFeed = payload;
     },
     toggleDrawer(state) {
       state.drawer = !state.drawer;
@@ -349,8 +347,22 @@ export const store = new Vuex.Store({
     getCategories({ commit }) {
       commit("getCategories")
     },
-    getBrowserFeed({ commit }, payload) {
-      commit('getBrowserFeed', payload)
+    getBrowserFeed({ commit, state }, payload) {
+      // state.browserFeed = []
+      return new Promise((resolve, reject) => {
+        api().get(payload)
+          .then(res => {
+            if (res.data.length > 0) {
+              state.pagination.totalProducts = res.data[0].count
+            }
+            commit('getBrowserFeed', res.data)
+            resolve(res.data)
+          })
+          .catch(err => {
+            console.log(err)
+            reject(err)
+          })
+      })
     },
   },
   getters,

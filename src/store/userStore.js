@@ -21,7 +21,11 @@ export let userStore = {
       banner: '',
       active: true
     },
-    allProducts: []
+    allProducts: [],
+    pagination: {
+      limit: 12,
+      page: 1
+    }
   },
   mutations: {
     getStore(state, payload) {

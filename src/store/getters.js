@@ -89,5 +89,10 @@ export default {
     });
 
     return totals;
+  },
+  pagesCount(state) {
+    if (state.pagination.totalProducts < 1) return 0
+    if (state.pagination.limit > state.pagination.totalProducts) return 1
+    return Math.floor(state.pagination.totalProducts / state.pagination.limit)
   }
 };

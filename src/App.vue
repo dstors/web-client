@@ -123,6 +123,12 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+    <v-footer class="pa-3" app>
+      <v-spacer></v-spacer>
+      <div>
+        &copy; 2018 - <span class="font-weight-bold">dStors</span>
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
