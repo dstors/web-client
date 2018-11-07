@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <v-flex xs3 class="mt-5">show
+      <v-flex xs3 class="mt-5">
         <filters-drawer></filters-drawer>
       </v-flex>
       <v-flex xs9>
