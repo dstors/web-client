@@ -50,7 +50,7 @@
           <img style="height: 250px;" :src="dstorsLogo" alt="DStors.com">
         </div>
         <span class="display-1 font-weight-light">
-          No products where found!
+          No products were found!
         </span>
       </v-flex>
     </v-layout>
