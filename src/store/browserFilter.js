@@ -8,6 +8,7 @@ export let browserFilter = {
       min: 0,
       max: 10000
     },
+    currency: null,
     listings: [],
     owner: ''
   },
