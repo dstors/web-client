@@ -67,7 +67,7 @@ export default {
       api().get(url)
         .then(res => {
           if (val !== '' && val !== undefined) {
-            res.data.push(val)
+            res.data.unshift(val)
           }
           this.count = res.data.length
           this.entries = res.data

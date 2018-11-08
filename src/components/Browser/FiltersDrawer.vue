@@ -40,13 +40,13 @@
       </router-link>
     </v-flex>
     <v-divider></v-divider>
-    <v-flex xs12 class="my-2">
+    <!-- <v-flex xs12 class="my-2">
       <ul>
         <li>Sort by: Lower price - higher price - relevant(?)</li>
         <li>Availability - Include out of stock (checkbox)</li>
       </ul>
     </v-flex>
-    <v-divider></v-divider>
+    <v-divider></v-divider> -->
     <!-- <v-flex xs12 class="my-2">
       <location-filter></location-filter>
     </v-flex>
