@@ -67,7 +67,7 @@
         <product-carousel
           @changename="changeShelveName(i, $event)"
           :editable="['Store', 'StoreAll'].indexOf($route.name) > -1"
-          :source="`/store/product_list/get?name=${listing}&userName=${owner}`"
+          :source="`/store/product_list/get?listName=${listing}&userName=${owner}`"
           :name="listing"
           :inShelve="true"
           :title="listing"

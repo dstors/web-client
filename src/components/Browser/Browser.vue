@@ -15,7 +15,7 @@
         <v-flex v-if="browserFeed.length > 0" class="text-xs-center" xs12>
           <v-pagination
             v-model="currentPage"
-            :length="pagesCount"
+            :length="pagesCount || 1"
             circle
             :total-visible="7">
           </v-pagination>
@@ -73,9 +73,9 @@ export default {
   },
   watch: {
     currentPage(newPage, old) {
-      let route = this.currentRoute.split('?')[0] + `?limit=${this.limit}&page=${newPage}`
+      // let route = this.currentRoute.split('?')[0] + `?limit=${this.limit}&page=${newPage}`
       this.loading = true
-      this.$store.dispatch('getBrowserFeed', route)
+      this.$store.dispatch('getBrowserFeed')
         .then(res => {
           this.loading = false
         })
@@ -89,25 +89,27 @@ export default {
     let sourceRoute;
 
     if (!this.sourceRoute && !this.category) {
-      switch(this.source) {
-        case 'all':
-          this.$store.state.currentRoute = `/app/product/all`;
-          break;
-        case 'featured':
-          this.$store.state.currentRoute = `/store/featured/get`;
-          break;
-        case 'new':
-          this.$store.state.currentRoute = `/store/news/get`;
-          break;
-        default:
-          this.$store.state.currentRoute = `/app/product/all`;
-        // case 'offers':
-        //   this.$store.state.currentRoute = '/store/offers/get';
-        //   break;
+      if (this.username && this.source) {
+        this.$store.state.currentRoute = `/store/product_list/get?listName=${this.source}&userName=${this.username}`
       }
 
-      if (!this.$store.state.currentRoute && (this.username && this.source)) {
-        this.$store.state.currentRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
+      if (!this.$store.state.currentRoute) {
+        switch(this.source) {
+          case 'all':
+            this.$store.state.currentRoute = `/app/product/all`;
+            break;
+          case 'featured':
+            this.$store.state.currentRoute = `/store/featured/get`;
+            break;
+          case 'new':
+            this.$store.state.currentRoute = `/store/news/get`;
+            break;
+          default:
+            this.$store.state.currentRoute = `/app/product/all`;
+          // case 'offers':
+          //   this.$store.state.currentRoute = '/store/offers/get';
+          //   break;
+        }
       }
     }
     else if (this.category) {

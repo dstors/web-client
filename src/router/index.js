@@ -17,9 +17,12 @@ import Details from "@/components/Details";
 import Browser from "@/components/Browser/Browser";
 
 import Random from "@/components/Random";
+
+import { store } from '../store';
+
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -50,14 +53,14 @@ export default new Router({
       props: true
     },
     {
-      path: "/browse/:source",
-      name: "Browser",
+      path: "/browse/:username/:source",
+      name: "ListBrowser",
       component: Browser,
       props: true
     },
     {
-      path: "/browse/:username/:source",
-      name: "ListBrowser",
+      path: "/browse/:source",
+      name: "Browser",
       component: Browser,
       props: true
     },
@@ -101,7 +104,7 @@ export default new Router({
     {
       path: "/profile",
       component: Profile,
-      // name: "Profile",
+      name: "Profile",
       children: [
         {
           path: 'details',
@@ -122,3 +125,23 @@ export default new Router({
     },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  let guarded = [
+    'UserInformation',
+    'Wallet',
+    'Wishlist'
+  ]
+
+  if (guarded.indexOf(to.name) > -1 && !store.state.loggedIn) {
+    console.log(to)
+    next('/feed')
+  }
+  else {
+    console.log(to)
+    console.log('kjasdkhasdk')
+    next()
+  }
+})
+
+export default router;

@@ -14,7 +14,7 @@
           </v-btn-toggle>
         </span>
       </v-flex>
-      <v-flex d-flex v-bind="gridDisplay" v-for="i in 4">
+      <v-flex d-flex v-bind="gridDisplay" v-for="i in limit">
         <v-flex d-flex>
           <v-layout align-center row wrap>
             <v-flex
@@ -47,6 +47,15 @@ export default {
     ...mapState({
       dark: state => state.styles.dark
     }),
+    limit() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 1;
+        case 'sm': return 3;
+        case 'md': return 4;
+        case 'lg': return 4;
+        case 'xl': return 4;
+      }
+    },
     gridDisplay() {
       if (this.hideToggleButtons) {
         return {
