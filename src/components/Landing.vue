@@ -22,7 +22,7 @@
         </span>
       </v-flex>
       <v-flex>
-        <v-btn :to="{ name: 'Feed' }" flat color="orange" large>
+        <v-btn :to="{ name: 'Feed' }" color="orange darken-2" large>
           Test Drive
         </v-btn>
       </v-flex>
