@@ -44,14 +44,14 @@ export default new Router({
       props: true
     },
     {
-      path: "/browse/:source",
-      name: "Browser",
+      path: "/browse/c/:category",
+      name: "Search",
       component: Browser,
       props: true
     },
     {
-      path: "/browse/:category",
-      name: "Search",
+      path: "/browse/:source",
+      name: "Browser",
       component: Browser,
       props: true
     },

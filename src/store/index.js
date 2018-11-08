@@ -19,6 +19,20 @@ import { browserFilter } from './browserFilter';
 
 Vue.use(Vuex);
 
+function serialize(obj) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
+
+function getUrl(base, query) {
+  let separator = base.indexOf('?') > -1 ? '&' : '?'
+  return base  + separator + serialize(query)
+}
+
 export const store = new Vuex.Store({
   state: {
     steemAccess: null,
@@ -75,7 +89,9 @@ export const store = new Vuex.Store({
     pagination: {
       limit: 20,
       page: 1,
-      totalProducts: 0
+      totalProducts: 0,
+      currentCategory: null,
+      name: null
     }
   },
   mutations: {
@@ -346,10 +362,14 @@ export const store = new Vuex.Store({
     getBrowserFeed({ commit, state }, payload) {
       // state.browserFeed = []
       return new Promise((resolve, reject) => {
-        api().get(payload)
+
+        api().get(getUrl(state.currentRoute, state.pagination))
           .then(res => {
             if (res.data.length > 0) {
               state.pagination.totalProducts = res.data[0].count
+            }
+            else {
+              state.pagination.totalProducts = 0
             }
             commit('getBrowserFeed', res.data)
             resolve(res.data)

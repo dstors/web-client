@@ -14,7 +14,7 @@
           </v-btn-toggle>
         </span>
       </v-flex>
-      <v-flex d-flex v-bind="gridDisplay" v-for="(product, n) in products">
+      <v-flex d-flex v-if="products.length > 0" v-bind="gridDisplay" v-for="(product, n) in products">
         <v-flex d-flex>
           <v-layout align-center row wrap>
             <v-flex
@@ -38,6 +38,21 @@
           </v-layout>
         </v-flex>
       </v-flex>
+      <v-flex
+        :style="{
+          'text-align': 'center',
+          'padding-left': '80px',
+          'padding-right': '80px',
+          'padding-bottom': '80px',
+        }"
+        v-show="products.length < 1" xs12>
+        <div>
+          <img style="height: 250px;" :src="dstorsLogo" alt="DStors.com">
+        </div>
+        <span class="display-1 font-weight-light">
+          No producrs where found!
+        </span>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -49,6 +64,8 @@ import ProductItem from './ProductItem';
 import GoBackBtn from './Buttons/GoBackBtn';
 
 import { mapState } from 'vuex';
+
+import dstorsLogo from './assets/DSTORS-LOGO.png';
 
 export default {
   name: 'ProductGrid',
@@ -88,6 +105,9 @@ export default {
           'md4': this.toggle_exclusive < 1
         }
       }
+    },
+    dstorsLogo() {
+      return dstorsLogo;
     }
   },
   methods: {

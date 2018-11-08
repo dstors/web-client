@@ -12,6 +12,20 @@
         Categories
         <br>
       </span>
+      <div @click="noCategory"
+        class="router-link font-weight-regular">
+        <span :style="{ color: dark ? 'white' : 'black' }"
+          v-if="currentCategory === null"
+          class="router-link font-weight-bold">
+          All
+        </span>
+        <span :style="{ color: dark ? 'white' : 'black' }"
+          class="router-link font-weight-regular"
+          v-else>
+          All
+        </span>
+        <br>
+      </div>
       <router-link :to="{
         name: 'Search',
         params: {
@@ -20,8 +34,8 @@
         } }"
         class="router-link font-weight-regular"
         v-for="category in categories">
-        <span v-if="category === currentCategory" class="font-weight-bold">{{ category }}</span>
-        <span v-else>{{ category }}</span>
+        <span :style="{ color: dark ? 'white' : 'black' }" v-if="category === currentCategory" class="router-link font-weight-bold">{{ category }}</span>
+        <span :style="{ color: dark ? 'white' : 'black' }" class="router-link font-weight-regular" v-else>{{ category }}</span>
         <br>
       </router-link>
     </v-flex>
@@ -78,11 +92,21 @@ export default {
       ]
     }
   },
+
   computed: {
     ...mapState({
       totalResults: state => state.pagination.totalProducts,
-      categories: state => state.categories
+      categories: state => state.categories,
+      dark: state => state.styles.dark
     })
+  },
+
+  methods: {
+    noCategory() {
+      this.$store.state.pagination.currentCategory = null;
+
+      this.$store.dispatch("getBrowserFeed", "/browser/search")
+    }
   }
 }
 </script>

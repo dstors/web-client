@@ -6,7 +6,6 @@
     <v-toolbar
       v-show="$route.name !== 'Landing'"
       app
-      scroll-off-screen
       :scroll-threshold="50"
       :absolute="absolute"
       :color="dark ? darkColor : color"
@@ -24,7 +23,7 @@
         </span>
       </v-toolbar-title>
       <v-flex>
-        <product-search></product-search>
+        <product-search class="hidden-xs-only"></product-search>
       </v-flex>
       <v-spacer></v-spacer>
       <login-popover v-if="!loggedIn">
@@ -47,30 +46,8 @@
       <template slot="extension">
         <v-slide-y-transition>
           <v-layout v-show="true" row wrap>
-            <v-flex>
-              <v-menu open-on-hover bottom offset-y>
-                <v-btn
-                  slot="activator"
-                  transparent
-                  flat
-                  :outline="navStyle.outline">
-                  Categories
-                </v-btn>
-
-                <v-list>
-                  <v-list-tile
-                    v-for="(category, i) in categories"
-                    :key="i"
-                    :to="{
-                      name: 'Search',
-                      params: {
-                        sourceRoute: `/browser/search?category=${encodeURIComponent(category)}`,
-                        category: category
-                      } }">
-                    <v-list-tile-title>{{ category }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
+            <v-flex xs12>
+              <categories-menu></categories-menu>
             </v-flex>
             <!-- <v-flex>
               <v-menu
@@ -114,10 +91,10 @@
     <v-footer absolute class="pa-3" app>
       <v-spacer></v-spacer>
       <div>
-        <a href="https://www.instagram.com/dstorsofficial/" class="discord-link">
+        <a target="_blank" href="https://www.instagram.com/dstorsofficial/" class="discord-link">
           <font-awesome-icon size="lg" class="mx-2" :icon="['fab', 'instagram']"></font-awesome-icon>
         </a>
-        <a href="https://discord.gg/a6F5PkQ" class="discord-link">
+        <a target="_blank" href="https://discord.gg/a6F5PkQ" class="discord-link">
           <font-awesome-icon size="lg" class="mx-2" :icon="['fab', 'discord']"></font-awesome-icon>
         </a>
         &copy; 2018 - <span class="font-weight-bold mx-2">dStors</span>
@@ -132,6 +109,7 @@ import ProfilePopover from './components/ProfilePopover';
 import LoginPopover from './components/LoginPopover';
 import CartPopover from './components/CartPopover';
 import ProductSearch from './components/ProductSearch';
+import CategoriesMenu from './components/CategoriesMenu';
 import logo from './components/assets/DSTORS.png';
 
 export default {
@@ -139,7 +117,8 @@ export default {
     'profile-popover': ProfilePopover,
     'login-popover': LoginPopover,
     'cart-popover': CartPopover,
-    'product-search': ProductSearch
+    'product-search': ProductSearch,
+    'categories-menu': CategoriesMenu
   },
   name: 'app',
   data() {

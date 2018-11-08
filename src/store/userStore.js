@@ -2,6 +2,21 @@ import api from '../api';
 import Vue from 'vue';
 import router from '../router';
 
+function serialize(obj) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
+
+function getUrl(base, query) {
+  let separator = base.indexOf('?') > -1 ? '&' : '?'
+  return base  + separator + serialize(query)
+}
+
+
 export let userStore = {
   namespaced: true,
 	state: {
@@ -66,13 +81,16 @@ export let userStore = {
     },
     getAllProducts(state, payload) {
       let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
-        ? `/app/product/all/user?steemUsername=${payload.steemUsername}&limit=${state.pagination.limit}&page=${state.pagination.page}`
-        :`/app/product/all/user?limit=${state.pagination.limit}&page=${state.pagination.page}`
+        ? `/app/product/all/user?steemUsername=${payload.steemUsername}`
+        :`/app/product/all/user`
 
-      api().get(URL)
+      api().get(getUrl(URL, state.pagination))
         .then(res => {
           if (res.data.length > 0) {
             state.pagination.totalProducts = res.data[0].count
+          }
+          else {
+            state.pagination.totalProducts = 0
           }
           state.allProducts = res.data;
         })
@@ -125,7 +143,7 @@ export let userStore = {
     getStore({ commit, state }, payload) {
       return new Promise((resolve, reject) => {
         let URL = (payload.steemUsername !== undefined && payload.steemUsername !== '')
-          ? `/store/get/user?steemUsername=${payload.steemUsername}&limit=${state.pagination.limit}&page=${state.pagination.page}`
+          ? `/store/get/user?steemUsername=${payload.steemUsername}`
           : `/store/get/user?limit=${state.pagination.limit}&page=${state.pagination.page}`
         api().get(URL)
           .then(function(res) {

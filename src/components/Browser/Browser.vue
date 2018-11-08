@@ -12,7 +12,7 @@
           <ghost-product-grid v-if="loading"></ghost-product-grid>
           <product-grid v-else :products='browserFeed'></product-grid>
         </v-fade-transition>
-        <v-flex class="text-xs-center" xs12>
+        <v-flex v-if="browserFeed.length > 0" class="text-xs-center" xs12>
           <v-pagination
             v-model="currentPage"
             :length="pagesCount"
@@ -51,7 +51,6 @@ export default {
     return {
       feed: [],
       loading: false,
-      currentRoute: ''
     }
   },
   computed: {
@@ -81,6 +80,7 @@ export default {
           this.loading = false
         })
         .catch(err => {
+          this.loading = false
           console.log(err)
         })
     }
@@ -88,35 +88,39 @@ export default {
   mounted() {
     let sourceRoute;
 
-    if (!this.sourceRoute) {
+    if (!this.sourceRoute && !this.category) {
       switch(this.source) {
         case 'all':
-          this.currentRoute = `/app/product/all?limit=${this.limit}&page=${this.currentPage}`;
+          this.$store.state.currentRoute = `/app/product/all`;
           break;
         case 'featured':
-          this.currentRoute = `/store/featured/get?limit=${this.limit}&page=${this.currentPage}`;
+          this.$store.state.currentRoute = `/store/featured/get`;
           break;
         case 'new':
-          this.currentRoute = `/store/news/get?limit=${this.limit}&page=${this.currentPage}`;
+          this.$store.state.currentRoute = `/store/news/get`;
           break;
         default:
-          this.currentRoute = `/app/product/all?limit=${this.limit}&page=${this.currentPage}`;
+          this.$store.state.currentRoute = `/app/product/all`;
         // case 'offers':
-        //   this.currentRoute = '/store/offers/get';
+        //   this.$store.state.currentRoute = '/store/offers/get';
         //   break;
       }
 
-      if (!this.currentRoute && (this.username && this.source)) {
-        this.currentRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
+      if (!this.$store.state.currentRoute && (this.username && this.source)) {
+        this.$store.state.currentRoute = `/store/product_list/get?name=${this.source}&userName=${this.username}`
       }
     }
+    else if (this.category) {
+      this.$store.state.pagination.currentCategory = this.category;
+      this.$store.state.currentRoute = `/browser/search`
+    }
     else {
-      this.currentRoute = this.sourceRoute;
+      this.$store.state.currentRoute = this.sourceRoute;
     }
 
     if (this.$store.state.browserFeed.length < 1) {
       this.loading = true;
-      this.$store.dispatch('getBrowserFeed', this.currentRoute)
+      this.$store.dispatch('getBrowserFeed', this.$store.state.currentRoute)
         .then(() => {
           this.loading = false
         })
@@ -127,15 +131,15 @@ export default {
     next(vm => {
       if (to.name === "Search") {
         console.log(to.params.category)
-        vm.$store.state.currentCategory = to.params.category
+        vm.$store.state.pagination.currentCategory = to.params.category
       }
     })
   },
   beforeRouteUpdate(to, from, next) {
     if (to.name === "Search") {
+      this.$store.state.pagination.currentCategory = to.params.category
       this.$store.dispatch("getBrowserFeed", to.params.sourceRoute)
         .then(() =>{
-          this.$store.state.currentCategory = to.params.category
           next()
         })
         .catch(err => {

@@ -1,21 +1,30 @@
 <template>
   <v-autocomplete
     class="pa-3"
+    dense
     v-model="model"
     :items="items"
     clearable
     :loading="isLoading"
     :search-input.sync="search"
-    color="white"
+    color="orange"
     hide-details
     hide-selected
-    hide-no-data
     solo flat
-    label="Search"
+    :menu-props="{
+      closeOnClick: false,
+      closeOnContentClick: false,
+      openOnClick: false,
+      maxHeight: 400,
+      offsetY: true,
+      offsetOverflow: true,
+      transition: true
+    }"
+    hieght="400px"
+    hide-no-data
     prepend-inner-icon="search"
     item-text="Description"
     :placeholder="(currentCategory !== null) ? `Search in ${currentCategory}` : 'Start typing to Search'"
-    prepend-icon="mdi-database-search"
     return-object>
   </v-autocomplete>
 </template>
@@ -54,11 +63,10 @@ export default {
         ? `/app/product/autocomplete?s=${val}&c=${encodeURIComponent(this.currentCategory)}`
         : `/app/product/autocomplete?s=${val}`;
 
-        console.log(url)
       // Lazily load input items
       api().get(url)
         .then(res => {
-          if (val !== '') {
+          if (val !== '' && val !== undefined) {
             res.data.push(val)
           }
           this.count = res.data.length
@@ -70,16 +78,15 @@ export default {
         .finally(() => (this.isLoading = false))
     },
     model(val) {
+      this.$store.state.pagination.name = val
       api().post('/app/product/saveSearch', { searchString: encodeURIComponent(val) })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
 
       if (val !== null && val !== "null" && val !== undefined && val !== "undefined") {
         if (this.$route.name !== "Search") {
           this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search?name=${val}` } })
         }
         else if (this.$route.name === "Search") {
-          this.$store.dispatch("getBrowserFeed", `/browser/search?name=${val}`)
+          this.$store.dispatch("getBrowserFeed", `/browser/search`)
             .then(res => {
 
             })
