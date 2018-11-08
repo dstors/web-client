@@ -52,7 +52,7 @@
         </span>
       </v-flex>
       <v-flex xs12 v-if="!active && feed.length < 1">
-        <span class="display-4">There are no products on this store</span>
+        <span class="display-4">This person isn't selling anything yet.</span>
       </v-flex>
       <v-flex xs12 v-if="!all" v-for="(listing, i) in listings" :style="carouselStyle">
         <product-carousel
