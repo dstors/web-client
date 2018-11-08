@@ -30,7 +30,6 @@ function serialize(obj) {
 
 function getUrl(base, query) {
   let separator = base.indexOf('?') > -1 ? '&' : '?'
-  console.log(base,  separator,  serialize(query))
   return base  + separator + serialize(query)
 }
 

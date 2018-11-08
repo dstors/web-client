@@ -83,7 +83,7 @@ export default {
 
       if (val !== null && val !== "null" && val !== undefined && val !== "undefined") {
         if (this.$route.name !== "Search") {
-          this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search?name=${val}` } })
+          this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search` } })
         }
         else if (this.$route.name === "Search") {
           this.$store.dispatch("getBrowserFeed", `/browser/search`)
