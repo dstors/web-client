@@ -54,7 +54,7 @@
     <v-flex xs12 class="my-2">
       <price-filter></price-filter>
     </v-flex>
-    <v-divider></v-divider>
+    <!-- <v-divider></v-divider> -->
     <!-- <v-flex xs12 class="my-2">
       <categories-filter></categories-filter>
     </v-flex> -->

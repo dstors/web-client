@@ -1,21 +1,33 @@
 <template>
   <v-container class="landing" fluid>
     <v-layout
-        column
-        align-center
-        justify-center
-        fill-height>
+      column
+      wrap
+      align-center
+      justify-center
+      fill-height>
+      <v-flex class="text-xs-center">
         <img width="70%" style="position: relative; bottom: 70px;" :src="logo" alt="">
-        <!-- <span class="mb-2 text-xs-center display-4" style="color: #cacaca; position: relative; bottom: 70px;">Dstors</span> -->
-        <span class="title font-weight-light mb-3 text-xs-center"
+      </v-flex>
+      <!-- <span class="mb-2 text-xs-center display-4" style="color: #cacaca; position: relative; bottom: 70px;">Dstors</span> -->
+      <v-flex class="text-xs-center">
+        <span class="title font-weight-light"
           :style="comingSoonStyle">
           Powered by Steem Blockchain
         </span>
-        <span class="mb-2 text-xs-center font-weight-light display-3" :style="comingSoonStyle">
-          Coming soon
+      </v-flex>
+      <v-flex class="text-xs-center">
+        <span class="font-weight-light display-3" :style="comingSoonStyle">
+          Welcome to dStors SteemFest preview edition!
         </span>
+      </v-flex>
+      <v-flex>
+        <v-btn :to="{ name: 'Feed' }" flat color="orange" large>
+          Test Drive
+        </v-btn>
+      </v-flex>
     </v-layout>
-    <v-layout row wrap :style="{'float': 'right'}">
+    <v-layout row wrap :style="{'float': 'right', 'margin-top' : '50px'}">
       <a class="discord-link" href="https://discord.gg/a6F5PkQ" :style="{
         'text-decoration': 'none'
       }">
@@ -83,7 +95,7 @@ export default {
           bottom = 10;
           break;
         case 'lg':
-          bottom = 10;
+          bottom = 100;
           break;
         case 'xl':
           bottom = 120;

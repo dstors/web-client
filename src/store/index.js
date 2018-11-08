@@ -30,6 +30,7 @@ function serialize(obj) {
 
 function getUrl(base, query) {
   let separator = base.indexOf('?') > -1 ? '&' : '?'
+  console.log(base,  separator,  serialize(query))
   return base  + separator + serialize(query)
 }
 
@@ -363,7 +364,7 @@ export const store = new Vuex.Store({
       // state.browserFeed = []
       return new Promise((resolve, reject) => {
 
-        api().get(getUrl(state.currentRoute, state.pagination))
+        api().get(getUrl(state.currentRoute, { ...state.pagination, ...state.browserFilter }))
           .then(res => {
             if (res.data.length > 0) {
               state.pagination.totalProducts = res.data[0].count
