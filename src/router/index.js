@@ -134,12 +134,9 @@ router.beforeEach((to, from, next) => {
   ]
 
   if (guarded.indexOf(to.name) > -1 && !store.state.loggedIn) {
-    console.log(to)
     next('/feed')
   }
   else {
-    console.log(to)
-    console.log('kjasdkhasdk')
     next()
   }
 })

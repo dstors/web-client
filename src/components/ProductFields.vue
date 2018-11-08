@@ -104,7 +104,7 @@
         </template>
         <template v-if="newProduct.type === 'direct-sell'">
           <v-flex offset-xs1 xs12 class="mb-4">
-            <span class="title font-weight-light">Price (expressed in SBD)</span>
+            <span class="title font-weight-light">Price</span>
           </v-flex>
           <v-layout row wrap>
             <v-flex offset-xs1 xs8 class="mb-4">
