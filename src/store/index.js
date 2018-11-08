@@ -92,7 +92,8 @@ export const store = new Vuex.Store({
       totalProducts: 0,
       currentCategory: null,
       name: null
-    }
+    },
+    currentRoute: ''
   },
   mutations: {
     logout(state) {

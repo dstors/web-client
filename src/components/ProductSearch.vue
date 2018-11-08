@@ -45,7 +45,7 @@ export default {
 
   computed: {
     ...mapState({
-      currentCategory: state => state.currentCategory
+      currentCategory: state => state.pagination.currentCategory
     }),
     items () {
       return this.entries
@@ -86,6 +86,7 @@ export default {
           this.$router.push({ name: 'Search', params: { sourceRoute: `/browser/search` } })
         }
         else if (this.$route.name === "Search") {
+            this.$store.state.currentRoute = `/browser/search`;
           this.$store.dispatch("getBrowserFeed", `/browser/search`)
             .then(res => {
 
